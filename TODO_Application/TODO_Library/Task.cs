@@ -68,6 +68,13 @@ namespace TODO_Library
             }
         }
 
+        public TimeSpan TimeLeft()
+        {
+                TimeSpan timeLeft = this.endDate - this.startDate;
+                
+                return timeLeft;
+        }
+
         public DateTime EndDate
         {
             get
@@ -85,7 +92,8 @@ namespace TODO_Library
 
         public override string ToString()
         {
-            return string.Format("title:{0}\nmessage:{1}\ncreated on:{2}\nterm to:{3}", this.title, this.message, this.startDate, this.endDate);
+            string timeLeft = string.Format("{0}days {1}:{2}", TimeLeft().Days.ToString(), TimeLeft().Hours, TimeLeft().Minutes);
+            return string.Format("title:{0}\nmessage:{1}\ncreated on:{2}\nterm to:{3}\ntime left:{4}", this.title, this.message, this.startDate, this.endDate,timeLeft);
         }
     }
 }
