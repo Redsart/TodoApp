@@ -1,0 +1,6 @@
+C:\Users\redsa\Desktop\git\Todo-app\TODO_Application\TODO_Library\bin\Debug\TODO_Library.dll
+C:\Users\redsa\Desktop\git\Todo-app\TODO_Application\TODO_Library\bin\Debug\TODO_Library.pdb
+C:\Users\redsa\Desktop\git\Todo-app\TODO_Application\TODO_Library\obj\Debug\TODO_Library.csprojAssemblyReference.cache
+C:\Users\redsa\Desktop\git\Todo-app\TODO_Application\TODO_Library\obj\Debug\TODO_Library.csproj.CoreCompileInputs.cache
+C:\Users\redsa\Desktop\git\Todo-app\TODO_Application\TODO_Library\obj\Debug\TODO_Library.dll
+C:\Users\redsa\Desktop\git\Todo-app\TODO_Application\TODO_Library\obj\Debug\TODO_Library.pdb
