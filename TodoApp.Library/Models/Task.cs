@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TodoApp.Library
+namespace TodoApp.Library.Models
 {
     public class Task
     {
