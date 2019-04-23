@@ -1,9 +1,0 @@
-C:\Users\redsa\Desktop\git\TodoApp\TodoApp.Library\bin\Debug\netstandard2.0\TodoApp.Library.deps.json
-C:\Users\redsa\Desktop\git\TodoApp\TodoApp.Library\bin\Debug\netstandard2.0\TodoApp.Library.dll
-C:\Users\redsa\Desktop\git\TodoApp\TodoApp.Library\bin\Debug\netstandard2.0\TodoApp.Library.pdb
-C:\Users\redsa\Desktop\git\TodoApp\TodoApp.Library\obj\Debug\netstandard2.0\TodoApp.Library.csprojAssemblyReference.cache
-C:\Users\redsa\Desktop\git\TodoApp\TodoApp.Library\obj\Debug\netstandard2.0\TodoApp.Library.csproj.CoreCompileInputs.cache
-C:\Users\redsa\Desktop\git\TodoApp\TodoApp.Library\obj\Debug\netstandard2.0\TodoApp.Library.AssemblyInfoInputs.cache
-C:\Users\redsa\Desktop\git\TodoApp\TodoApp.Library\obj\Debug\netstandard2.0\TodoApp.Library.AssemblyInfo.cs
-C:\Users\redsa\Desktop\git\TodoApp\TodoApp.Library\obj\Debug\netstandard2.0\TodoApp.Library.dll
-C:\Users\redsa\Desktop\git\TodoApp\TodoApp.Library\obj\Debug\netstandard2.0\TodoApp.Library.pdb
