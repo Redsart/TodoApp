@@ -1,5 +1,7 @@
 ﻿using System;
-using TodoApp.Library;
+using TodoApp.Library.Models;
+using TodoApp.Library.Data;
+
 
 namespace TodoApp.ConsoleApp
 {
@@ -7,13 +9,27 @@ namespace TodoApp.ConsoleApp
     {
         static void Main(string[] args)
         {
-            string title = "Do this thing";
-            string message = "do something to finish the task";
+            Console.Write("Enter a title: ");
+            string title = Console.ReadLine();
+            Console.Write("Enter a description: ");
+            string message = Console.ReadLine();
+            int deadLine = int.Parse(Console.ReadLine());
 
-            var task = new Task(title, message, 5);
-            Console.WriteLine(task.StartDate);
-            Console.WriteLine(task.EndDate);
-            Console.WriteLine(task);
+            var task = new Task(title, message, deadLine);
+            Console.WriteLine("Do you want to save this task? Yes/No");
+
+            string choice = Console.ReadLine();
+
+            if (choice == "Yes")
+            {
+                XMLTaskWriter writer = new XMLTaskWriter();
+                writer.Save(task);
+                Console.WriteLine("Save completed!");
+            }
+            if (choice == "No")
+            {
+                Console.WriteLine("Good luck!");
+            }
         }
     }
 }

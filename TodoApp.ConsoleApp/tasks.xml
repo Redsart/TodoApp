@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<tasks>
+  <task>
+    <title>Learn XML</title>
+    <description>Go to w3school.com website and read the XML tutorial, after that make the test to check what you learned.</description>
+    <dateCreated>23 04 2019</dateCreated>
+    <deadline> 28 04 2019</deadline>
+  </task>
+  <task>
+    <title>Metallica concert</title>
+    <description>Buy a ticket</description>
+    <dateCreated>23 04 2019</dateCreated>
+    <deadline> 13 05 2019</deadline>
+  </task>
+  <task>
+    <title>Coffe time</title>
+    <description>Meeting with friend's</description>
+    <dateCreated>23 04 2019</dateCreated>
+    <deadline> 25 04 2019</deadline>
+  </task>
+</tasks>

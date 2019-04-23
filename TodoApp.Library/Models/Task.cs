@@ -5,7 +5,7 @@ namespace TodoApp.Library.Models
     public class Task
     {
         string title = string.Empty;
-        DateTime startDate = DateTime.Now;
+        DateTime startDate = new DateTime();
         string message = string.Empty;
         int deadLine = 0;
         DateTime endDate = new DateTime();
@@ -35,7 +35,7 @@ namespace TodoApp.Library.Models
         {
             get
             {
-                return this.startDate;
+                return this.startDate=DateTime.Now;
             }
         }
 
@@ -70,7 +70,7 @@ namespace TodoApp.Library.Models
 
         public TimeSpan TimeLeft()
         {
-            TimeSpan timeLeft = this.endDate - this.startDate;
+            TimeSpan timeLeft = this.EndDate.Subtract(this.startDate).Duration();
 
             return timeLeft;
         }
@@ -83,6 +83,10 @@ namespace TodoApp.Library.Models
             }
         }
 
+        public Task() : this("None","Description...",0)
+        {
+
+        }
         public Task(string title, string message, int deadLine)
         {
             this.title = title;
