@@ -51,7 +51,7 @@ namespace TodoApp.ConsoleApp
         {
             TaskMaker();
             string choice = string.Empty;
-            while (true)
+            while (choice != "yes" || choice != "no")
             {
                 Console.Write("Do you want to another task? yes/no");
                 choice = Console.ReadLine();
@@ -85,11 +85,12 @@ namespace TodoApp.ConsoleApp
             var task = new Task(title, message, deadLine);
             Console.WriteLine("Do you want to save this task? yes/no");
 
-            string choice = Console.ReadLine();
+            string choice; 
 
             while (true)
             {
-                if (choice != "yes" || choice != "no")
+                choice = Console.ReadLine();
+                if (choice != "yes" && choice != "no")
                 {
                     Console.WriteLine("Incorect choice! Please try again!");
                 }

@@ -12,4 +12,10 @@
     <dateCreated>26 04 2019</dateCreated>
     <deadline>01 05 2019</deadline>
   </task>
+  <task>
+    <title>Coffe Time</title>
+    <description>Meeting with friends</description>
+    <dateCreated>26 04 2019</dateCreated>
+    <deadline>29 04 2019</deadline>
+  </task>
 </tasks>
