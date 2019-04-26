@@ -44,8 +44,10 @@ namespace TodoApp.ConsoleApp
             int count = 1;
             foreach (var item in tasks)
             {
-                Console.WriteLine("Task {0}:/n{1}/nDescription: {2}/nstarted at: {3}/nterm to: {4}",
-                    count,item.Title,item.Message,item.StartDate,item.EndDate);
+                Console.WriteLine("Task {0}:\n{1}\nDescription: {2}\nstarted at: {3}\nterm to: {4}",
+                    count, item.Title, item.Message, item.StartDate, item.EndDate);
+                count++;
+                Console.WriteLine();
             }
         }
     }

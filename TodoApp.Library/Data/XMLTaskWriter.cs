@@ -32,7 +32,7 @@ namespace TodoApp.Library.Data
             var title = new XElement("title", task.Title);
             var description = new XElement("description", task.Message);
             var dateCreated = new XElement("dateCreated", string.Format("{0:dd MM yyyy}",task.StartDate));
-            var timeLeft = new XElement("deadline", string.Format("{0: dd MM yyyy}", task.EndDate));
+            var timeLeft = new XElement("deadline", string.Format("{0:dd MM yyyy}", task.EndDate));
             
             parentElement.Add(title);
             parentElement.Add(description);
