@@ -3,6 +3,7 @@ using TodoApp.Library.Models;
 using System.IO;
 using System.Xml;
 using System.Xml.Linq;
+using System;
 
 namespace TodoApp.Library.Data
 {
@@ -33,8 +34,11 @@ namespace TodoApp.Library.Data
             var description = new XElement("description", task.Message);
             var dateCreated = new XElement("dateCreated", string.Format("{0:dd MM yyyy}",task.StartDate));
             var timeLeft = new XElement("deadline", string.Format("{0:dd MM yyyy}", task.EndDate));
-            
+
+            Random rnd = new Random();
+
             parentElement.Add(title);
+            parentElement.Add(new XAttribute("id", rnd.Next(1,999999)+task.Message.Length));
             parentElement.Add(description);
             parentElement.Add(dateCreated);
             parentElement.Add(timeLeft);
@@ -43,6 +47,17 @@ namespace TodoApp.Library.Data
             rootElement?.Add(parentElement);
 
             xmlDoc.Save(path);
+        }
+
+        public void Delete(Task task)
+        {
+            if (!File.Exists(path))
+            {
+                throw new FileNotFoundException("There is no created task's!");
+            }
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(path);
         }
     }
 }

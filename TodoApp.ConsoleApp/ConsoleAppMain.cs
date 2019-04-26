@@ -51,11 +51,11 @@ namespace TodoApp.ConsoleApp
         {
             TaskMaker();
             string choice = string.Empty;
-            while (choice != "yes" || choice != "no")
+            while (true)
             {
                 Console.Write("Do you want to another task? yes/no");
                 choice = Console.ReadLine();
-                if (choice != "yes" || choice != "no")
+                if (choice != "yes" && choice != "no")
                 {
                     Console.WriteLine("Incorect choice! Please try again!");
                 }
