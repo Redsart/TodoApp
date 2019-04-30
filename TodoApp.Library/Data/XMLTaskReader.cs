@@ -36,7 +36,10 @@ namespace TodoApp.Library.Data
                 string end = node.SelectSingleNode("deadline").InnerText;
                 DateTime endDate = DateTime.ParseExact(end, "dd MM yyyy", CultureInfo.InvariantCulture);
                 int deadline = TimeLeft(startDate, endDate).Days;
+                string guid = node.Attributes["id"].Value;
+                
                 Task task = new Task(title,message,deadline);
+                task.ID = Guid.Parse(guid);
                 tasks.Add(task);
             }
 

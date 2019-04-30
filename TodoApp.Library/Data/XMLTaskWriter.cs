@@ -34,11 +34,10 @@ namespace TodoApp.Library.Data
             var description = new XElement("description", task.Message);
             var dateCreated = new XElement("dateCreated", string.Format("{0:dd MM yyyy}",task.StartDate));
             var timeLeft = new XElement("deadline", string.Format("{0:dd MM yyyy}", task.EndDate));
-
-            Random rnd = new Random();
+            var id = new XAttribute("id", task.ID);
 
             parentElement.Add(title);
-            parentElement.Add(new XAttribute("id", rnd.Next(1,999999)+task.Message.Length));
+            parentElement.Add(id);
             parentElement.Add(description);
             parentElement.Add(dateCreated);
             parentElement.Add(timeLeft);
@@ -58,6 +57,18 @@ namespace TodoApp.Library.Data
 
             XmlDocument doc = new XmlDocument();
             doc.Load(path);
+            XmlNodeList nodes;
+            nodes = doc.SelectNodes("tasks/task");
+
+            foreach (XmlNode node in nodes)
+            {
+                if (node.Attributes["id"].Value.ToString() == task.ID.ToString())
+                {
+                    node.ParentNode.RemoveChild(node);
+                }
+            }
+
+            doc.Save(path);
         }
     }
 }

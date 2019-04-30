@@ -9,6 +9,7 @@ namespace TodoApp.Library.Models
         string message = string.Empty;
         int deadLine = 0;
         DateTime endDate = new DateTime();
+        Guid id = Guid.NewGuid();
 
         //the title must have 1-128 charachters
         public string Title
@@ -80,6 +81,18 @@ namespace TodoApp.Library.Models
             get
             {
                 return this.endDate = startDate.AddDays(this.deadLine);
+            }
+        }
+
+        public Guid ID
+        {
+            get
+            {
+                return this.id;
+            }
+            set
+            {
+                this.id = value;
             }
         }
 
