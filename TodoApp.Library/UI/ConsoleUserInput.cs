@@ -33,11 +33,13 @@ namespace TodoApp.Library.UI
                 Console.WriteLine("{0}: {1}", i + 1, availableOptions[i]);
             }
 
-            int number = int.Parse(ReadText(true));
-            while (number < 1 && number > availableOptions.Length)
+            int number=0;
+            string input = ReadText(true);
+            while (!Validate.IsCorectNumber(input, availableOptions.Length))
             {
-                number = int.Parse(ReadText(true));
+                input = ReadText(true);
             }
+            number = int.Parse(input);
 
             return number;
         }
@@ -47,12 +49,13 @@ namespace TodoApp.Library.UI
             Console.WriteLine(question + "yes/no");
             string choice = ReadText(true);
 
-            while (choice != "yes" && choice != "no")
+            while (!Validate.IsYesOrNo(choice))
             {
+                Console.WriteLine(question + "yes/no");
                 choice = ReadText(true);
             }
 
-            if (choice == "yes")
+            if (string.Compare(choice, "yes", StringComparison.OrdinalIgnoreCase) == 0)
             {
                 return true;
             }
