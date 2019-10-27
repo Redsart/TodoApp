@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TodoApp.Library.UI
+namespace TodoApp.ConsoleApp.UI
 {
     static class Validate
     {
@@ -10,12 +10,12 @@ namespace TodoApp.Library.UI
             int n = 0;
             if (!int.TryParse(number,out n))
             {
-                Console.WriteLine("{0} is not a number!", number);
+                Console.WriteLine($"{number} is not a number!");
             }
 
             else if (n < 1 || n > length)
             {
-                Console.WriteLine("The number must be in range 1 - {0}", length);
+                Console.WriteLine($"The number must be in range 1 - {length}");
             }
 
             else
@@ -29,11 +29,12 @@ namespace TodoApp.Library.UI
         public static bool IsYesOrNo(string text)
         {
             bool isTrue;
-
-            if (string.Compare(text, "yes", StringComparison.OrdinalIgnoreCase) == 0 || string.Compare(text, "no", StringComparison.OrdinalIgnoreCase) == 0)
+            
+            if (text.Equals("yes", StringComparison.CurrentCultureIgnoreCase) || (text.Equals("no", StringComparison.CurrentCultureIgnoreCase)))
             {
-                return isTrue = true;
+                isTrue = true;
             }
+
             else
             {
                 isTrue = false;
