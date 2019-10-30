@@ -3,17 +3,27 @@ using TodoApp.Library.Models;
 using TodoApp.Library.Data;
 using System.Collections.Generic;
 using System.IO;
-
+using System.Linq;
 
 
 namespace TodoApp.ConsoleApp
 {
-    class ConsoleAppMain
+    public class ConsoleAppMain
     {
-        static void Main(string[] args)
+        private static string XmlPath { get; set; }
+
+        public static void Main(string[] args)
         {
             Console.WriteLine("Hello, this program is making a task's and save them to xml document. Enjoy :)");
             Console.WriteLine();
+
+            if (args.Any(s => s.StartsWith("-path")))
+            {
+                XmlPath = args.FirstOrDefault(s => s.StartsWith("-path")).Substring(6);
+                Console.WriteLine($"XML Path = {XmlPath}");
+                Console.WriteLine();
+            }
+
             Console.WriteLine("Youre current task's are: ");
             ReadTasks();
             Console.Write("If you want to manipulate a task type 1, if you want to read you're task's again type 2: ");
@@ -40,7 +50,7 @@ namespace TodoApp.ConsoleApp
         static void ReadTasks()
         {
             XMLTaskReader reader = new XMLTaskReader();
-            string path = "../../tasks.xml";
+            string path = !string.IsNullOrEmpty(XmlPath) ? XmlPath : "../../tasks.xml";
             if (!File.Exists(path))
             {
                 Console.WriteLine("There is no saved task's!");
@@ -99,7 +109,7 @@ namespace TodoApp.ConsoleApp
                 else if (readOrDel == "2")
                 {
                     XMLTaskReader reader = new XMLTaskReader();
-                    List<Task> tasks = reader.ReadTasks("../../tasks.xml");
+                    List<Task> tasks = reader.ReadTasks(!string.IsNullOrEmpty(XmlPath) ? XmlPath : "../../tasks.xml");
                     Console.Write("Select the number of the task, you want to delete: ");
                     int n = int.Parse(Console.ReadLine());
                     XMLTaskWriter writer = new XMLTaskWriter();
