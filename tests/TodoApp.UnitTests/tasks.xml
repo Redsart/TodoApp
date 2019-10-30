@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<tasks>
+  <task id="82c0b2a0-ead9-48a0-a5b7-233ee08cfc16">
+    <title>Learn XML</title>
+    <description>Go to w3school.com website and read the XML Tutorial</description>
+    <dateCreated>29 04 2019</dateCreated>
+    <deadline>03 05 2019</deadline>
+  </task>
+  <task id="a7445ab6-210c-479c-a045-eb156fdf1995">
+    <title>Coffe Time</title>
+    <description>Meeting with friends</description>
+    <dateCreated>29 04 2019</dateCreated>
+    <deadline>01 05 2019</deadline>
+  </task>
+</tasks>
