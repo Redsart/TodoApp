@@ -4,8 +4,8 @@ namespace TodoApp.ConsoleApp.UI
 {
     public static class UserInput
     {
-        const string yes = "yes";
-        const string no = "no";
+        const string Yes = "yes";
+        const string No = "no";
 
         private static string ReadInput(bool required = false)
         {
@@ -85,23 +85,23 @@ namespace TodoApp.ConsoleApp.UI
 
         public static bool ReadYesNo(string question, bool required = false, bool defaultValue = false)
         {
-            string choice = ReadText($"{question} {yes}/{no}", true);
+            string choice = ReadText($"{question} {Yes}/{No}", true);
 
             if (required == true)
             {
                 while (!Validate.IsYesOrNo(choice))
                 {
-                    choice = ReadText($"{question} {yes}/{no}", true, "Choose an option!");
+                    choice = ReadText($"{question} {Yes}/{No}", true, "Choose an option!");
                 }
 
-                return choice.Equals(yes, StringComparison.CurrentCultureIgnoreCase);
+                return choice.Equals(Yes, StringComparison.CurrentCultureIgnoreCase);
             }
 
             else
             {
                 if (Validate.IsYesOrNo(choice))
                 {
-                    return choice.Equals(yes, StringComparison.CurrentCultureIgnoreCase);
+                    return choice.Equals(Yes, StringComparison.CurrentCultureIgnoreCase);
                 }
 
                 else

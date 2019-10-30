@@ -1,13 +1,9 @@
 ﻿using System;
-<<<<<<< HEAD:TodoApp.ConsoleApp/UI/TaskOperations.cs
 using System.Collections.Generic;
 using TodoApp.Library.Models;
 using TodoApp.Library.Data;
 using System.IO;
-=======
-using TodoApp.Library.UI;
 
->>>>>>> 5d708e9... Add Validate class, move user input into a separate class.:TodoApp.ConsoleApp/ConsoleAppMain.cs
 
 namespace TodoApp.ConsoleApp.UI
 {
@@ -15,7 +11,6 @@ namespace TodoApp.ConsoleApp.UI
     {
         public static void ReadOrWrite()
         {
-<<<<<<< HEAD:TodoApp.ConsoleApp/UI/TaskOperations.cs
             bool choice = true;
 
             while (choice == true)
@@ -115,13 +110,11 @@ namespace TodoApp.ConsoleApp.UI
                 UserInput.ReadText("Good luck!", false, "");
                 return;
             }
-=======
             Console.WriteLine(string.Compare("Yes", "yes", StringComparison.OrdinalIgnoreCase));
             Console.WriteLine("Hello, this program is making a task's and save them to xml document. Enjoy :)");
             Console.WriteLine();
             
             TaskOperations.ReadOrWrite();
->>>>>>> 5d708e9... Add Validate class, move user input into a separate class.:TodoApp.ConsoleApp/ConsoleAppMain.cs
         }
     }
 }
