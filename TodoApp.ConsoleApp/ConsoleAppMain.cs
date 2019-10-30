@@ -112,7 +112,7 @@ namespace TodoApp.ConsoleApp
                     List<Task> tasks = reader.ReadTasks(!string.IsNullOrEmpty(XmlPath) ? XmlPath : "../../tasks.xml");
                     Console.Write("Select the number of the task, you want to delete: ");
                     int n = int.Parse(Console.ReadLine());
-                    XMLTaskWriter writer = new XMLTaskWriter();
+                    XMLTaskWriter writer = new XMLTaskWriter(XmlPath);
                     writer.Delete(tasks[n - 1]);
                     Console.WriteLine("Delete completed!");
                     break;
@@ -144,7 +144,7 @@ namespace TodoApp.ConsoleApp
                 }
                 else if (choice == "yes")
                 {
-                    XMLTaskWriter writer = new XMLTaskWriter();
+                    XMLTaskWriter writer = new XMLTaskWriter(XmlPath);
                     writer.Save(task);
                     Console.WriteLine("Save completed!");
                     return;
