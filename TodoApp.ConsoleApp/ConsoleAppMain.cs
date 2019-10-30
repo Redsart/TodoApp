@@ -14,7 +14,7 @@ namespace TodoApp.ConsoleApp
 
         public static void Main(string[] args)
         {
-            Console.WriteLine("Hello, this program is making a task's and save them to xml document. Enjoy :)");
+            Console.WriteLine("Hello, this program is making a task(s) and save them to xml document. Enjoy :)");
             Console.WriteLine();
 
             if (args.Any(s => s.StartsWith("-path")))
@@ -24,9 +24,9 @@ namespace TodoApp.ConsoleApp
                 Console.WriteLine();
             }
 
-            Console.WriteLine("Youre current task's are: ");
+            Console.WriteLine("Youre current task(s) are: ");
             ReadTasks();
-            Console.Write("If you want to manipulate a task type 1, if you want to read you're task's again type 2: ");
+            Console.Write("If you want to manipulate a task type 1, if you want to read you're task(s) again type 2: ");
             int operation = 0;
             while (int.TryParse(Console.ReadLine(), out operation))
             {
@@ -53,7 +53,7 @@ namespace TodoApp.ConsoleApp
             string path = !string.IsNullOrEmpty(XmlPath) ? XmlPath : "../../tasks.xml";
             if (!File.Exists(path))
             {
-                Console.WriteLine("There is no saved task's!");
+                Console.WriteLine("There is no saved task(s)!");
                 return;
             }
             else
