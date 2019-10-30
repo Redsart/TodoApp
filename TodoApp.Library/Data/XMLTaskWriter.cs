@@ -9,16 +9,27 @@ namespace TodoApp.Library.Data
 {
     public class XMLTaskWriter
     {
-        static string path = "../../tasks.xml";
+        private readonly string _path;
+
+        public XMLTaskWriter()
+        {
+            _path = "../../tasks.xml";
+        }
+
+        public XMLTaskWriter(string path)
+        {
+            _path = path;
+        }
+
         public void Save(Task task)
         {
 
-            if (!File.Exists(path))
+            if (!File.Exists(_path))
             {
                 XmlWriterSettings xmlWriterSettings = new XmlWriterSettings();
                 xmlWriterSettings.Indent = true;
                 Encoding encoding = Encoding.GetEncoding("UTF-8");
-                using (XmlWriter writer = XmlWriter.Create(path))
+                using (XmlWriter writer = XmlWriter.Create(_path))
                 {
                     writer.WriteStartDocument();
                     writer.WriteStartElement("tasks");
@@ -28,7 +39,7 @@ namespace TodoApp.Library.Data
                 }
             }
 
-            var xmlDoc = XDocument.Load(path);
+            var xmlDoc = XDocument.Load(_path);
             var parentElement = new XElement("task");
             var title = new XElement("title", task.Title);
             var description = new XElement("description", task.Message);
@@ -45,18 +56,18 @@ namespace TodoApp.Library.Data
             var rootElement = xmlDoc.Element("tasks");
             rootElement?.Add(parentElement);
 
-            xmlDoc.Save(path);
+            xmlDoc.Save(_path);
         }
 
         public void Delete(Task task)
         {
-            if (!File.Exists(path))
+            if (!File.Exists(_path))
             {
                 throw new FileNotFoundException("There is no created task's!");
             }
 
             XmlDocument doc = new XmlDocument();
-            doc.Load(path);
+            doc.Load(_path);
             XmlNodeList nodes;
             nodes = doc.SelectNodes("tasks/task");
 
@@ -68,7 +79,7 @@ namespace TodoApp.Library.Data
                 }
             }
 
-            doc.Save(path);
+            doc.Save(_path);
         }
     }
 }
