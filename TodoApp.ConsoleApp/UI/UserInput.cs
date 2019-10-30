@@ -14,20 +14,17 @@ namespace TodoApp.ConsoleApp.UI
             {
                 text = Console.ReadLine();
 
-                if (required == true)
+                while (string.IsNullOrEmpty(text))
                 {
-                    while (string.IsNullOrEmpty(text))
-                    {
-                        ReadText("This field can't be empty!", true, "");
-                        text = Console.ReadLine();
-                    }
+                    Console.WriteLine("This field can't be empty!");
+                    text = Console.ReadLine();
                 }
             }
 
             return text;
         }
 
-        public static string ReadText(string question, bool required = false, string defaultValue = "Incorect input!")
+        public static string ReadText(string question, bool required = false, string defaultValue = "")
         {
             Console.WriteLine(question);
 
