@@ -11,9 +11,9 @@ namespace TodoApp.ConsoleApp.UI
     {
         public static void ReadOrWrite()
         {
-            bool choice = true;
+            bool toContinue = true;
 
-            while (choice == true)
+            while (toContinue == true)
             {
                 int operation = UserInput.ReadOption("Choose an option!", new string[] { "manipulate task", "read task's" }, true);
 
@@ -30,7 +30,7 @@ namespace TodoApp.ConsoleApp.UI
                         break;
                 }
 
-                choice = UserInput.ReadYesNo("Do you want to continue?",true);
+                toContinue = UserInput.ReadYesNo("Do you want to continue?",true);
             }
 
 
@@ -45,7 +45,7 @@ namespace TodoApp.ConsoleApp.UI
 
             if (!File.Exists(path))
             {
-                UserInput.ReadText("There is no saved task's!", false, "");
+                UserInput.ReadText("There is no saved task's!");
                 return;
             }
 
@@ -56,7 +56,7 @@ namespace TodoApp.ConsoleApp.UI
                 int count = 1;
                 foreach (var item in tasks)
                 {
-                    UserInput.ReadText($"Task {count}:\n{item.Title}\nDescription: {item.Message}\nstarted at: {item.StartDate}\nterm to: {item.EndDate}", false, "");
+                    UserInput.ReadText($"Task {count}:\n{item.Title}\nDescription: {item.Message}\nstarted at: {item.StartDate}\nterm to: {item.EndDate}");
                     count++;
                     Console.WriteLine();
                 }
@@ -84,7 +84,7 @@ namespace TodoApp.ConsoleApp.UI
                 int n = int.Parse(UserInput.ReadText("Select the number of the task, you want to delete: ",true));
                 XMLTaskWriter writer = new XMLTaskWriter();
                 writer.Delete(tasks[n - 1]);
-                UserInput.ReadText("Delete completed!", false, "");
+                UserInput.ReadText("Delete completed!");
             }
         }
 
@@ -96,26 +96,21 @@ namespace TodoApp.ConsoleApp.UI
 
             var task = new Task(title, message, deadLine);
 
-            bool choice = UserInput.ReadYesNo("Do you want to save this task?");
+            bool isSave = UserInput.ReadYesNo("Do you want to save this task?");
 
-            if (choice == true)
+            if (isSave == true)
             {
                 XMLTaskWriter writer = new XMLTaskWriter();
                 writer.Save(task);
-                UserInput.ReadText("Save completed!", false, "");
+                UserInput.ReadText("Save completed!");
                 return;
             }
 
-            else if (choice == false)
+            else if (isSave == false)
             {
-                UserInput.ReadText("Good luck!", false, "");
+                UserInput.ReadText("Good luck!");
                 return;
             }
-            Console.WriteLine(string.Compare("Yes", "yes", StringComparison.OrdinalIgnoreCase));
-            Console.WriteLine("Hello, this program is making a task's and save them to xml document. Enjoy :)");
-            Console.WriteLine();
-            
-            TaskOperations.ReadOrWrite();
         }
     }
 }

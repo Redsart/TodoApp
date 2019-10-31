@@ -10,7 +10,7 @@ namespace TodoApp.ConsoleApp.UI
         private static string ReadInput(bool required = false, string defaultValue = "")
         {
             string text = "";
-            if (required == true)
+            if (required)
             {
                 text = Console.ReadLine();
 
@@ -70,7 +70,7 @@ namespace TodoApp.ConsoleApp.UI
             bool isValid = false;
             string input = "";
 
-            if (required == true)
+            if (required)
             {
                 do
                 {
@@ -105,7 +105,7 @@ namespace TodoApp.ConsoleApp.UI
             bool isValid = false;
             bool result = false;
 
-            if (required == true)
+            if (required)
             {
                 do
                 {
