@@ -106,7 +106,7 @@ namespace TodoApp.ConsoleApp.UI
                 return;
             }
 
-            else if (isSave == false)
+            else
             {
                 UserInput.ReadText("Good luck!");
                 return;
