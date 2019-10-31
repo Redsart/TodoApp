@@ -40,72 +40,106 @@ namespace TodoApp.ConsoleApp.UI
 
         public static int ReadOption(string question, string[] availableOptions, bool required = false, int defaultValue = 0)
         {
-            
-            ReadText("Press the number of youre choice!", false, "");
-            int number = 0;
+            Console.WriteLine(question);
+            int index = 1;
+            foreach (var option in availableOptions)
+            {
+                Console.WriteLine($"\t{index}: {option}");
+                index++;
+            }
+
+            index = 1;
+            bool isValid = false;
             string input = "";
 
             if (required == true)
             {
-                for (int i = 0; i < availableOptions.Length; i++)
+                do
                 {
-                    ReadText($"{i + 1}: {availableOptions[i]}", false, "");
+                    input = ReadInput(required);
+                    isValid = int.TryParse(input, out index) && (index > 0 && index <= availableOptions.Length);
+
+                    if (!isValid)
+                    {
+                        Console.WriteLine($"Please, enter a valid number between 1 and {availableOptions.Length}!");
+                    }
                 }
-
-                input = ReadText(question, true);
-                while (!Validate.IsCorectNumber(input, availableOptions.Length))
-                {
-                    input = ReadText(question, true);
-                }
-
-                number = int.Parse(input);
-
-                return number;
+                while (!isValid);
             }
 
             else
             {
-                input = ReadText(question, true);
-                if (Validate.IsCorectNumber(input, availableOptions.Length))
+                input = ReadInput(required);
+                isValid = int.TryParse(input, out index) && (index > 0 && index < availableOptions.Length);
+                if (!isValid)
                 {
-                    number = int.Parse(input);
-
-                    return number;
-                }
-
-                else
-                {
-                    return defaultValue;
+                    index = defaultValue;
                 }
             }
+
+            return index;
         }
 
         public static bool ReadYesNo(string question, bool required = false, bool defaultValue = false)
         {
-            string choice = ReadText($"{question} {Yes}/{No}", true);
+            Console.WriteLine(question);
+            string choice = "";
+            bool isValid = false;
+            bool result = false;
 
             if (required == true)
             {
-                while (!Validate.IsYesOrNo(choice))
+                do
                 {
-                    choice = ReadText($"{question} {Yes}/{No}", true, "Choose an option!");
-                }
+                    choice = ReadInput(required);
+                    isValid = choice.Equals(Yes, StringComparison.CurrentCultureIgnoreCase) || choice.Equals(No, StringComparison.CurrentCultureIgnoreCase);
 
-                return choice.Equals(Yes, StringComparison.CurrentCultureIgnoreCase);
+                    if (isValid)
+                    {
+                        if (choice.Equals(Yes, StringComparison.CurrentCultureIgnoreCase))
+                        {
+                            result = true;
+                        }
+
+                        else if (choice.Equals(No, StringComparison.CurrentCultureIgnoreCase))
+                        {
+                            result = false;
+                        }
+                    }
+
+                    else
+                    {
+                        Console.WriteLine("Please, enter either \"yes\" or \"no\"");
+                    }
+                }
+                while (!isValid);
             }
 
             else
             {
-                if (Validate.IsYesOrNo(choice))
+                choice = ReadInput(required);
+                isValid = choice.Equals(Yes, StringComparison.CurrentCultureIgnoreCase) || choice.Equals(No, StringComparison.CurrentCultureIgnoreCase);
+
+                if (isValid)
                 {
-                    return choice.Equals(Yes, StringComparison.CurrentCultureIgnoreCase);
+                    if (choice.Equals(Yes, StringComparison.CurrentCultureIgnoreCase))
+                    {
+                        result = true;
+                    }
+
+                    else if (choice.Equals(No, StringComparison.CurrentCultureIgnoreCase))
+                    {
+                        result = false;
+                    }
                 }
 
                 else
                 {
-                    return defaultValue;
+                    result = defaultValue;
                 }
             }
+
+            return result;
         }
     }
 }
