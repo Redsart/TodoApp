@@ -26,6 +26,7 @@ namespace TodoApp.ConsoleApp.UI
                         ReadTasks();
                         break;
                     default:
+                        UserInput.ReadText("Error! Invalid comand!");
                         break;
                 }
 

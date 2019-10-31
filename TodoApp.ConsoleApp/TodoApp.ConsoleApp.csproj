@@ -47,7 +47,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UI\TaskOperations.cs" />
     <Compile Include="UI\UserInput.cs" />
-    <Compile Include="UI\Validate.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -7,7 +7,7 @@ namespace TodoApp.ConsoleApp.UI
         const string Yes = "yes";
         const string No = "no";
 
-        private static string ReadInput(bool required = false)
+        private static string ReadInput(bool required = false, string defaultValue = "")
         {
             string text = "";
             if (required == true)
@@ -21,16 +21,34 @@ namespace TodoApp.ConsoleApp.UI
                 }
             }
 
+            else
+            {
+                text = Console.ReadLine();
+
+                if (string.IsNullOrEmpty(text))
+                {
+                    text = defaultValue;
+                }
+            }
+
             return text;
         }
 
         public static string ReadText(string question, bool required = false, string defaultValue = "")
         {
             Console.WriteLine(question);
+            string text = "";
+            if (required)
+            {
+                text = ReadInput(required);
 
-            string text = ReadInput(required);
+                if (string.IsNullOrEmpty(text))
+                {
+                    text = defaultValue;
+                }
+            }
 
-            if (string.IsNullOrEmpty(text))
+            else
             {
                 text = defaultValue;
             }
