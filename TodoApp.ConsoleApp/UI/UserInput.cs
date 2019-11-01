@@ -65,13 +65,9 @@ namespace TodoApp.ConsoleApp.UI
             bool isValid = false;
             string input = "";
 
-            //if (required)
-            //{
-               
-            //}
             do
             {
-                input = ReadInput(required);
+                input = ReadInput(required, "");
                 isValid = int.TryParse(input, out index) && (index > 0 && index <= availableOptions.Length);
 
                 if (!isValid)
@@ -80,16 +76,6 @@ namespace TodoApp.ConsoleApp.UI
                 }
             }
             while (!isValid);
-
-            //else
-            //{
-            //    input = ReadInput(required);
-            //    isValid = int.TryParse(input, out index) && (index > 0 && index < availableOptions.Length);
-            //    if (!isValid)
-            //    {
-            //        index = defaultValue;
-            //    }
-            //}
 
             return index;
         }
@@ -101,35 +87,11 @@ namespace TodoApp.ConsoleApp.UI
             bool isValid = false;
             bool result = false;
 
-            if (required)
-            {
-                do
-                {
-                    choice = ReadInput(required);
-                    isValid = choice.Equals(Yes, StringComparison.CurrentCultureIgnoreCase) || choice.Equals(No, StringComparison.CurrentCultureIgnoreCase);
+            //if (required)
+            //{
 
-                    if (isValid)
-                    {
-                        if (choice.Equals(Yes, StringComparison.CurrentCultureIgnoreCase))
-                        {
-                            result = true;
-                        }
-
-                        else if (choice.Equals(No, StringComparison.CurrentCultureIgnoreCase))
-                        {
-                            result = false;
-                        }
-                    }
-
-                    else
-                    {
-                        Console.WriteLine("Please, enter either \"yes\" or \"no\"");
-                    }
-                }
-                while (!isValid);
-            }
-
-            else
+            //}
+            do
             {
                 choice = ReadInput(required);
                 isValid = choice.Equals(Yes, StringComparison.CurrentCultureIgnoreCase) || choice.Equals(No, StringComparison.CurrentCultureIgnoreCase);
@@ -149,9 +111,34 @@ namespace TodoApp.ConsoleApp.UI
 
                 else
                 {
-                    result = defaultValue;
+                    Console.WriteLine("Please, enter either \"yes\" or \"no\"");
                 }
             }
+            while (!isValid);
+
+            //else
+            //{
+            //    choice = ReadInput(required);
+            //    isValid = choice.Equals(Yes, StringComparison.CurrentCultureIgnoreCase) || choice.Equals(No, StringComparison.CurrentCultureIgnoreCase);
+
+            //    if (isValid)
+            //    {
+            //        if (choice.Equals(Yes, StringComparison.CurrentCultureIgnoreCase))
+            //        {
+            //            result = true;
+            //        }
+
+            //        else if (choice.Equals(No, StringComparison.CurrentCultureIgnoreCase))
+            //        {
+            //            result = false;
+            //        }
+            //    }
+
+            //    else
+            //    {
+            //        result = defaultValue;
+            //    }
+            //}
 
             return result;
         }
