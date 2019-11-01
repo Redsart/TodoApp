@@ -12,8 +12,6 @@ namespace TodoApp.ConsoleApp.UI
             string text = Console.ReadLine();
             if (required)
             {
-                //text = Console.ReadLine();
-
                 while (string.IsNullOrEmpty(text))
                 {
                     Console.WriteLine("This field can't be empty!");
@@ -23,8 +21,6 @@ namespace TodoApp.ConsoleApp.UI
 
             else
             {
-                //text = Console.ReadLine();
-
                 if (string.IsNullOrEmpty(text))
                 {
                     text = defaultValue;
@@ -38,6 +34,7 @@ namespace TodoApp.ConsoleApp.UI
         {
             Console.WriteLine(question);
             string text = "";
+
             if (required)
             {
                 text = ReadInput(required);
@@ -59,41 +56,40 @@ namespace TodoApp.ConsoleApp.UI
         public static int ReadOption(string question, string[] availableOptions, bool required = false, int defaultValue = 0)
         {
             Console.WriteLine(question);
-            int index = 1;
-            foreach (var option in availableOptions)
+            for (int i = 0; i < availableOptions.Length; i++)
             {
-                Console.WriteLine($"\t{index}: {option}");
-                index++;
+                Console.WriteLine($"\t{i+1}: {availableOptions[i]}");
             }
-
-            index = 1;
+            
+            int index = 0;
             bool isValid = false;
             string input = "";
 
-            if (required)
-            {
-                do
-                {
-                    input = ReadInput(required);
-                    isValid = int.TryParse(input, out index) && (index > 0 && index <= availableOptions.Length);
-
-                    if (!isValid)
-                    {
-                        Console.WriteLine($"Please, enter a valid number between 1 and {availableOptions.Length}!");
-                    }
-                }
-                while (!isValid);
-            }
-
-            else
+            //if (required)
+            //{
+               
+            //}
+            do
             {
                 input = ReadInput(required);
-                isValid = int.TryParse(input, out index) && (index > 0 && index < availableOptions.Length);
+                isValid = int.TryParse(input, out index) && (index > 0 && index <= availableOptions.Length);
+
                 if (!isValid)
                 {
-                    index = defaultValue;
+                    Console.WriteLine($"Please, enter a valid number between 1 and {availableOptions.Length}!");
                 }
             }
+            while (!isValid);
+
+            //else
+            //{
+            //    input = ReadInput(required);
+            //    isValid = int.TryParse(input, out index) && (index > 0 && index < availableOptions.Length);
+            //    if (!isValid)
+            //    {
+            //        index = defaultValue;
+            //    }
+            //}
 
             return index;
         }
