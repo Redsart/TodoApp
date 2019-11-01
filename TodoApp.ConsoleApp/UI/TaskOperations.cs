@@ -13,7 +13,7 @@ namespace TodoApp.ConsoleApp.UI
         {
             bool toContinue = true;
 
-            while (toContinue == true)
+            while (toContinue)
             {
                 int operation = UserInput.ReadOption("Choose an option!", new string[] { "manipulate task", "read task's" }, true);
 
@@ -34,7 +34,7 @@ namespace TodoApp.ConsoleApp.UI
             }
 
 
-            UserInput.ReadText("Good bye!", false, "");
+            UserInput.ReadText("Good bye!");
             return;
         }
 
@@ -67,24 +67,28 @@ namespace TodoApp.ConsoleApp.UI
         {
             int operation = UserInput.ReadOption("Choose an option!", new string[] { "make a new task", "delete a task" }, true);
 
-            if (operation == 1)
+            switch (operation)
             {
-                TaskMaker();
-                bool choice = UserInput.ReadYesNo("Do yoy want to make another task?", true);
-                if (choice == true)
-                {
+                case 1:
                     TaskMaker();
-                }
-            }
+                    bool choice = UserInput.ReadYesNo("Do yoy want to make another task?", true);
+                    if (choice == true)
+                    {
+                        TaskMaker();
+                    };
+                    break;
 
-            else if (operation == 2)
-            {
-                XMLTaskReader reader = new XMLTaskReader();
-                List<Task> tasks = reader.ReadTasks("../../tasks.xml");
-                int n = int.Parse(UserInput.ReadText("Select the number of the task, you want to delete: ",true));
-                XMLTaskWriter writer = new XMLTaskWriter();
-                writer.Delete(tasks[n - 1]);
-                UserInput.ReadText("Delete completed!");
+                case 2:
+                    XMLTaskReader reader = new XMLTaskReader();
+                    List<Task> tasks = reader.ReadTasks("../../tasks.xml");
+                    int n = int.Parse(UserInput.ReadText("Select the number of the task, you want to delete: ", true));
+                    XMLTaskWriter writer = new XMLTaskWriter();
+                    writer.Delete(tasks[n - 1]);
+                    UserInput.ReadText("Delete completed!");
+                    break;
+                default:
+                    UserInput.ReadText("Error! Invalid comand!");
+                    break;
             }
         }
 
