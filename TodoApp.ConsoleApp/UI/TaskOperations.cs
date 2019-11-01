@@ -72,7 +72,7 @@ namespace TodoApp.ConsoleApp.UI
                 case 1:
                     TaskMaker();
                     bool choice = UserInput.ReadYesNo("Do yoy want to make another task?", true);
-                    if (choice == true)
+                    if (choice)
                     {
                         TaskMaker();
                     };
@@ -102,7 +102,7 @@ namespace TodoApp.ConsoleApp.UI
 
             bool isSave = UserInput.ReadYesNo("Do you want to save this task?");
 
-            if (isSave == true)
+            if (isSave)
             {
                 XMLTaskWriter writer = new XMLTaskWriter();
                 writer.Save(task);

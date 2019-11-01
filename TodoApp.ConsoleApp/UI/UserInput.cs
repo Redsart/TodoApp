@@ -9,10 +9,10 @@ namespace TodoApp.ConsoleApp.UI
 
         private static string ReadInput(bool required = false, string defaultValue = "")
         {
-            string text = "";
+            string text = Console.ReadLine();
             if (required)
             {
-                text = Console.ReadLine();
+                //text = Console.ReadLine();
 
                 while (string.IsNullOrEmpty(text))
                 {
@@ -23,7 +23,7 @@ namespace TodoApp.ConsoleApp.UI
 
             else
             {
-                text = Console.ReadLine();
+                //text = Console.ReadLine();
 
                 if (string.IsNullOrEmpty(text))
                 {
