@@ -7,8 +7,13 @@ namespace TodoApp.ConsoleApp.UI
         const string Yes = "yes";
         const string No = "no";
 
-        private static string ReadInput(bool required = false, string defaultValue = "")
+        public static string ReadText(string question = "", bool required = false, string defaultValue = "")
         {
+            if (!string.IsNullOrEmpty(question))
+            {
+                Console.Write($"{question} ");
+            }
+
             string text = Console.ReadLine();
             if (required)
             {
@@ -19,33 +24,7 @@ namespace TodoApp.ConsoleApp.UI
                 }
             }
 
-            else
-            {
-                if (string.IsNullOrEmpty(text))
-                {
-                    text = defaultValue;
-                }
-            }
-
-            return text;
-        }
-
-        public static string ReadText(string question, bool required = false, string defaultValue = "")
-        {
-            Console.WriteLine(question);
-            string text = "";
-
-            if (required)
-            {
-                text = ReadInput(required);
-
-                if (string.IsNullOrEmpty(text))
-                {
-                    text = defaultValue;
-                }
-            }
-
-            else
+            else if (string.IsNullOrEmpty(text))
             {
                 text = defaultValue;
             }
@@ -67,7 +46,7 @@ namespace TodoApp.ConsoleApp.UI
 
             do
             {
-                input = ReadInput(required, "");
+                input = ReadText("Command", required, defaultValue.ToString());
                 isValid = int.TryParse(input, out index) && (index > 0 && index <= availableOptions.Length);
 
                 if (!isValid)
@@ -82,28 +61,26 @@ namespace TodoApp.ConsoleApp.UI
 
         public static bool ReadYesNo(string question, bool required = false, bool defaultValue = false)
         {
-            Console.WriteLine(question);
+            //Console.WriteLine(question);
             string choice = "";
             bool isValid = false;
             bool result = false;
 
-            //if (required)
-            //{
-
-            //}
             do
             {
-                choice = ReadInput(required);
-                isValid = choice.Equals(Yes, StringComparison.CurrentCultureIgnoreCase) || choice.Equals(No, StringComparison.CurrentCultureIgnoreCase);
+                choice = ReadText(question,required,defaultValue.ToString());
+                bool isYes = choice.Equals(Yes, StringComparison.CurrentCultureIgnoreCase);
+                bool isNo = choice.Equals(No, StringComparison.CurrentCultureIgnoreCase);
+                isValid = isYes || isNo;
 
                 if (isValid)
                 {
-                    if (choice.Equals(Yes, StringComparison.CurrentCultureIgnoreCase))
+                    if (isYes)
                     {
                         result = true;
                     }
 
-                    else if (choice.Equals(No, StringComparison.CurrentCultureIgnoreCase))
+                    else if (isNo)
                     {
                         result = false;
                     }
@@ -115,30 +92,6 @@ namespace TodoApp.ConsoleApp.UI
                 }
             }
             while (!isValid);
-
-            //else
-            //{
-            //    choice = ReadInput(required);
-            //    isValid = choice.Equals(Yes, StringComparison.CurrentCultureIgnoreCase) || choice.Equals(No, StringComparison.CurrentCultureIgnoreCase);
-
-            //    if (isValid)
-            //    {
-            //        if (choice.Equals(Yes, StringComparison.CurrentCultureIgnoreCase))
-            //        {
-            //            result = true;
-            //        }
-
-            //        else if (choice.Equals(No, StringComparison.CurrentCultureIgnoreCase))
-            //        {
-            //            result = false;
-            //        }
-            //    }
-
-            //    else
-            //    {
-            //        result = defaultValue;
-            //    }
-            //}
 
             return result;
         }
