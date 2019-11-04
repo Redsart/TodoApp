@@ -73,20 +73,9 @@ namespace TodoApp.ConsoleApp.UI
                 bool isNo = choice.Equals(No, StringComparison.CurrentCultureIgnoreCase);
                 isValid = isYes || isNo;
 
-                if (isValid)
-                {
-                    if (isYes)
-                    {
-                        result = true;
-                    }
+                result = isYes;
 
-                    else if (isNo)
-                    {
-                        result = false;
-                    }
-                }
-
-                else
+                if (!isValid)
                 {
                     Console.WriteLine("Please, enter either \"yes\" or \"no\"");
                 }
