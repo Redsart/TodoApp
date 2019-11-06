@@ -10,6 +10,8 @@ namespace TodoApp.ConsoleApp.UI
 {
     public static class TaskOperations
     {
+        static string path = "../../tasks.xml";
+
         public static void ReadOrWrite()
         {
             bool toContinue = true;
@@ -42,7 +44,7 @@ namespace TodoApp.ConsoleApp.UI
         static void ReadTasks()
         {
             //XMLTaskReader reader = new XMLTaskReader();
-            string path = "../../tasks.xml";
+            //string path = "../../tasks.xml";
 
             if (!File.Exists(path))
             {
@@ -54,11 +56,11 @@ namespace TodoApp.ConsoleApp.UI
             {
                 //List<Task> tasks = reader.ReadTasks(path);
                 List<Task> tasks = TodoService.GetAll(path);
-                int count = 1;
-                foreach (var item in tasks)
+                //int count = 1;
+                foreach (var task in tasks)
                 {
-                    UserInput.ReadText($"Task {count}:\n{item.Title}\nDescription: {item.Message}\nstarted at: {item.StartDate}\nterm to: {item.EndDate}");
-                    count++;
+                    UserInput.ReadText($"Task {task.ID}:\n{task.Title}\nDescription: {task.Message}\nstarted at: {task.StartDate}\nterm to: {task.EndDate}");
+                    //count++;
                     Console.WriteLine();
                 }
             }
@@ -80,8 +82,8 @@ namespace TodoApp.ConsoleApp.UI
                     break;
 
                 case 2:
-                    XMLTaskReader reader = new XMLTaskReader();
-                    List<Task> tasks = reader.ReadTasks("../../tasks.xml");
+                    //XMLTaskReader reader = new XMLTaskReader();
+                    List<Task> tasks = TodoService.GetAll(path);
                     int n = int.Parse(UserInput.ReadText("Select the number of the task, you want to delete: ", true));
                     XMLTaskWriter writer = new XMLTaskWriter();
                     writer.Delete(tasks[n - 1]);
@@ -105,8 +107,9 @@ namespace TodoApp.ConsoleApp.UI
 
             if (isSave)
             {
-                XMLTaskWriter writer = new XMLTaskWriter();
-                writer.Save(task);
+                //XMLTaskWriter writer = new XMLTaskWriter();
+                //writer.Save(task);
+                TodoService.Save(task);
                 UserInput.ReadText("Save completed!");
                 return;
             }
