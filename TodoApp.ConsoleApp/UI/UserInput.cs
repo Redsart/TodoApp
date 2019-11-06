@@ -61,7 +61,6 @@ namespace TodoApp.ConsoleApp.UI
 
         public static bool ReadYesNo(string question, bool required = false, bool defaultValue = false)
         {
-            //Console.WriteLine(question);
             string choice = "";
             bool isValid = false;
             bool result = false;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TodoApp.Library.Models;
 using TodoApp.Library.Data;
 using System.IO;
+using TodoApp.ConsoleApp.Services;
 
 
 namespace TodoApp.ConsoleApp.UI
@@ -40,7 +41,7 @@ namespace TodoApp.ConsoleApp.UI
 
         static void ReadTasks()
         {
-            XMLTaskReader reader = new XMLTaskReader();
+            //XMLTaskReader reader = new XMLTaskReader();
             string path = "../../tasks.xml";
 
             if (!File.Exists(path))
@@ -51,8 +52,8 @@ namespace TodoApp.ConsoleApp.UI
 
             else
             {
-                List<Task> tasks = reader.ReadTasks(path);
-
+                //List<Task> tasks = reader.ReadTasks(path);
+                List<Task> tasks = TodoService.GetAll(path);
                 int count = 1;
                 foreach (var item in tasks)
                 {
