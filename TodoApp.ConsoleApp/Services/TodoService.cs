@@ -5,38 +5,40 @@ using System.Linq;
 
 namespace TodoApp.ConsoleApp.Services
 {
-    static class TodoService
+    public class TodoService : ITodoService
     {
-        public static List<Task> GetAll(string path = "")
+        const string path = "../../tasks.xml";
+
+        public IEnumerable<Task> GetAll()
         {
             XMLTaskReader reader = new XMLTaskReader();
 
-            List<Task> tasks = reader.ReadTasks(path);
+            IEnumerable<Task> tasks = reader.ReadTasks();
 
             return tasks;
         }
 
-        static Task GetByID(int id)
+        public Task GetByID(int id)
         {
-            List<Task> tasks = GetAll();
+            IEnumerable<Task> tasks = GetAll();
 
             var wantedTask = tasks.First(task => int.Parse(task.ID.ToString()) == id);
 
             return wantedTask;
         }
 
-        static void Update(Task task)
+        public void Update(Task task)
         {
 
         }
 
-        public static void Save(Task task)
+        public void Save(Task task)
         {
             XMLTaskWriter writer = new XMLTaskWriter();
             writer.Save(task);
         }
 
-        static void Delete(int id)
+        public void Delete(int id)
         {
             XMLTaskWriter writer = new XMLTaskWriter();
             Task taskToBeDeleted = GetByID(id);

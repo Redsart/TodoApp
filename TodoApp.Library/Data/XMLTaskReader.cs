@@ -11,6 +11,7 @@ namespace TodoApp.Library.Data
 {
     public class XMLTaskReader
     {
+        const string path = "../../tasks.xml";
         public TimeSpan TimeLeft(DateTime startDate,DateTime endDate)
         {
             TimeSpan timeLeft = endDate.Subtract(startDate).Duration();
@@ -18,7 +19,7 @@ namespace TodoApp.Library.Data
             return timeLeft;
         }
 
-        public List<Task> ReadTasks(string path)
+        public List<Task> ReadTasks()
         {
             XmlDocument doc = new XmlDocument();
             doc.Load(path);
