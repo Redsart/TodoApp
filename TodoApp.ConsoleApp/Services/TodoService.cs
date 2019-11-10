@@ -2,6 +2,7 @@
 using TodoApp.Library.Data;
 using TodoApp.Library.Models;
 using System.Linq;
+using System;
 
 namespace TodoApp.ConsoleApp.Services
 {
@@ -18,11 +19,20 @@ namespace TodoApp.ConsoleApp.Services
             return tasks;
         }
 
-        public Task GetByID(int id)
+        public Task GetByID(string id)
         {
             IEnumerable<Task> tasks = GetAll();
 
-            var wantedTask = tasks.First(task => int.Parse(task.ID.ToString()) == id);
+            Task wantedTask = null;
+
+            try
+            {
+                wantedTask = tasks.First(task => task.ID.ToString() == id);
+            }
+            catch (InvalidOperationException)
+            {
+                Console.WriteLine("Invalid id!");
+            }
 
             return wantedTask;
         }
@@ -32,17 +42,44 @@ namespace TodoApp.ConsoleApp.Services
 
         }
 
-        public void Save(Task task)
+        public void Create(Task task)
         {
             XMLTaskWriter writer = new XMLTaskWriter();
             writer.Save(task);
         }
 
-        public void Delete(int id)
+        public void Delete(string id)
         {
-            XMLTaskWriter writer = new XMLTaskWriter();
-            Task taskToBeDeleted = GetByID(id);
-            writer.Delete(taskToBeDeleted);
+            try
+            {
+                XMLTaskWriter writer = new XMLTaskWriter();
+                Task taskToBeDeleted = GetByID(id);
+                writer.Delete(taskToBeDeleted);
+                Console.WriteLine("Delete completed!");
+            }
+            catch (NullReferenceException)
+            {
+                Console.WriteLine("Delete not complete!");
+            }
+
+        }
+
+        bool IsFoundId(string id)
+        {
+            IEnumerable<Task> tasks = GetAll();
+            Task wantedTask = null;
+            bool isFound = false;
+            try
+            {
+                wantedTask = tasks.First(task => task.ID.ToString() == id);
+                isFound = true;
+            }
+            catch (InvalidOperationException)
+            {
+                Console.WriteLine("Invalid id!");
+            }
+
+            return isFound;
         }
     }
 }

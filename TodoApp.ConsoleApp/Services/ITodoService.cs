@@ -6,9 +6,9 @@ namespace TodoApp.ConsoleApp.Services
     interface ITodoService
     {
         IEnumerable<Task> GetAll();
-        Task GetByID(int id);
+        Task GetByID(string id);
         void Update(Task task);
-        void Save(Task task);
-        void Delete(int id);
+        void Create(Task task);
+        void Delete(string id);
     }
 }

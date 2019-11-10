@@ -85,11 +85,10 @@ namespace TodoApp.ConsoleApp.UI
                 case 2:
                     //XMLTaskReader reader = new XMLTaskReader();
                     IEnumerable<Task> tasks = service.GetAll();
-                    int id = int.Parse(UserInput.ReadText("Select the number of the task, you want to delete: ", true));
+                    string id = UserInput.ReadText("Select the number of the task, you want to delete: ", true);
                     //XMLTaskWriter writer = new XMLTaskWriter();
                     //writer.Delete(tasks[n - 1]);
                     service.Delete(id);
-                    UserInput.ReadText("Delete completed!");
                     break;
                 default:
                     UserInput.ReadText("Error! Invalid comand!");
@@ -111,7 +110,7 @@ namespace TodoApp.ConsoleApp.UI
             {
                 //XMLTaskWriter writer = new XMLTaskWriter();
                 //writer.Save(task);
-                service.Save(task);
+                service.Create(task);
                 UserInput.ReadText("Save completed!");
                 return;
             }

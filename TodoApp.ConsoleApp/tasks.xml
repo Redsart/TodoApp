@@ -12,10 +12,4 @@
     <dateCreated>29 04 2019</dateCreated>
     <deadline>01 05 2019</deadline>
   </task>
-  <task id="0de9ed2c-aa1f-4403-82f2-803825190845">
-    <title>.Net Core</title>
-    <description>Learn .Net Core</description>
-    <dateCreated>31 10 2019</dateCreated>
-    <deadline>25 11 2019</deadline>
-  </task>
 </tasks>

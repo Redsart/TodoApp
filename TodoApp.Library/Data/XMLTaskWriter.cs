@@ -9,7 +9,7 @@ namespace TodoApp.Library.Data
 {
     public class XMLTaskWriter
     {
-        static string path = "../../tasks.xml";
+        const string path = "../../tasks.xml";
         public void Save(Task task)
         {
 
