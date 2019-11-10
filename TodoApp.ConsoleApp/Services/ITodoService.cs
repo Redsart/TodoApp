@@ -7,8 +7,8 @@ namespace TodoApp.ConsoleApp.Services
     {
         IEnumerable<Task> GetAll();
         Task GetByID(string id);
-        void Update(Task task);
-        void Create(Task task);
-        void Delete(string id);
+        bool Update(Task task);
+        Task Create(Task task);
+        bool Delete(string id);
     }
 }

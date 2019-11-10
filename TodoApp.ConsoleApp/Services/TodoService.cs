@@ -37,31 +37,47 @@ namespace TodoApp.ConsoleApp.Services
             return wantedTask;
         }
 
-        public void Update(Task task)
+        public bool Update(Task task)
         {
+            bool isUpdated = false;
 
+            Task updatedTask = null;
+            Create(updatedTask);
+
+            if (updatedTask != null)
+            {
+                Delete(task.ID.ToString());
+                isUpdated = true;
+            }
+
+            return isUpdated;
         }
 
-        public void Create(Task task)
+        public Task Create(Task task)
         {
             XMLTaskWriter writer = new XMLTaskWriter();
             writer.Save(task);
+
+            return task;
         }
 
-        public void Delete(string id)
+        public bool Delete(string id)
         {
-            try
+            bool isDeletable = false;
+            if (IsFoundId(id))
             {
                 XMLTaskWriter writer = new XMLTaskWriter();
                 Task taskToBeDeleted = GetByID(id);
                 writer.Delete(taskToBeDeleted);
                 Console.WriteLine("Delete completed!");
+                isDeletable = true;
             }
-            catch (NullReferenceException)
+            else
             {
                 Console.WriteLine("Delete not complete!");
             }
 
+            return isDeletable;
         }
 
         bool IsFoundId(string id)

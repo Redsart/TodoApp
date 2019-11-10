@@ -43,8 +43,6 @@ namespace TodoApp.ConsoleApp.UI
 
         static void ReadTasks()
         {
-            //XMLTaskReader reader = new XMLTaskReader();
-            //string path = "../../tasks.xml";
             TodoService service = new TodoService();
 
             if (!File.Exists(path))
@@ -55,13 +53,11 @@ namespace TodoApp.ConsoleApp.UI
 
             else
             {
-                //List<Task> tasks = reader.ReadTasks(path);
                 IEnumerable<Task> tasks = service.GetAll();
-                //int count = 1;
+
                 foreach (var task in tasks)
                 {
                     UserInput.ReadText($"Task {task.ID}:\n{task.Title}\nDescription: {task.Message}\nstarted at: {task.StartDate}\nterm to: {task.EndDate}");
-                    //count++;
                     Console.WriteLine();
                 }
             }
@@ -83,11 +79,8 @@ namespace TodoApp.ConsoleApp.UI
                     break;
 
                 case 2:
-                    //XMLTaskReader reader = new XMLTaskReader();
                     IEnumerable<Task> tasks = service.GetAll();
                     string id = UserInput.ReadText("Select the number of the task, you want to delete: ", true);
-                    //XMLTaskWriter writer = new XMLTaskWriter();
-                    //writer.Delete(tasks[n - 1]);
                     service.Delete(id);
                     break;
                 default:
@@ -108,10 +101,10 @@ namespace TodoApp.ConsoleApp.UI
             TodoService service = new TodoService();
             if (isSave)
             {
-                //XMLTaskWriter writer = new XMLTaskWriter();
-                //writer.Save(task);
-                service.Create(task);
+                Task savedTask = service.Create(task);
                 UserInput.ReadText("Save completed!");
+                Console.WriteLine(savedTask);
+                Console.WriteLine();
                 return;
             }
 
