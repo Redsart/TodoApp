@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using TodoApp.Library.Models;
-using TodoApp.Library.Data;
 using System.IO;
 using TodoApp.ConsoleApp.Services;
 
@@ -10,7 +9,7 @@ namespace TodoApp.ConsoleApp.UI
 {
     public static class TaskOperations
     {
-        static string path = "../../tasks.xml";
+        const string path = "../../tasks.xml";
 
         public static void ReadOrWrite()
         {
@@ -29,7 +28,7 @@ namespace TodoApp.ConsoleApp.UI
                         ReadTasks();
                         break;
                     default:
-                        UserInput.ReadText("Error! Invalid comand!");
+                        Console.WriteLine("Error! Invalid comand!");
                         break;
                 }
 
@@ -37,7 +36,7 @@ namespace TodoApp.ConsoleApp.UI
             }
 
 
-            UserInput.ReadText("Good bye!");
+            Console.WriteLine("Good bye!");
             return;
         }
 
@@ -47,7 +46,7 @@ namespace TodoApp.ConsoleApp.UI
 
             if (!File.Exists(path))
             {
-                UserInput.ReadText("There is no saved task's!");
+                Console.WriteLine("There is no saved task's!");
                 return;
             }
 
@@ -57,7 +56,7 @@ namespace TodoApp.ConsoleApp.UI
 
                 foreach (var task in tasks)
                 {
-                    UserInput.ReadText($"Task {task.ID}:\n{task.Title}\nDescription: {task.Message}\nstarted at: {task.StartDate}\nterm to: {task.EndDate}");
+                    Console.WriteLine($"Task {task.ID}:\n{task.Title}\nDescription: {task.Message}\nstarted at: {task.StartDate}\nterm to: {task.EndDate}");
                     Console.WriteLine();
                 }
             }
@@ -81,10 +80,10 @@ namespace TodoApp.ConsoleApp.UI
                 case 2:
                     IEnumerable<Task> tasks = service.GetAll();
                     string id = UserInput.ReadText("Select the number of the task, you want to delete: ", true);
-                    service.Delete(id);
+                    service.Delete(Guid.Parse(id));
                     break;
                 default:
-                    UserInput.ReadText("Error! Invalid comand!");
+                    Console.WriteLine("Error! Invalid comand!");
                     break;
             }
         }
@@ -102,7 +101,7 @@ namespace TodoApp.ConsoleApp.UI
             if (isSave)
             {
                 Task savedTask = service.Create(task);
-                UserInput.ReadText("Save completed!");
+                Console.WriteLine("Save completed!");
                 Console.WriteLine(savedTask);
                 Console.WriteLine();
                 return;
@@ -110,7 +109,7 @@ namespace TodoApp.ConsoleApp.UI
 
             else
             {
-                UserInput.ReadText("Good luck!");
+                Console.WriteLine("Good luck!");
                 return;
             }
         }

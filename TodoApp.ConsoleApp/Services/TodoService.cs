@@ -8,8 +8,6 @@ namespace TodoApp.ConsoleApp.Services
 {
     public class TodoService : ITodoService
     {
-        const string path = "../../tasks.xml";
-
         public IEnumerable<Task> GetAll()
         {
             XMLTaskReader reader = new XMLTaskReader();
@@ -19,20 +17,13 @@ namespace TodoApp.ConsoleApp.Services
             return tasks;
         }
 
-        public Task GetByID(string id)
+        public Task GetByID(Guid id)
         {
             IEnumerable<Task> tasks = GetAll();
 
             Task wantedTask = null;
 
-            try
-            {
-                wantedTask = tasks.First(task => task.ID.ToString() == id);
-            }
-            catch (InvalidOperationException)
-            {
-                Console.WriteLine("Invalid id!");
-            }
+            wantedTask = tasks.FirstOrDefault(task => task.ID == id);
 
             return wantedTask;
         }
@@ -46,7 +37,7 @@ namespace TodoApp.ConsoleApp.Services
 
             if (updatedTask != null)
             {
-                Delete(task.ID.ToString());
+                Delete(task.ID);
                 isUpdated = true;
             }
 
@@ -61,7 +52,7 @@ namespace TodoApp.ConsoleApp.Services
             return task;
         }
 
-        public bool Delete(string id)
+        public bool Delete(Guid id)
         {
             bool isDeletable = false;
             if (IsFoundId(id))
@@ -80,16 +71,17 @@ namespace TodoApp.ConsoleApp.Services
             return isDeletable;
         }
 
-        bool IsFoundId(string id)
+        bool IsFoundId(Guid id)
         {
             IEnumerable<Task> tasks = GetAll();
             Task wantedTask = null;
             bool isFound = false;
             try
             {
-                wantedTask = tasks.First(task => task.ID.ToString() == id);
+                wantedTask = tasks.FirstOrDefault(task => task.ID == id);
                 isFound = true;
             }
+
             catch (InvalidOperationException)
             {
                 Console.WriteLine("Invalid id!");

@@ -1,14 +1,15 @@
 ﻿using System.Collections.Generic;
 using TodoApp.Library.Models;
+using System;
 
 namespace TodoApp.ConsoleApp.Services
 {
     interface ITodoService
     {
         IEnumerable<Task> GetAll();
-        Task GetByID(string id);
+        Task GetByID(Guid id);
         bool Update(Task task);
         Task Create(Task task);
-        bool Delete(string id);
+        bool Delete(Guid id);
     }
 }
