@@ -30,18 +30,12 @@ namespace TodoApp.ConsoleApp.Services
 
         public bool Update(Task task)
         {
-            bool isUpdated = false;
-
+            bool isDeleted = false;
+            Delete(task.ID);
             Task updatedTask = null;
             Create(updatedTask);
-
-            if (updatedTask != null)
-            {
-                Delete(task.ID);
-                isUpdated = true;
-            }
-
-            return isUpdated;
+            isDeleted = true;
+            return isDeleted;
         }
 
         public Task Create(Task task)
@@ -54,21 +48,18 @@ namespace TodoApp.ConsoleApp.Services
 
         public bool Delete(Guid id)
         {
-            bool isDeletable = false;
-            if (IsFoundId(id))
+            bool isDeleted = false;
+
+            XMLTaskWriter writer = new XMLTaskWriter();
+            Task taskToBeDeleted = GetByID(id);
+            writer.Delete(taskToBeDeleted);
+
+            if (taskToBeDeleted != null)
             {
-                XMLTaskWriter writer = new XMLTaskWriter();
-                Task taskToBeDeleted = GetByID(id);
-                writer.Delete(taskToBeDeleted);
-                Console.WriteLine("Delete completed!");
-                isDeletable = true;
-            }
-            else
-            {
-                Console.WriteLine("Delete not complete!");
+                isDeleted = true;
             }
 
-            return isDeletable;
+            return isDeleted;
         }
 
         bool IsFoundId(Guid id)
