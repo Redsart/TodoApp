@@ -10,6 +10,7 @@ namespace TodoApp.ConsoleApp.UI
     public static class TaskOperations
     {
         const string path = "../../tasks.xml";
+        static TodoService service = new TodoService();
 
         public static void ReadOrWrite()
         {
@@ -42,8 +43,6 @@ namespace TodoApp.ConsoleApp.UI
 
         static void ReadTasks()
         {
-            TodoService service = new TodoService();
-
             if (!File.Exists(path))
             {
                 Console.WriteLine("There is no saved task's!");
@@ -65,7 +64,6 @@ namespace TodoApp.ConsoleApp.UI
         static void ManipulateTask()
         {
             int operation = UserInput.ReadOption("Choose an option!", new string[] { "make a new task", "delete a task" }, true);
-            TodoService service = new TodoService();
             switch (operation)
             {
                 case 1:
@@ -97,7 +95,6 @@ namespace TodoApp.ConsoleApp.UI
             var task = new Task(title, message, deadLine);
 
             bool isSave = UserInput.ReadYesNo("Do you want to save this task?");
-            TodoService service = new TodoService();
             if (isSave)
             {
                 Task savedTask = service.Create(task);
