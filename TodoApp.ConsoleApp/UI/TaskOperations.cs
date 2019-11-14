@@ -64,6 +64,7 @@ namespace TodoApp.ConsoleApp.UI
         static void ManipulateTask()
         {
             int operation = UserInput.ReadOption("Choose an option!", new string[] { "make a new task", "delete a task" }, true);
+            Guid newGuid = Guid.Empty;
             switch (operation)
             {
                 case 1:
@@ -78,7 +79,10 @@ namespace TodoApp.ConsoleApp.UI
                 case 2:
                     IEnumerable<Task> tasks = service.GetAll();
                     string id = UserInput.ReadText("Select the number of the task, you want to delete: ", true);
-                    service.Delete(Guid.Parse(id));
+                    if (Guid.TryParse(id,out newGuid))
+                    {
+                        service.Delete(Guid.Parse(id));
+                    }
                     break;
                 default:
                     Console.WriteLine("Error! Invalid comand!");
