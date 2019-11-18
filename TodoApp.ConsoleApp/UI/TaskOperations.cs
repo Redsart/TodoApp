@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TodoApp.Library.Models;
 using System.IO;
 using TodoApp.ConsoleApp.Services;
+using System.Linq;
 
 
 namespace TodoApp.ConsoleApp.UI
@@ -77,12 +78,8 @@ namespace TodoApp.ConsoleApp.UI
                     break;
 
                 case 2:
-                    IEnumerable<Task> tasks = service.GetAll();
-                    string id = UserInput.ReadText("Select the number of the task, you want to delete: ", true);
-                    if (Guid.TryParse(id,out newGuid))
-                    {
-                        service.Delete(Guid.Parse(id));
-                    }
+                    var tasks = service.GetAll().ToList();
+                    service.DeleteByIndex(UserInput.ReadInt("Select the number of the task, you want to delete: ",1,tasks.Count));
                     break;
                 default:
                     Console.WriteLine("Error! Invalid comand!");

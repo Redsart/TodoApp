@@ -62,5 +62,13 @@ namespace TodoApp.ConsoleApp.Services
             writer.Delete(taskToBeDeleted);
             return true;
         }
+
+        public bool DeleteByIndex(int index)
+        {
+            var gettasks = this.GetAll();
+            List<Task> tasks = gettasks.ToList();
+            var taskId = tasks[index].ID;
+            return this.Delete(taskId);
+        }
     }
 }
