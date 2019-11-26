@@ -11,5 +11,6 @@ namespace TodoApp.ConsoleApp.Services
         bool Update(Task task);
         Task Create(Task task);
         bool Delete(Guid id);
+        bool DeleteByIndex(int index);
     }
 }
