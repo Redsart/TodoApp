@@ -53,10 +53,10 @@ namespace TodoApp.ConsoleApp.UI
             else
             {
                 IEnumerable<Task> tasks = service.GetAll();
-
+                int count = 1;
                 foreach (var task in tasks)
                 {
-                    Console.WriteLine($"Task {task.ID}:\n{task.Title}\nDescription: {task.Message}\nstarted at: {task.StartDate}\nterm to: {task.EndDate}");
+                    Console.WriteLine($"Task {count++}:\n{task.Title}\nDescription: {task.Message}\nstarted at: {task.StartDate}\nterm to: {task.EndDate}");
                     Console.WriteLine();
                 }
             }

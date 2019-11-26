@@ -103,7 +103,7 @@ namespace TodoApp.ConsoleApp.UI
             }
             while (!isValid);
 
-            return number-1;
+            return number;
         }
     }
 }
