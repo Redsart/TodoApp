@@ -11,7 +11,7 @@ namespace TodoApp.ConsoleApp.UI
     public static class TaskOperations
     {
         const string path = "../../tasks.xml";
-        static TodoService service = new TodoService();
+        static ITodoService service = new TodoService();
 
         public static void ReadOrWrite()
         {
@@ -78,8 +78,9 @@ namespace TodoApp.ConsoleApp.UI
                     break;
 
                 case 2:
-                    var tasks = service.GetAll().ToList();
-                    service.DeleteByIndex(UserInput.ReadInt("Select the number of the task, you want to delete: ",1,tasks.Count));
+                    int tasksCount = service.GetAll().Count();
+                    int index = UserInput.ReadInt("Select the number of the task, you want to delete: ", 1, tasksCount);
+                    service.DeleteByIndex(index-1);
                     break;
                 default:
                     Console.WriteLine("Error! Invalid comand!");
