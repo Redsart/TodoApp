@@ -7,7 +7,7 @@ namespace TodoApp.ConsoleApp.UI
         const string Yes = "yes";
         const string No = "no";
 
-        public static string ReadText(string question = "", bool required = false, string defaultValue = "")
+        public static string ReadText(string question, bool required = false, string defaultValue = "")
         {
             if (!string.IsNullOrEmpty(question))
             {
@@ -61,7 +61,6 @@ namespace TodoApp.ConsoleApp.UI
 
         public static bool ReadYesNo(string question, bool required = false, bool defaultValue = false)
         {
-            //Console.WriteLine(question);
             string choice = "";
             bool isValid = false;
             bool result = false;
@@ -83,6 +82,28 @@ namespace TodoApp.ConsoleApp.UI
             while (!isValid);
 
             return result;
+        }
+
+        public static int ReadInt(string question, int min, int max, bool required = true, int defaultValue = 0)
+        {
+            Console.WriteLine(question);
+            int number = defaultValue; 
+            bool isValid = false;
+
+            do
+            {
+                string input = ReadText("", required, defaultValue.ToString());
+                isValid = int.TryParse(input, out number) && number >= min && number <= max;
+
+                if (!isValid)
+                {
+                    Console.WriteLine($"Please enter a valid number in range {min} - {max}");
+                }
+
+            }
+            while (!isValid);
+
+            return number;
         }
     }
 }

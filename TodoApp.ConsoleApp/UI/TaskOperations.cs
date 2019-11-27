@@ -1,14 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using TodoApp.Library.Models;
-using TodoApp.Library.Data;
 using System.IO;
+using TodoApp.ConsoleApp.Services;
+using System.Linq;
 
 
 namespace TodoApp.ConsoleApp.UI
 {
     public static class TaskOperations
     {
+        const string path = "../../tasks.xml";
+        static ITodoService service = new TodoService();
+
         public static void ReadOrWrite()
         {
             bool toContinue = true;
@@ -26,7 +30,7 @@ namespace TodoApp.ConsoleApp.UI
                         ReadTasks();
                         break;
                     default:
-                        UserInput.ReadText("Error! Invalid comand!");
+                        Console.WriteLine("Error! Invalid comand!");
                         break;
                 }
 
@@ -34,30 +38,25 @@ namespace TodoApp.ConsoleApp.UI
             }
 
 
-            UserInput.ReadText("Good bye!");
+            Console.WriteLine("Good bye!");
             return;
         }
 
         static void ReadTasks()
         {
-            XMLTaskReader reader = new XMLTaskReader();
-            string path = "../../tasks.xml";
-
             if (!File.Exists(path))
             {
-                UserInput.ReadText("There is no saved task's!");
+                Console.WriteLine("There is no saved task's!");
                 return;
             }
 
             else
             {
-                List<Task> tasks = reader.ReadTasks(path);
-
+                IEnumerable<Task> tasks = service.GetAll();
                 int count = 1;
-                foreach (var item in tasks)
+                foreach (var task in tasks)
                 {
-                    UserInput.ReadText($"Task {count}:\n{item.Title}\nDescription: {item.Message}\nstarted at: {item.StartDate}\nterm to: {item.EndDate}");
-                    count++;
+                    Console.WriteLine($"Task {count++}:\n{task.Title}\nDescription: {task.Message}\nstarted at: {task.StartDate}\nterm to: {task.EndDate}");
                     Console.WriteLine();
                 }
             }
@@ -66,7 +65,7 @@ namespace TodoApp.ConsoleApp.UI
         static void ManipulateTask()
         {
             int operation = UserInput.ReadOption("Choose an option!", new string[] { "make a new task", "delete a task" }, true);
-
+            Guid newGuid = Guid.Empty;
             switch (operation)
             {
                 case 1:
@@ -79,15 +78,12 @@ namespace TodoApp.ConsoleApp.UI
                     break;
 
                 case 2:
-                    XMLTaskReader reader = new XMLTaskReader();
-                    List<Task> tasks = reader.ReadTasks("../../tasks.xml");
-                    int n = int.Parse(UserInput.ReadText("Select the number of the task, you want to delete: ", true));
-                    XMLTaskWriter writer = new XMLTaskWriter();
-                    writer.Delete(tasks[n - 1]);
-                    UserInput.ReadText("Delete completed!");
+                    int tasksCount = service.GetAll().Count();
+                    int index = UserInput.ReadInt("Select the number of the task, you want to delete: ", 1, tasksCount);
+                    service.DeleteByIndex(index-1);
                     break;
                 default:
-                    UserInput.ReadText("Error! Invalid comand!");
+                    Console.WriteLine("Error! Invalid comand!");
                     break;
             }
         }
@@ -101,18 +97,18 @@ namespace TodoApp.ConsoleApp.UI
             var task = new Task(title, message, deadLine);
 
             bool isSave = UserInput.ReadYesNo("Do you want to save this task?");
-
             if (isSave)
             {
-                XMLTaskWriter writer = new XMLTaskWriter();
-                writer.Save(task);
-                UserInput.ReadText("Save completed!");
+                Task savedTask = service.Create(task);
+                Console.WriteLine("Save completed!");
+                Console.WriteLine(savedTask);
+                Console.WriteLine();
                 return;
             }
 
             else
             {
-                UserInput.ReadText("Good luck!");
+                Console.WriteLine("Good luck!");
                 return;
             }
         }
