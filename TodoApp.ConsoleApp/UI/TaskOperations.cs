@@ -31,18 +31,13 @@ namespace TodoApp.ConsoleApp.UI
                         break;
                     case 3:
                         Console.WriteLine("Good bye!");
-                        return;
+                        toContinue = false;
+                        break;
                     default:
                         Console.WriteLine("Error! Invalid comand!");
                         break;
                 }
-
-                toContinue = UserInput.ReadYesNo("Do you want to continue?",true);
             }
-
-
-            Console.WriteLine("Good bye!");
-            return;
         }
 
         static void ReadTasks()
