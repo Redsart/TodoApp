@@ -103,11 +103,6 @@ namespace TodoApp.ConsoleApp.UI
                 Console.WriteLine();
                 return;
             }
-
-            else
-            {
-                return;
-            }
         }
     }
 }
