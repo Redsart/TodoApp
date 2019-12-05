@@ -106,7 +106,6 @@ namespace TodoApp.ConsoleApp.UI
 
             else
             {
-                Console.WriteLine("Good luck!");
                 return;
             }
         }
