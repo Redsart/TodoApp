@@ -19,7 +19,7 @@ namespace TodoApp.ConsoleApp.UI
 
             while (toContinue)
             {
-                int operation = UserInput.ReadOption("Choose an option!", new string[] { "manipulate task", "read task's" }, true);
+                int operation = UserInput.ReadOption("Choose an option!", new string[] { "manipulate task", "read task's", "exit program" }, true);
 
                 switch (operation)
                 {
@@ -29,17 +29,15 @@ namespace TodoApp.ConsoleApp.UI
                     case 2:
                         ReadTasks();
                         break;
+                    case 3:
+                        Console.WriteLine("Good bye!");
+                        toContinue = false;
+                        break;
                     default:
                         Console.WriteLine("Error! Invalid comand!");
                         break;
                 }
-
-                toContinue = UserInput.ReadYesNo("Do you want to continue?",true);
             }
-
-
-            Console.WriteLine("Good bye!");
-            return;
         }
 
         static void ReadTasks()
@@ -103,12 +101,6 @@ namespace TodoApp.ConsoleApp.UI
                 Console.WriteLine("Save completed!");
                 Console.WriteLine(savedTask);
                 Console.WriteLine();
-                return;
-            }
-
-            else
-            {
-                Console.WriteLine("Good luck!");
                 return;
             }
         }
