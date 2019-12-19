@@ -6,7 +6,7 @@ namespace TodoApp.ConsoleApp
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             Console.WriteLine("Hello, this program is making a task's and save them to xml document. Enjoy :)");
             Console.WriteLine();

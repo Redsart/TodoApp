@@ -63,7 +63,7 @@ namespace TodoApp.ConsoleApp.UI
         static void ManipulateTask()
         {
             int operation = UserInput.ReadOption("Choose an option!", new string[] { "make a new task", "delete a task" }, true);
-            Guid newGuid = Guid.Empty;
+
             switch (operation)
             {
                 case 1:
@@ -90,7 +90,9 @@ namespace TodoApp.ConsoleApp.UI
         {
             string title = UserInput.ReadText("Enter a title: ", true);
             string message = UserInput.ReadText("Enter a description: ", true);
-            int deadLine = int.Parse(UserInput.ReadText("How many days you need to finish the task: ",true));
+#pragma warning disable CA1305 // Specify IFormatProvider
+            int deadLine = int.Parse(UserInput.ReadText("How many days you need to finish the task?: ",true));
+#pragma warning restore CA1305 // Specify IFormatProvider
 
             var task = new Task(title, message, deadLine);
 

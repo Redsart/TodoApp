@@ -35,6 +35,10 @@ namespace TodoApp.ConsoleApp.UI
         public static int ReadOption(string question, string[] availableOptions, bool required = false, int defaultValue = 0)
         {
             Console.WriteLine(question);
+            if (availableOptions == null)
+            {
+                throw new ArgumentNullException($"There is no available options!");
+            }
             for (int i = 0; i < availableOptions.Length; i++)
             {
                 Console.WriteLine($"\t{i+1}: {availableOptions[i]}");
@@ -67,7 +71,7 @@ namespace TodoApp.ConsoleApp.UI
 
             do
             {
-                choice = ReadText(question,required,defaultValue.ToString());
+                choice = ReadText(question, required, defaultValue.ToString());
                 bool isYes = choice.Equals(Yes, StringComparison.CurrentCultureIgnoreCase);
                 bool isNo = choice.Equals(No, StringComparison.CurrentCultureIgnoreCase);
                 isValid = isYes || isNo;
