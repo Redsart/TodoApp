@@ -7,7 +7,7 @@ using System;
 
 namespace TodoApp.Library.Data
 {
-    public class XMLTaskWriter
+    public static  class XMLTaskWriter
     {
         const string path = "../../tasks.xml";
         public static void Save(Task task)

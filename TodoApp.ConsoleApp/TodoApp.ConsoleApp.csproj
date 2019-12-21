@@ -57,6 +57,7 @@
     <Compile Include="Services\ITodoService.cs" />
     <Compile Include="Services\TodoService.cs" />
     <Compile Include="UI\TaskOperations.cs" />
+    <Compile Include="UI\UserComments.cs" />
     <Compile Include="UI\UserInput.cs" />
   </ItemGroup>
   <ItemGroup>

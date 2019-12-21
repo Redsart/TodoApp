@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 
 namespace TodoApp.ConsoleApp.UI
 {
@@ -6,6 +7,7 @@ namespace TodoApp.ConsoleApp.UI
     {
         const string Yes = "yes";
         const string No = "no";
+        static readonly IFormatProvider provider = CultureInfo.CurrentCulture;
 
         public static string ReadText(string question, bool required = false, string defaultValue = "")
         {
@@ -19,7 +21,7 @@ namespace TodoApp.ConsoleApp.UI
             {
                 while (string.IsNullOrEmpty(text))
                 {
-                    Console.WriteLine("This field can't be empty!");
+                    Console.WriteLine(UserComments.FieldCantBeEmpty());
                     text = Console.ReadLine();
                 }
             }
@@ -50,7 +52,7 @@ namespace TodoApp.ConsoleApp.UI
 
             do
             {
-                input = ReadText("Command", required, defaultValue.ToString());
+                input = ReadText("Command", required, defaultValue.ToString(provider));
                 isValid = int.TryParse(input, out index) && (index > 0 && index <= availableOptions.Length);
 
                 if (!isValid)
@@ -71,7 +73,7 @@ namespace TodoApp.ConsoleApp.UI
 
             do
             {
-                choice = ReadText(question, required, defaultValue.ToString());
+                choice = ReadText(question, required, defaultValue.ToString(provider));
                 bool isYes = choice.Equals(Yes, StringComparison.CurrentCultureIgnoreCase);
                 bool isNo = choice.Equals(No, StringComparison.CurrentCultureIgnoreCase);
                 isValid = isYes || isNo;
@@ -80,7 +82,7 @@ namespace TodoApp.ConsoleApp.UI
 
                 if (!isValid)
                 {
-                    Console.WriteLine("Please, enter either \"yes\" or \"no\"");
+                    Console.WriteLine(UserComments.YesOrNo());
                 }
             }
             while (!isValid);
@@ -96,7 +98,7 @@ namespace TodoApp.ConsoleApp.UI
 
             do
             {
-                string input = ReadText("", required, defaultValue.ToString());
+                string input = ReadText("", required, defaultValue.ToString(provider));
                 isValid = int.TryParse(input, out number) && number >= min && number <= max;
 
                 if (!isValid)

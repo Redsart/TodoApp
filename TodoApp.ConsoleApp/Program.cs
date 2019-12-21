@@ -8,7 +8,7 @@ namespace TodoApp.ConsoleApp
     {
         static void Main()
         {
-            Console.WriteLine("Hello, this program is making a task's and save them to xml document. Enjoy :)");
+            Console.WriteLine(UserComments.WelcomeMessage());
             Console.WriteLine();
             
             TaskOperations.ReadOrWrite();

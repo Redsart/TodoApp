@@ -30,11 +30,11 @@ namespace TodoApp.ConsoleApp.UI
                         ReadTasks();
                         break;
                     case 3:
-                        Console.WriteLine("Good bye!");
+                        Console.WriteLine(UserComments.GoodBye());
                         toContinue = false;
                         break;
                     default:
-                        Console.WriteLine("Error! Invalid comand!");
+                        Console.WriteLine(UserComments.InvalidComand());
                         break;
                 }
             }
@@ -44,7 +44,7 @@ namespace TodoApp.ConsoleApp.UI
         {
             if (!File.Exists(path))
             {
-                Console.WriteLine("There is no saved task's!");
+                Console.WriteLine(UserComments.NoSavedTasks());
                 return;
             }
 
@@ -81,7 +81,7 @@ namespace TodoApp.ConsoleApp.UI
                     service.DeleteByIndex(index-1);
                     break;
                 default:
-                    Console.WriteLine("Error! Invalid comand!");
+                    Console.WriteLine(UserComments.InvalidComand());
                     break;
             }
         }
@@ -100,7 +100,7 @@ namespace TodoApp.ConsoleApp.UI
             if (isSave)
             {
                 Task savedTask = service.Create(task);
-                Console.WriteLine("Save completed!");
+                Console.WriteLine(UserComments.SaveCompleted());
                 Console.WriteLine(savedTask);
                 Console.WriteLine();
                 return;
