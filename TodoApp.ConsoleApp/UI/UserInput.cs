@@ -3,7 +3,7 @@ using System.Globalization;
 
 namespace TodoApp.ConsoleApp.UI
 {
-    public static class UserInput
+    internal static class UserInput
     {
         const string Yes = "yes";
         const string No = "no";

@@ -4,6 +4,7 @@ using TodoApp.Library.Models;
 using System.IO;
 using TodoApp.ConsoleApp.Services;
 using System.Linq;
+using System.Globalization;
 
 
 namespace TodoApp.ConsoleApp.UI
@@ -12,6 +13,7 @@ namespace TodoApp.ConsoleApp.UI
     {
         const string path = "../../tasks.xml";
         static ITodoService service = new TodoService();
+        static readonly IFormatProvider provider = CultureInfo.CurrentCulture;
 
         public static void ReadOrWrite()
         {
@@ -90,9 +92,8 @@ namespace TodoApp.ConsoleApp.UI
         {
             string title = UserInput.ReadText("Enter a title: ", true);
             string message = UserInput.ReadText("Enter a description: ", true);
-#pragma warning disable CA1305 // Specify IFormatProvider
-            int deadLine = int.Parse(UserInput.ReadText("How many days you need to finish the task?: ",true));
-#pragma warning restore CA1305 // Specify IFormatProvider
+            int deadLine = int.Parse(UserInput.ReadText("How many days you need to finish the task?: ",true),provider);
+
 
             var task = new Task(title, message, deadLine);
 
