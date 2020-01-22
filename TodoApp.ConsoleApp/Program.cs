@@ -8,7 +8,7 @@ namespace TodoApp.ConsoleApp
     {
         static void Main()
         {
-            Console.WriteLine(UserComments.WelcomeMessage());
+            Console.WriteLine(Messages.WelcomeMessage());
             Console.WriteLine();
             
             TaskOperations.ReadOrWrite();

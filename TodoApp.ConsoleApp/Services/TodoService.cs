@@ -30,23 +30,19 @@ namespace TodoApp.ConsoleApp.Services
 
         public bool Update(Task task)
         {
-            Task newTask = new Task();
-            if (task != null)
+            if (task == null)
             {
-                bool isDeleted = Delete(id: task.ID);
-
-
-                if (!isDeleted)
-                {
-                    return false;
-                }
-                newTask = Create(task);
-            }
-            else
-            {
-                throw new ArgumentNullException($"The task is null");
+                throw new ArgumentNullException(nameof(task));
             }
 
+            bool isDeleted = Delete(task.ID);
+
+            if (!isDeleted)
+            {
+                return false;
+            }
+
+            var newTask = Create(task);
 
             return newTask != null;
         }

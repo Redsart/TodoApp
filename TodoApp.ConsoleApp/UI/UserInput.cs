@@ -5,9 +5,9 @@ namespace TodoApp.ConsoleApp.UI
 {
     internal static class UserInput
     {
-        const string Yes = "yes";
-        const string No = "no";
-        static readonly IFormatProvider provider = CultureInfo.CurrentCulture;
+        private const string Yes = "yes";
+        private const string No = "no";
+        private static readonly IFormatProvider provider = CultureInfo.CurrentCulture;
 
         public static string ReadText(string question, bool required = false, string defaultValue = "")
         {
@@ -21,7 +21,7 @@ namespace TodoApp.ConsoleApp.UI
             {
                 while (string.IsNullOrEmpty(text))
                 {
-                    Console.WriteLine(UserComments.FieldCantBeEmpty());
+                    Console.WriteLine(Messages.FieldCantBeEmpty());
                     text = Console.ReadLine();
                 }
             }
@@ -36,11 +36,13 @@ namespace TodoApp.ConsoleApp.UI
 
         public static int ReadOption(string question, string[] availableOptions, bool required = false, int defaultValue = 0)
         {
-            Console.WriteLine(question);
             if (availableOptions == null)
             {
-                throw new ArgumentNullException($"There is no available options!");
+                throw new ArgumentNullException(nameof(availableOptions));
             }
+
+            Console.WriteLine(question);
+
             for (int i = 0; i < availableOptions.Length; i++)
             {
                 Console.WriteLine($"\t{i+1}: {availableOptions[i]}");
@@ -82,7 +84,7 @@ namespace TodoApp.ConsoleApp.UI
 
                 if (!isValid)
                 {
-                    Console.WriteLine(UserComments.YesOrNo());
+                    Console.WriteLine(Messages.YesOrNo());
                 }
             }
             while (!isValid);

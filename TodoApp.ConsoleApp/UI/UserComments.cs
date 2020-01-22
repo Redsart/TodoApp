@@ -1,6 +1,6 @@
 ﻿namespace TodoApp.ConsoleApp.UI
 {
-    static class UserComments
+    static class Messages
     {
         public static string WelcomeMessage()
         {

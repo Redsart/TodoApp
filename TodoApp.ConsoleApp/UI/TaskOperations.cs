@@ -32,11 +32,11 @@ namespace TodoApp.ConsoleApp.UI
                         ReadTasks();
                         break;
                     case 3:
-                        Console.WriteLine(UserComments.GoodBye());
+                        Console.WriteLine(Messages.GoodBye());
                         toContinue = false;
                         break;
                     default:
-                        Console.WriteLine(UserComments.InvalidComand());
+                        Console.WriteLine(Messages.InvalidComand());
                         break;
                 }
             }
@@ -46,7 +46,7 @@ namespace TodoApp.ConsoleApp.UI
         {
             if (!File.Exists(path))
             {
-                Console.WriteLine(UserComments.NoSavedTasks());
+                Console.WriteLine(Messages.NoSavedTasks());
                 return;
             }
 
@@ -83,7 +83,7 @@ namespace TodoApp.ConsoleApp.UI
                     service.DeleteByIndex(index-1);
                     break;
                 default:
-                    Console.WriteLine(UserComments.InvalidComand());
+                    Console.WriteLine(Messages.InvalidComand());
                     break;
             }
         }
@@ -94,14 +94,13 @@ namespace TodoApp.ConsoleApp.UI
             string message = UserInput.ReadText("Enter a description: ", true);
             int deadLine = int.Parse(UserInput.ReadText("How many days you need to finish the task?: ",true),provider);
 
-
             var task = new Task(title, message, deadLine);
 
             bool isSave = UserInput.ReadYesNo("Do you want to save this task?");
             if (isSave)
             {
                 Task savedTask = service.Create(task);
-                Console.WriteLine(UserComments.SaveCompleted());
+                Console.WriteLine(Messages.SaveCompleted());
                 Console.WriteLine(savedTask);
                 Console.WriteLine();
                 return;
