@@ -7,10 +7,10 @@ using System;
 
 namespace TodoApp.Library.Data
 {
-    public class XMLTaskWriter
+    public static  class XMLTaskWriter
     {
         const string path = "../../tasks.xml";
-        public void Save(Task task)
+        public static void Save(Task task)
         {
 
             if (!File.Exists(path))
@@ -48,7 +48,7 @@ namespace TodoApp.Library.Data
             xmlDoc.Save(path);
         }
 
-        public void Delete(Task task)
+        public static void Delete(Task task)
         {
             if (!File.Exists(path))
             {

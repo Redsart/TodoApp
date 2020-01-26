@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using TodoApp.Library.Models;
 using System.Xml;
-using System.Xml.Linq;
-using System.IO;
 using System.Globalization;
 
 namespace TodoApp.Library.Data
@@ -12,7 +9,7 @@ namespace TodoApp.Library.Data
     public class XMLTaskReader
     {
         const string path = "../../tasks.xml";
-        public TimeSpan TimeLeft(DateTime startDate,DateTime endDate)
+        public static TimeSpan TimeLeft(DateTime startDate,DateTime endDate)
         {
             TimeSpan timeLeft = endDate.Subtract(startDate).Duration();
 
@@ -38,9 +35,11 @@ namespace TodoApp.Library.Data
                 DateTime endDate = DateTime.ParseExact(end, "dd MM yyyy", CultureInfo.InvariantCulture);
                 int deadline = TimeLeft(startDate, endDate).Days;
                 string guid = node.Attributes["id"].Value;
-                
-                Task task = new Task(title,message,deadline);
-                task.ID = Guid.Parse(guid);
+
+                Task task = new Task(title, message, deadline)
+                {
+                    ID = Guid.Parse(guid)
+                };
                 tasks.Add(task);
             }
 

@@ -4,6 +4,7 @@ using TodoApp.Library.Models;
 using System.IO;
 using TodoApp.ConsoleApp.Services;
 using System.Linq;
+using System.Globalization;
 
 
 namespace TodoApp.ConsoleApp.UI
@@ -12,6 +13,7 @@ namespace TodoApp.ConsoleApp.UI
     {
         const string path = "../../tasks.xml";
         static ITodoService service = new TodoService();
+        static readonly IFormatProvider provider = CultureInfo.CurrentCulture;
 
         public static void ReadOrWrite()
         {
@@ -30,11 +32,11 @@ namespace TodoApp.ConsoleApp.UI
                         ReadTasks();
                         break;
                     case 3:
-                        Console.WriteLine("Good bye!");
+                        Console.WriteLine(Messages.GoodBye());
                         toContinue = false;
                         break;
                     default:
-                        Console.WriteLine("Error! Invalid comand!");
+                        Console.WriteLine(Messages.InvalidComand());
                         break;
                 }
             }
@@ -44,7 +46,7 @@ namespace TodoApp.ConsoleApp.UI
         {
             if (!File.Exists(path))
             {
-                Console.WriteLine("There is no saved task's!");
+                Console.WriteLine(Messages.NoSavedTasks());
                 return;
             }
 
@@ -63,7 +65,7 @@ namespace TodoApp.ConsoleApp.UI
         static void ManipulateTask()
         {
             int operation = UserInput.ReadOption("Choose an option!", new string[] { "make a new task", "delete a task" }, true);
-            Guid newGuid = Guid.Empty;
+
             switch (operation)
             {
                 case 1:
@@ -81,7 +83,7 @@ namespace TodoApp.ConsoleApp.UI
                     service.DeleteByIndex(index-1);
                     break;
                 default:
-                    Console.WriteLine("Error! Invalid comand!");
+                    Console.WriteLine(Messages.InvalidComand());
                     break;
             }
         }
@@ -90,7 +92,7 @@ namespace TodoApp.ConsoleApp.UI
         {
             string title = UserInput.ReadText("Enter a title: ", true);
             string message = UserInput.ReadText("Enter a description: ", true);
-            int deadLine = int.Parse(UserInput.ReadText("How many days you need to finish the task: ",true));
+            int deadLine = int.Parse(UserInput.ReadText("How many days you need to finish the task?: ",true),provider);
 
             var task = new Task(title, message, deadLine);
 
@@ -98,7 +100,7 @@ namespace TodoApp.ConsoleApp.UI
             if (isSave)
             {
                 Task savedTask = service.Create(task);
-                Console.WriteLine("Save completed!");
+                Console.WriteLine(Messages.SaveCompleted());
                 Console.WriteLine(savedTask);
                 Console.WriteLine();
                 return;

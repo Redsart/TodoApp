@@ -1,11 +1,13 @@
 ﻿using System;
+using System.Globalization;
 
 namespace TodoApp.ConsoleApp.UI
 {
-    public static class UserInput
+    internal static class UserInput
     {
-        const string Yes = "yes";
-        const string No = "no";
+        private const string Yes = "yes";
+        private const string No = "no";
+        private static readonly IFormatProvider provider = CultureInfo.CurrentCulture;
 
         public static string ReadText(string question, bool required = false, string defaultValue = "")
         {
@@ -19,7 +21,7 @@ namespace TodoApp.ConsoleApp.UI
             {
                 while (string.IsNullOrEmpty(text))
                 {
-                    Console.WriteLine("This field can't be empty!");
+                    Console.WriteLine(Messages.FieldCantBeEmpty());
                     text = Console.ReadLine();
                 }
             }
@@ -34,7 +36,13 @@ namespace TodoApp.ConsoleApp.UI
 
         public static int ReadOption(string question, string[] availableOptions, bool required = false, int defaultValue = 0)
         {
+            if (availableOptions == null)
+            {
+                throw new ArgumentNullException(nameof(availableOptions));
+            }
+
             Console.WriteLine(question);
+
             for (int i = 0; i < availableOptions.Length; i++)
             {
                 Console.WriteLine($"\t{i+1}: {availableOptions[i]}");
@@ -46,7 +54,7 @@ namespace TodoApp.ConsoleApp.UI
 
             do
             {
-                input = ReadText("Command", required, defaultValue.ToString());
+                input = ReadText("Command", required, defaultValue.ToString(provider));
                 isValid = int.TryParse(input, out index) && (index > 0 && index <= availableOptions.Length);
 
                 if (!isValid)
@@ -67,7 +75,7 @@ namespace TodoApp.ConsoleApp.UI
 
             do
             {
-                choice = ReadText(question,required,defaultValue.ToString());
+                choice = ReadText(question, required, defaultValue.ToString(provider));
                 bool isYes = choice.Equals(Yes, StringComparison.CurrentCultureIgnoreCase);
                 bool isNo = choice.Equals(No, StringComparison.CurrentCultureIgnoreCase);
                 isValid = isYes || isNo;
@@ -76,7 +84,7 @@ namespace TodoApp.ConsoleApp.UI
 
                 if (!isValid)
                 {
-                    Console.WriteLine("Please, enter either \"yes\" or \"no\"");
+                    Console.WriteLine(Messages.YesOrNo());
                 }
             }
             while (!isValid);
@@ -92,7 +100,7 @@ namespace TodoApp.ConsoleApp.UI
 
             do
             {
-                string input = ReadText("", required, defaultValue.ToString());
+                string input = ReadText("", required, defaultValue.ToString(provider));
                 isValid = int.TryParse(input, out number) && number >= min && number <= max;
 
                 if (!isValid)

@@ -30,21 +30,26 @@ namespace TodoApp.ConsoleApp.Services
 
         public bool Update(Task task)
         {
+            if (task == null)
+            {
+                throw new ArgumentNullException(nameof(task));
+            }
+
             bool isDeleted = Delete(task.ID);
 
             if (!isDeleted)
             {
                 return false;
             }
-            Task newTask = Create(task);
+
+            var newTask = Create(task);
 
             return newTask != null;
         }
 
         public Task Create(Task task)
         {
-            XMLTaskWriter writer = new XMLTaskWriter();
-            writer.Save(task);
+            XMLTaskWriter.Save(task);
 
             return task;
         }
@@ -58,8 +63,7 @@ namespace TodoApp.ConsoleApp.Services
                 return false;
             }
 
-            XMLTaskWriter writer = new XMLTaskWriter();
-            writer.Delete(taskToBeDeleted);
+            XMLTaskWriter.Delete(taskToBeDeleted);
             return true;
         }
 
