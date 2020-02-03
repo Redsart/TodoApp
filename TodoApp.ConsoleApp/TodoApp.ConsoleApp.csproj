@@ -71,6 +71,8 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\IRepository.cs" />
+    <Compile Include="Repositories\XMLRepository.cs" />
     <Compile Include="Services\ITodoService.cs" />
     <Compile Include="Services\TodoService.cs" />
     <Compile Include="UI\TaskOperations.cs" />
@@ -136,5 +138,6 @@
       <SubType>Designer</SubType>
     </CodeAnalysisDictionary>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
