@@ -5,125 +5,61 @@ using System.Linq;
 using System.Text;
 using System.Xml;
 using System.Xml.Linq;
+using TodoApp.ConsoleApp.Repositories.Interfaces;
 using TodoApp.Library.Models;
-using System.IO;
-using TodoApp.ConsoleApp.Repositories;
 
-namespace TodoApp.ConsoleApp.Repositories.XMLRepository
+
+
+namespace TodoApp.ConsoleApp.Repositories.Models.XmlRepository
 {
-    abstract class RepositoryBase<T> : IRepository<TModel,TId> where T : Task
+    abstract class RepositoryBase<TModel, TId> : IRepository<TModel, TId> where TModel : Imodel<TId>
     {
-        const string path = "../../tasks.xml";
-        public static TimeSpan TimeLeft(DateTime startDate, DateTime endDate)
-        {
-            TimeSpan timeLeft = endDate.Subtract(startDate).Duration();
+        protected string Path { get; }
+        protected XDocument Document { get; }
+        protected XElement ContainerElement { get; }
 
-            return timeLeft;
+        protected RepositoryBase(string path,XName containerName)
+        {
+            Path = path;
+            Document = XDocument.Load(path);
+            ContainerElement = Document.Element(containerName);
         }
 
-        public List<Task> ReadTasks()
-        {
-            XmlDocument doc = new XmlDocument();
-            doc.Load(path);
-            XmlElement root = doc.DocumentElement;
-            XmlNodeList nodes;
-            nodes = doc.SelectNodes("tasks/task");
-            List<Task> tasks = new List<Task>();
+        protected abstract TModel ElementToEntity(XElement element);
+        protected abstract XElement EntityToElement(TModel entity);
 
-            foreach (XmlNode node in nodes)
-            {
-                string title = node.SelectSingleNode("title").InnerText;
-                string message = node.SelectSingleNode("description").InnerText;
-                string start = node.SelectSingleNode("dateCreated").InnerText;
-                DateTime startDate = DateTime.ParseExact(start, "dd MM yyyy", CultureInfo.InvariantCulture);
-                string end = node.SelectSingleNode("deadline").InnerText;
-                DateTime endDate = DateTime.ParseExact(end, "dd MM yyyy", CultureInfo.InvariantCulture);
-                int deadline = TimeLeft(startDate, endDate).Days;
-                string guid = node.Attributes["id"].Value;
 
-                Task task = new Task(title, message, deadline)
-                {
-                    ID = Guid.Parse(guid)
-                };
-                tasks.Add(task);
-            }
-
-            return tasks;
-        }
-
-        public void Add(Task task)
-        {
-            if (!File.Exists(path))
-            {
-                XmlWriterSettings xmlWriterSettings = new XmlWriterSettings();
-                xmlWriterSettings.Indent = true;
-                Encoding encoding = Encoding.GetEncoding("UTF-8");
-                using (XmlWriter writer = XmlWriter.Create(path))
-                {
-                    writer.WriteStartDocument();
-                    writer.WriteStartElement("tasks");
-                    writer.WriteEndElement();
-                    writer.WriteEndDocument();
-                    writer.Close();
-                }
-            }
-
-            var xmlDoc = XDocument.Load(path);
-            var parentElement = new XElement("task");
-            var title = new XElement("title", task.Title);
-            var description = new XElement("description", task.Message);
-            var dateCreated = new XElement("dateCreated", string.Format("{0:dd MM yyyy}", task.StartDate));
-            var timeLeft = new XElement("deadline", string.Format("{0:dd MM yyyy}", task.EndDate));
-            var id = new XAttribute("id", task.ID);
-
-            parentElement.Add(title);
-            parentElement.Add(id);
-            parentElement.Add(description);
-            parentElement.Add(dateCreated);
-            parentElement.Add(timeLeft);
-
-            var rootElement = xmlDoc.Element("tasks");
-            rootElement?.Add(parentElement);
-
-            xmlDoc.Save(path);
-        }
-
-        public Task Get(int id)
+        public void Delete(TId id, bool isDeleted)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Task> GetAll()
+        public IEnumerable<TModel> Get()
         {
-            var tasks = ReadTasks();
-
-            return tasks.ToList();
+            throw new NotImplementedException();
         }
 
-        public void Remove(Task task)
+        public IEnumerable<TModel> GetAll()
         {
-            if (!File.Exists(path))
-            {
-                throw new FileNotFoundException("There is no created task's!");
-            }
-
-            XmlDocument doc = new XmlDocument();
-            doc.Load(path);
-            XmlNodeList nodes;
-            nodes = doc.SelectNodes("tasks/task");
-
-            foreach (XmlNode node in nodes)
-            {
-                if (node.Attributes["id"].Value.ToString() == task.ID.ToString())
-                {
-                    node.ParentNode.RemoveChild(node);
-                }
-            }
-
-            doc.Save(path);
+            throw new NotImplementedException();
         }
 
-        public void Update(Task task)
+        public TModel GetById(TId id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public TModel Insert(TModel model, bool isInserted)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Save()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(TModel model, bool isUpdated)
         {
             throw new NotImplementedException();
         }
