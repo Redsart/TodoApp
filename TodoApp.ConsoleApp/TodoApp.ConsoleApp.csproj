@@ -71,7 +71,10 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\IRepository.cs" />
+    <Compile Include="Repositories\Interfaces\Irepository.cs" />
+    <Compile Include="Repositories\Models\IModel.cs" />
+    <Compile Include="Repositories\Models\TodoModel.cs" />
+    <Compile Include="Repositories\Models\TodoStatus.cs" />
     <Compile Include="Repositories\XMLRepository\RepositoryBase.cs" />
     <Compile Include="Services\ITodoService.cs" />
     <Compile Include="Services\TodoService.cs" />

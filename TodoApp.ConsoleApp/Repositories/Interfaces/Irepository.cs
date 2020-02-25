@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using TodoApp.ConsoleApp.Repositories.Models;
 
 namespace TodoApp.ConsoleApp.Repositories
 {
