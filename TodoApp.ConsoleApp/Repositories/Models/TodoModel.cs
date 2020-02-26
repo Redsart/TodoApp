@@ -1,12 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using TodoApp.ConsoleApp.Repositories.Interfaces;
 
 namespace TodoApp.ConsoleApp.Repositories.Models
 {
-    class TodoModel
+    class TodoModel : Imodel<Guid>
     {
+        Guid ID { get; set; }
+
+        string Title { get; set; }
+
+        string Discription { get; set; }
+
+        DateTime DueDate { get; set; }
+
+        DateTime CreatedOn { get; set; }
+
+        TodoStatus Status { get; set; }
     }
 }

@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TodoApp.ConsoleApp.Repositories.Models
 {
-    class TodoStatus
+    enum TodoStatus
     {
+        Open,
+        InProgress,
+        Done
     }
 }

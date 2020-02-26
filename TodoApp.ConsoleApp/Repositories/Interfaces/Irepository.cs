@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
-using TodoApp.ConsoleApp.Repositories.Models;
 
-namespace TodoApp.ConsoleApp.Repositories
+namespace TodoApp.ConsoleApp.Repositories.Interfaces
 {
-    interface IRepository<TModel, TId> where TModel : IModel<TId>
+    interface IRepository<TModel, TId> where TModel : Imodel<TId>
     {
         IEnumerable<TModel> GetAll();
         IEnumerable<TModel> Get();
