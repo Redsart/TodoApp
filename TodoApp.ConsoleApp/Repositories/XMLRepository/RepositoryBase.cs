@@ -47,7 +47,11 @@ namespace TodoApp.ConsoleApp.Repositories.Models.XmlRepository
 
         public TModel GetById(TId id)
         {
-            throw new NotImplementedException();
+            XElement element = ContainerElement.Elements().FirstOrDefault(a => a.Attribute("id").Value == id.ToString());
+
+            TModel model = ElementToEntity(element);
+
+            return model;
         }
 
         public TModel Insert(TModel model)
