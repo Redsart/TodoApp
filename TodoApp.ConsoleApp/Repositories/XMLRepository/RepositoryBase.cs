@@ -1,14 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Xml;
 using System.Xml.Linq;
 using TodoApp.ConsoleApp.Repositories.Interfaces;
-using TodoApp.Library.Models;
-
-
+using TodoApp.Library.Data;
+using System.Xml;
+using System.Linq;
 
 namespace TodoApp.ConsoleApp.Repositories.Models.XmlRepository
 {
@@ -28,18 +24,23 @@ namespace TodoApp.ConsoleApp.Repositories.Models.XmlRepository
         protected abstract TModel ElementToEntity(XElement element);
         protected abstract XElement EntityToElement(TModel entity);
 
-
-        public void Delete(TId id, bool isDeleted)
+        public IEnumerable<TModel> GetAll()
         {
-            throw new NotImplementedException();
+            List<TModel> models = new List<TModel>();
+
+            foreach (var element in XMLContent())
+            {
+                models.Add(ElementToEntity(element));
+            }
+            return models;
+        }
+
+        public void Delete(TId id)
+        {
+            ContainerElement.Elements().FirstOrDefault(a => a.Attribute("id").Value == id.ToString()).Remove();
         }
 
         public IEnumerable<TModel> Get()
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<TModel> GetAll()
         {
             throw new NotImplementedException();
         }
@@ -49,7 +50,7 @@ namespace TodoApp.ConsoleApp.Repositories.Models.XmlRepository
             throw new NotImplementedException();
         }
 
-        public TModel Insert(TModel model, bool isInserted)
+        public TModel Insert(TModel model)
         {
             throw new NotImplementedException();
         }
@@ -59,9 +60,17 @@ namespace TodoApp.ConsoleApp.Repositories.Models.XmlRepository
             throw new NotImplementedException();
         }
 
-        public void Update(TModel model, bool isUpdated)
+        public void Update(TModel model)
         {
             throw new NotImplementedException();
+        }
+
+        public IEnumerable<XElement> XMLContent()
+        {
+            IEnumerable<XElement> elements = from el
+                                             in ContainerElement.Elements()
+                                             select el;
+            return elements;
         }
     }
 }
