@@ -5,6 +5,8 @@ using TodoApp.ConsoleApp.Repositories.Interfaces;
 using TodoApp.Library.Data;
 using System.Xml;
 using System.Linq;
+using System.IO;
+using System.Data;
 
 namespace TodoApp.ConsoleApp.Repositories.Models.XmlRepository
 {
@@ -56,12 +58,25 @@ namespace TodoApp.ConsoleApp.Repositories.Models.XmlRepository
 
         public TModel Insert(TModel model)
         {
-            throw new NotImplementedException();
+            Guid id = new Guid();
+            XElement element = EntityToElement(model);
+            element.Attribute("id").SetValue(id);
+            TModel modelwithId = ElementToEntity(element);
+
+            return modelwithId;
         }
 
         public bool Save()
         {
-            throw new NotImplementedException();
+            bool isPath = false;
+            if (Directory.Exists(Path))
+            {
+                isPath = true;
+                isPath = true;
+                Document.Save(Path);
+            }
+
+            return isPath;
         }
 
         public void Update(TModel model)
