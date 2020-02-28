@@ -2,21 +2,19 @@
 using System.Collections.Generic;
 using System.Xml.Linq;
 using TodoApp.ConsoleApp.Repositories.Interfaces;
-using TodoApp.Library.Data;
-using System.Xml;
 using System.Linq;
 using System.IO;
 using System.Data;
 
 namespace TodoApp.ConsoleApp.Repositories.Models.XmlRepository
 {
-    abstract class RepositoryBase<TModel, TId> : IRepository<TModel, TId> where TModel : Imodel<TId>
+    abstract class RepositoryBase<TModel, TId> : IRepository<TModel, TId> where TModel : IModel<TId>
     {
         protected string Path { get; }
         protected XDocument Document { get; }
         protected XElement ContainerElement { get; }
 
-        protected RepositoryBase(string path,XName containerName)
+        protected RepositoryBase(string path, XName containerName)
         {
             Path = path;
             Document = XDocument.Load(path);
@@ -28,12 +26,10 @@ namespace TodoApp.ConsoleApp.Repositories.Models.XmlRepository
 
         public IEnumerable<TModel> GetAll()
         {
-            List<TModel> models = new List<TModel>();
+            var models = from el
+                         in ContainerElement.Elements()
+                         select ElementToEntity(el);
 
-            foreach (var element in XMLContent())
-            {
-                models.Add(ElementToEntity(element));
-            }
             return models;
         }
 
@@ -82,14 +78,6 @@ namespace TodoApp.ConsoleApp.Repositories.Models.XmlRepository
         public void Update(TModel model)
         {
             throw new NotImplementedException();
-        }
-
-        public IEnumerable<XElement> XMLContent()
-        {
-            IEnumerable<XElement> elements = from el
-                                             in ContainerElement.Elements()
-                                             select el;
-            return elements;
         }
     }
 }
