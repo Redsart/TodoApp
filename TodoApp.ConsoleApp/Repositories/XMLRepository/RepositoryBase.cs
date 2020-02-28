@@ -57,30 +57,34 @@ namespace TodoApp.ConsoleApp.Repositories.Models.XmlRepository
 
         public TModel Insert(TModel model)
         {
-            Guid id = new Guid();
-            XElement element = EntityToElement(model);
-            element.Attribute("id").SetValue(id);
-            TModel modelwithId = ElementToEntity(element);
+            XElement newElement = EntityToElement(model);
 
-            return modelwithId;
+            Guid id = new Guid();
+            newElement.Attribute("id").SetValue(id);
+
+            TModel newModel = ElementToEntity(newElement);
+
+            return newModel;
         }
 
         public bool Save()
         {
-            bool isPath = false;
-            if (Directory.Exists(Path))
+            if (!Directory.Exists(Path))
             {
-                isPath = true;
-                isPath = true;
-                Document.Save(Path);
+                return false;
+                
             }
 
-            return isPath;
+            Document.Save(Path);
+            return true;
         }
 
         public void Update(TModel model)
         {
-            throw new NotImplementedException();
+            var oldElement = GetElementById(model.Id);
+            var newElement = EntityToElement(model);
+
+            oldElement?.ReplaceWith(newElement);
         }
 
         XElement GetElementById(TId id)
