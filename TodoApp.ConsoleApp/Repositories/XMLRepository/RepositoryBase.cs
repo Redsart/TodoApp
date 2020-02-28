@@ -14,6 +14,8 @@ namespace TodoApp.ConsoleApp.Repositories.Models.XmlRepository
         protected XDocument Document { get; }
         protected XElement ContainerElement { get; }
 
+        protected abstract string IdName { get; }
+
         protected RepositoryBase(string path, XName containerName)
         {
             Path = path;
@@ -29,13 +31,14 @@ namespace TodoApp.ConsoleApp.Repositories.Models.XmlRepository
             var models = from el
                          in ContainerElement.Elements()
                          select ElementToEntity(el);
-
+            
             return models;
         }
 
         public void Delete(TId id)
         {
-            ContainerElement.Elements().FirstOrDefault(a => a.Attribute("id").Value == id.ToString()).Remove();
+            GetElementById(id)
+                .Remove();
         }
 
         public IEnumerable<TModel> Get()
@@ -45,7 +48,7 @@ namespace TodoApp.ConsoleApp.Repositories.Models.XmlRepository
 
         public TModel GetById(TId id)
         {
-            XElement element = ContainerElement.Elements().FirstOrDefault(a => a.Attribute("id").Value == id.ToString());
+            XElement element = GetElementById(id);
 
             TModel model = ElementToEntity(element);
 
@@ -78,6 +81,14 @@ namespace TodoApp.ConsoleApp.Repositories.Models.XmlRepository
         public void Update(TModel model)
         {
             throw new NotImplementedException();
+        }
+
+        XElement GetElementById(TId id)
+        {
+            XElement element = ContainerElement.Elements()
+                .FirstOrDefault(a => a.Attribute("id").Value == id.ToString());
+
+            return element;
         }
     }
 }
