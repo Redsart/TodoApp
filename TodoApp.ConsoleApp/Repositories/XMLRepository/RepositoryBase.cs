@@ -41,9 +41,24 @@ namespace TodoApp.ConsoleApp.Repositories.Models.XmlRepository
                 .Remove();
         }
 
-        public IEnumerable<TModel> Get()
+        public IEnumerable<TModel> Get(Func<TModel, bool> filter)
         {
-            throw new NotImplementedException();
+            var filteredModels = ContainerElement.Elements().Select(x => ElementToEntity(x)).Where(filter);
+            return filteredModels;
+        }
+
+        public IEnumerable<TModel> Get<TOrderKey>(Func<TModel, TOrderKey> orderByKey)
+        {
+            var filteredModels = ContainerElement.Elements().Select(x => ElementToEntity(x)).OrderBy(orderByKey);
+
+            return filteredModels;
+        }
+
+        public IEnumerable<TModel> Get<TOrderKey>(Func<TModel, bool> filter, Func<TModel, TOrderKey> orderByKey)
+        {
+            var filteredModels = ContainerElement.Elements().Select(x => ElementToEntity(x)).Where(filter).OrderBy(orderByKey);
+
+            return filteredModels;
         }
 
         public TModel GetById(TId id)
@@ -89,6 +104,11 @@ namespace TodoApp.ConsoleApp.Repositories.Models.XmlRepository
 
         XElement GetElementById(TId id)
         {
+            if (ContainerElement.Elements().FirstOrDefault(a => a.Attribute("id").Value == id.ToString()) == null)
+            {
+
+            }
+
             XElement element = ContainerElement.Elements()
                 .FirstOrDefault(a => a.Attribute("id").Value == id.ToString());
 

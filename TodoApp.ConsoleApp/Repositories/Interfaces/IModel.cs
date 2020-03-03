@@ -2,8 +2,8 @@
 
 namespace TodoApp.ConsoleApp.Repositories.Interfaces
 {
-    class Imodel<TId>
+    class IModel<TId>
     {
-        TId ID;
+        public TId Id;
     }
 }
