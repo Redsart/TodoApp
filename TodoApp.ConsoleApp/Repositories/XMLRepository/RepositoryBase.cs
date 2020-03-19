@@ -6,7 +6,7 @@ using System.Linq;
 using System.IO;
 using System.Data;
 
-namespace TodoApp.ConsoleApp.Repositories.XmlRepository
+namespace TodoApp.ConsoleApp.Repositories.XMLRepository
 {
     abstract class RepositoryBase<TModel, TId> : IRepository<TModel, TId> where TModel : IModel<TId>
     {
