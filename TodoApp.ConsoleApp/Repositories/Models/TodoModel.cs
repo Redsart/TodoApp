@@ -1,20 +1,19 @@
 ﻿using System;
-using TodoApp.ConsoleApp.Repositories.Interfaces;
 
 namespace TodoApp.ConsoleApp.Repositories.Models
 {
-    protected internal class TodoModel : IModel<Guid>
+    class TodoModel : IModel<Guid>
     {
-        Guid ID { get; set; }
+        Guid IModel<Guid>.ID { get; set; }
 
-        string Title { get; set; }
+        protected string Title { get; set; }
 
-        string Discription { get; set; }
+        protected string Discription { get; set; }
 
-        DateTime DueDate { get; set; }
+        protected DateTime DueDate { get; set; }
 
-        DateTime CreatedOn { get; set; }
+        protected DateTime CreatedOn { get; set; }
 
-        TodoStatus Status { get; set; }
+        protected TodoStatus Status { get; set; }
     }
 }

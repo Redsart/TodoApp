@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Xml.Linq;
 using TodoApp.ConsoleApp.Repositories.Interfaces;
+using TodoApp.ConsoleApp.Repositories.Models;
 using System.Linq;
 using System.IO;
 using System.Data;
@@ -43,20 +44,20 @@ namespace TodoApp.ConsoleApp.Repositories.XMLRepository
 
         public IEnumerable<TModel> Get(Func<TModel, bool> filter)
         {
-            var models = ContainerElement.Elements().Select(x => ElementToEntity(x)).Where(filter);
+            var models = GetAll().Where(filter);
             return models;
         }
 
         public IEnumerable<TModel> Get<TOrderKey>(Func<TModel, TOrderKey> orderByKey)
         {
-            var models = ContainerElement.Elements().Select(x => ElementToEntity(x)).OrderBy(orderByKey);
+            var models = GetAll().OrderBy(orderByKey);
 
             return models;
         }
 
         public IEnumerable<TModel> Get<TOrderKey>(Func<TModel, bool> filter, Func<TModel, TOrderKey> orderByKey)
         {
-            var models = ContainerElement.Elements().Select(x => ElementToEntity(x)).Where(filter).OrderBy(orderByKey);
+            var models = GetAll().Where(filter).OrderBy(orderByKey);
 
             return models;
         }
