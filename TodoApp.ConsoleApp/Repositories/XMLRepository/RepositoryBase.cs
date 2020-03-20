@@ -75,7 +75,7 @@ namespace TodoApp.ConsoleApp.Repositories.XMLRepository
             XElement newElement = EntityToElement(model);
 
             Guid id = new Guid();
-            newElement.Attribute("id").SetValue(id);
+            newElement.Attribute(IdName).SetValue(id);
 
             TModel newModel = ElementToEntity(newElement);
 
@@ -102,15 +102,10 @@ namespace TodoApp.ConsoleApp.Repositories.XMLRepository
             oldElement?.ReplaceWith(newElement);
         }
 
-        XElement GetElementById(TId id)
+        protected XElement GetElementById(TId id)
         {
-            if (ContainerElement.Elements().FirstOrDefault(a => a.Attribute("id").Value == id.ToString()) == null)
-            {
-
-            }
-
             XElement element = ContainerElement.Elements()
-                .FirstOrDefault(a => a.Attribute("id").Value == id.ToString());
+                .FirstOrDefault(a => a.Attribute(IdName).Value == id.ToString());
 
             return element;
         }

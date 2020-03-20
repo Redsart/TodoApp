@@ -3,7 +3,7 @@ using TodoApp.ConsoleApp.Repositories.Interfaces;
 
 namespace TodoApp.ConsoleApp.Repositories.Models
 {
-    class TodoModel : IModel<Guid>
+    protected internal class TodoModel : IModel<Guid>
     {
         Guid ID { get; set; }
 
