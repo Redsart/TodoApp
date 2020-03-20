@@ -43,22 +43,22 @@ namespace TodoApp.ConsoleApp.Repositories.XMLRepository
 
         public IEnumerable<TModel> Get(Func<TModel, bool> filter)
         {
-            var filteredModels = ContainerElement.Elements().Select(x => ElementToEntity(x)).Where(filter);
-            return filteredModels;
+            var models = ContainerElement.Elements().Select(x => ElementToEntity(x)).Where(filter);
+            return models;
         }
 
         public IEnumerable<TModel> Get<TOrderKey>(Func<TModel, TOrderKey> orderByKey)
         {
-            var filteredModels = ContainerElement.Elements().Select(x => ElementToEntity(x)).OrderBy(orderByKey);
+            var models = ContainerElement.Elements().Select(x => ElementToEntity(x)).OrderBy(orderByKey);
 
-            return filteredModels;
+            return models;
         }
 
         public IEnumerable<TModel> Get<TOrderKey>(Func<TModel, bool> filter, Func<TModel, TOrderKey> orderByKey)
         {
-            var filteredModels = ContainerElement.Elements().Select(x => ElementToEntity(x)).Where(filter).OrderBy(orderByKey);
+            var models = ContainerElement.Elements().Select(x => ElementToEntity(x)).Where(filter).OrderBy(orderByKey);
 
-            return filteredModels;
+            return models;
         }
 
         public TModel GetById(TId id)
@@ -87,7 +87,6 @@ namespace TodoApp.ConsoleApp.Repositories.XMLRepository
             if (!Directory.Exists(Path))
             {
                 return false;
-                
             }
 
             Document.Save(Path);
@@ -96,7 +95,7 @@ namespace TodoApp.ConsoleApp.Repositories.XMLRepository
 
         public void Update(TModel model)
         {
-            var oldElement = GetElementById(model.Id);
+            var oldElement = GetElementById(model.ID);
             var newElement = EntityToElement(model);
 
             oldElement?.ReplaceWith(newElement);
