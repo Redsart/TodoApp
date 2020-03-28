@@ -5,8 +5,13 @@ using TodoApp.ConsoleApp.Repositories.Interfaces;
 
 namespace TodoApp.ConsoleApp.Repositories.XMLRepository
 {
-    internal class TodoRepository : RepositoryBase<TodoModel, Guid>, ITodoRepository
+    public class TodoRepository : RepositoryBase<TodoModel, Guid>, ITodoRepository
     {
+        public TodoRepository(string path) : base(path, "todos")
+        {
+
+        }
+
         protected override string IdName => throw new NotImplementedException();
 
         protected override TodoModel ElementToEntity(XElement element)
