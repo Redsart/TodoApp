@@ -2,18 +2,18 @@
 
 namespace TodoApp.ConsoleApp.Repositories.Models
 {
-    class TodoModel : IModel<Guid>
+    public class TodoModel : IModel<Guid>
     {
         Guid IModel<Guid>.ID { get; set; }
 
-        protected string Title { get; set; }
+        public string Title { get; set; }
 
-        protected string Discription { get; set; }
+        public string Discription { get; set; }
 
-        protected DateTime DueDate { get; set; }
+        public DateTime DueDate { get; set; }
 
-        protected DateTime CreatedOn { get; set; }
+        public DateTime CreatedOn { get; set; }
 
-        protected TodoStatus Status { get; set; }
+        public TodoStatus Status { get; set; }
     }
 }

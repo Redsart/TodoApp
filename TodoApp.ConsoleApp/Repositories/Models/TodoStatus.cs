@@ -2,7 +2,7 @@
 
 namespace TodoApp.ConsoleApp.Repositories.Models
 {
-    enum TodoStatus
+    public enum TodoStatus
     {
         Open,
         InProgress,

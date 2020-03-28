@@ -9,13 +9,20 @@ using System.Data;
 
 namespace TodoApp.ConsoleApp.Repositories.XMLRepository
 {
-    abstract class RepositoryBase<TModel, TId> : IRepository<TModel, TId> where TModel : IModel<TId>
+    public abstract class RepositoryBase<TModel, TId> : IRepository<TModel, TId> where TModel : IModel<TId>
     {
         protected string Path { get; }
         protected XDocument Document { get; }
         protected XElement ContainerElement { get; }
-
         protected abstract string IdName { get; }
+
+        protected XElement GetElementById(TId id)
+        {
+            XElement element = ContainerElement.Elements()
+                .FirstOrDefault(a => a.Attribute(IdName).Value == id.ToString());
+
+            return element;
+        }
 
         protected RepositoryBase(string path, XName containerName)
         {
@@ -100,14 +107,6 @@ namespace TodoApp.ConsoleApp.Repositories.XMLRepository
             var newElement = EntityToElement(model);
 
             oldElement?.ReplaceWith(newElement);
-        }
-
-        protected XElement GetElementById(TId id)
-        {
-            XElement element = ContainerElement.Elements()
-                .FirstOrDefault(a => a.Attribute(IdName).Value == id.ToString());
-
-            return element;
         }
     }
 }
