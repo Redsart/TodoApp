@@ -4,7 +4,7 @@ using TodoApp.ConsoleApp.Repositories.Models;
 
 namespace TodoApp.ConsoleApp.Repositories.Interfaces
 {
-    interface IRepository<TModel, TId> where TModel : IModel<TId>
+    public interface IRepository<TModel, TId> where TModel : IModel<TId>
     {
         IEnumerable<TModel> GetAll();
         IEnumerable<TModel> Get(Func<TModel, bool> filter);

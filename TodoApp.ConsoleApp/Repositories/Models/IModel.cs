@@ -2,7 +2,7 @@
 
 namespace TodoApp.ConsoleApp.Repositories.Models
 {
-    interface IModel<TId>
+    public interface IModel<TId>
     {
          TId ID { get; set; }
     }

@@ -4,11 +4,11 @@ namespace TodoApp.ConsoleApp.Repositories.Models
 {
     public class TodoModel : IModel<Guid>
     {
-        Guid IModel<Guid>.ID { get; set; }
+        public Guid ID { get; set; }
 
         public string Title { get; set; }
 
-        public string Discription { get; set; }
+        public string Description { get; set; }
 
         public DateTime DueDate { get; set; }
 

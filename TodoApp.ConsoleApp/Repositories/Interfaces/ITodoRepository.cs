@@ -3,7 +3,7 @@ using TodoApp.ConsoleApp.Repositories.Models;
 
 namespace TodoApp.ConsoleApp.Repositories.Interfaces
 {
-    interface ITodoRepository : IRepository<TodoModel, Guid>
+    public interface ITodoRepository : IRepository<TodoModel, Guid>
     {
         
     }
