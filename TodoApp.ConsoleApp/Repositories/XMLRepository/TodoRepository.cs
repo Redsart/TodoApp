@@ -9,18 +9,25 @@ namespace TodoApp.ConsoleApp.Repositories.XMLRepository
 {
     public class TodoRepository : RepositoryBase<TodoModel, Guid>, ITodoRepository
     {
+        string idName = "id";
         public TodoRepository(string path) : base(path, "todos")
         {
 
         }
 
-        protected override string IdName => throw new NotImplementedException();
+        protected override string IdName
+        {
+            get
+            {
+                return this.idName;
+            }
+        }
 
         protected override TodoModel ElementToEntity(XElement element)
         {
             if (element == null)
             {
-                
+                return null;
             }
 
             string title = element.Element("title").Value;
@@ -29,7 +36,7 @@ namespace TodoApp.ConsoleApp.Repositories.XMLRepository
             DateTime dateCreated = DateTime.ParseExact(start, "dd MM yyyy", CultureInfo.InvariantCulture);
             string end = element.Element("dueDate").Value;
             DateTime dueDate= DateTime.ParseExact(end, "dd MM yyyy", CultureInfo.InvariantCulture);
-            Guid id = Guid.Parse(element.Attribute("id").Value);
+            Guid id = Guid.Parse(element.Attribute(IdName).Value);
 
             var model = new TodoModel();
             model.Title = title;
@@ -43,31 +50,25 @@ namespace TodoApp.ConsoleApp.Repositories.XMLRepository
 
         protected override XElement EntityToElement(TodoModel entity)
         {
-            if (!File.Exists(Path))
+            if (entity == null)
             {
-                
+                return null;
             }
-            
-            var xmlDoc = XDocument.Load(Path);
-            var parentElement = new XElement("todo");
+
+            var element = new XElement("todo");
             var title = new XElement("title", entity.Title);
             var description = new XElement("description", entity.Description);
             var dateCreated = new XElement("createdOn", string.Format("{0:dd MM yyyy}", entity.CreatedOn));
             var dueDate = new XElement("dueDate", string.Format("{0:dd MM yyyy}", entity.DueDate));
             var id = new XAttribute("id", entity);
 
-            parentElement.Add(title);
-            parentElement.Add(id);
-            parentElement.Add(description);
-            parentElement.Add(dateCreated);
-            parentElement.Add(dueDate);
+            element.Add(title);
+            element.Add(id);
+            element.Add(description);
+            element.Add(dateCreated);
+            element.Add(dueDate);
 
-            var rootElement = xmlDoc.Element("todos");
-            rootElement?.Add(parentElement);
-
-            xmlDoc.Save(Path);
-
-            return parentElement;
+            return element;
         }
     }
 }
