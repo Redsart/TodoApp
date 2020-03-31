@@ -7,19 +7,13 @@ namespace TodoApp.ConsoleApp.Repositories.XMLRepository
 {
     public class TodoRepository : RepositoryBase<TodoModel, Guid>, ITodoRepository
     {
-        string idName = "Id";
         public TodoRepository(string path) : base(path, "todos")
         {
 
         }
 
-        protected override string IdName
-        {
-            get
-            {
-                return this.idName;
-            }
-        }
+        protected override string IdName => "Id";
+
 
         protected override TodoModel ElementToEntity(XElement element)
         {
