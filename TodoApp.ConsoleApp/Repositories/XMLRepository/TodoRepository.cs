@@ -60,7 +60,7 @@ namespace TodoApp.ConsoleApp.Repositories.XMLRepository
             var description = new XElement("description", entity.Description);
             var dateCreated = new XElement("createdOn", string.Format("{0:dd MM yyyy}", entity.CreatedOn));
             var dueDate = new XElement("dueDate", string.Format("{0:dd MM yyyy}", entity.DueDate));
-            var id = new XAttribute("id", entity);
+            var id = new XAttribute("id", entity.ID);
 
             element.Add(title);
             element.Add(id);

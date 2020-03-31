@@ -78,6 +78,7 @@
     <Compile Include="Repositories\Models\TodoStatus.cs" />
     <Compile Include="Repositories\XMLRepository\RepositoryBase.cs" />
     <Compile Include="Repositories\XMLRepository\TodoRepository.cs" />
+    <Compile Include="Repositories\XMLRepository\XmlParser.cs" />
     <Compile Include="Services\ITodoService.cs" />
     <Compile Include="Services\TodoService.cs" />
     <Compile Include="UI\TaskOperations.cs" />
