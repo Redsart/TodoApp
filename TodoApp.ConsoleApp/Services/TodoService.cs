@@ -1,13 +1,15 @@
 ﻿using System.Collections.Generic;
+using TodoApp.ConsoleApp.Repositories.Models;
+using TodoApp.ConsoleApp.Repositories.XMLRepository;
 using TodoApp.Library.Data;
 using TodoApp.Library.Models;
 using System.Linq;
 using System;
 
 namespace TodoApp.ConsoleApp.Services
-{
-    public class TodoService : ITodoService
+{    public class TodoService : ITodoService
     {
+        RepositoryBase
         public IEnumerable<Task> GetAll()
         {
             XMLTaskReader reader = new XMLTaskReader();
