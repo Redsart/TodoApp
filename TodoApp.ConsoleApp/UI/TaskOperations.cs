@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using TodoApp.ConsoleApp.Repositories.Models;
-using TodoApp.Library.Models;
 using System.IO;
 using TodoApp.ConsoleApp.Services;
 using System.Linq;
 using System.Globalization;
-
 
 namespace TodoApp.ConsoleApp.UI
 {
@@ -95,14 +93,14 @@ namespace TodoApp.ConsoleApp.UI
             string message = UserInput.ReadText("Enter a description: ", true);
             int deadLine = int.Parse(UserInput.ReadText("How many days you need to finish the task?: ",true),provider);
 
-            var task = new Task(title, message, deadLine);
+            var model = new TodoModel();
 
             bool isSave = UserInput.ReadYesNo("Do you want to save this task?");
             if (isSave)
             {
-                Task savedTask = service.Create(task);
+                TodoModel savedModel = service.Create(model);
                 Console.WriteLine(Messages.SaveCompleted());
-                Console.WriteLine(savedTask);
+                Console.WriteLine(savedModel);
                 Console.WriteLine();
                 return;
             }
