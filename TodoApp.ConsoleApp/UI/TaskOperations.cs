@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using TodoApp.ConsoleApp.Repositories.Models;
 using TodoApp.Library.Models;
 using System.IO;
 using TodoApp.ConsoleApp.Services;
@@ -52,11 +53,11 @@ namespace TodoApp.ConsoleApp.UI
 
             else
             {
-                IEnumerable<Task> tasks = service.GetAll();
+                IEnumerable<TodoModel> models = service.GetAll();
                 int count = 1;
-                foreach (var task in tasks)
+                foreach (var model in models)
                 {
-                    Console.WriteLine($"Task {count++}:\n{task.Title}\nDescription: {task.Message}\nstarted at: {task.StartDate}\nterm to: {task.EndDate}");
+                    Console.WriteLine($"Task {count++}:\n{model.Title}\nDescription: {model.Message}\nstarted at: {model.StartDate}\nterm to: {model.EndDate}");
                     Console.WriteLine();
                 }
             }
