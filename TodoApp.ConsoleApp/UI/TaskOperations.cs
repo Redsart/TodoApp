@@ -57,7 +57,7 @@ namespace TodoApp.ConsoleApp.UI
                 int count = 1;
                 foreach (var model in models)
                 {
-                    Console.WriteLine($"Task {count++}:\n{model.Title}\nDescription: {model.Message}\nstarted at: {model.StartDate}\nterm to: {model.EndDate}");
+                    Console.WriteLine($"Task {count++}:\n{model.Title}\nDescription: {model.Description}\nstarted at: {model.CreatedOn}\nterm to: {model.DueDate}");
                     Console.WriteLine();
                 }
             }
