@@ -90,10 +90,11 @@ namespace TodoApp.ConsoleApp.UI
         static void TaskMaker()
         {
             string title = UserInput.ReadText("Enter a title: ", true);
-            string message = UserInput.ReadText("Enter a description: ", true);
-            int deadLine = int.Parse(UserInput.ReadText("How many days you need to finish the task?: ",true),provider);
+            string description = UserInput.ReadText("Enter a description: ", true);
+            string strDueDate = UserInput.ReadText("Enter dueDate: ", true);
+            DateTime duedate = DateTime.Parse(strDueDate, CultureInfo.InvariantCulture, DateTimeStyles.RoundtripKind);
 
-            var model = new TodoModel();
+            var model = new TodoModel() { Title = title, Description = description, CreatedOn = DateTime.Now, DueDate = duedate};
 
             bool isSave = UserInput.ReadYesNo("Do you want to save this task?");
             if (isSave)
