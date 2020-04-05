@@ -15,5 +15,10 @@ namespace TodoApp.ConsoleApp.Repositories.Models
         public DateTime CreatedOn { get; set; }
 
         public TodoStatus Status { get; set; }
+
+        public override string ToString()
+        {
+            return string.Format($"title:{this.Title}\n{this.Status}\n{this.Description}\n{this.CreatedOn}\n{this.DueDate}");
+        }
     }
 }
