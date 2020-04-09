@@ -31,36 +31,17 @@ namespace TodoApp.ConsoleApp.Services
                 throw new ArgumentNullException(nameof(model));
             }
 
-            bool isDeleted = Delete(model.Id);
+            repo.Update(model);
+            repo.Save();
 
-            if (!isDeleted)
-            {
-                return false;
-            }
-
-            var newModel = Create(model);
-
-            return newModel != null;
+            return model != null;
         }
 
         public TodoModel Create(TodoModel model)
         {
-            if (!File.Exists(Path))
-            {
-                XmlWriterSettings xmlWriterSettings = new XmlWriterSettings();
-                xmlWriterSettings.Indent = true;
-                Encoding encoding = Encoding.GetEncoding("UTF-8");
-                using (XmlWriter writer = XmlWriter.Create(Path))
-                {
-                    writer.WriteStartDocument();
-                    writer.WriteStartElement("todos");
-                    writer.WriteEndElement();
-                    writer.WriteEndDocument();
-                    writer.Close();
-                }
-            }
-
             repo.Insert(model);
+            repo.Save();
+
             return model;
         }
 
@@ -74,14 +55,18 @@ namespace TodoApp.ConsoleApp.Services
             }
 
             repo.Delete(id);
+            repo.Save();
+
             return true;
         }
 
         public bool DeleteByIndex(int index)
         {
-            var models = this.GetAll();
+            var models = repo.GetAll();
             var modelId = models.ElementAt(index).Id;
-            return this.Delete(modelId);
+            bool isDeleted = this.Delete(modelId);
+            repo.Save();
+            return isDeleted;
         }
     }
 }
