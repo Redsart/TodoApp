@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 
 namespace TodoApp.ConsoleApp.Repositories.Models
 {
@@ -18,7 +19,7 @@ namespace TodoApp.ConsoleApp.Repositories.Models
 
         public override string ToString()
         {
-            return string.Format($"title:{this.Title}\n{this.Status}\n{this.Description}\n{this.CreatedOn}\n{this.DueDate}");
+            return string.Format(CultureInfo.CurrentCulture, $"title:{this.Title}\n{this.Status}\n{this.Description}\n{this.CreatedOn}\n{this.DueDate}");
         }
     }
 }
