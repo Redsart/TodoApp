@@ -14,6 +14,26 @@ namespace TodoApp.ConsoleApp.Services
         static string Path { get; set; }
         TodoRepository repo = new TodoRepository(Path);
 
+        public TodoService(string path)
+        {
+            Path = path;
+
+            if (!File.Exists(Path))
+            {
+                XmlWriterSettings xmlWriterSettings = new XmlWriterSettings();
+                xmlWriterSettings.Indent = true;
+                Encoding encoding = Encoding.GetEncoding("UTF-8");
+                using (XmlWriter writer = XmlWriter.Create(Path))
+                {
+                    writer.WriteStartDocument();
+                    writer.WriteStartElement("todos");
+                    writer.WriteEndElement();
+                    writer.WriteEndDocument();
+                    writer.Close();
+                }
+            }
+        }
+
         public IEnumerable<TodoModel> GetAll()
         {
             return repo.GetAll();
