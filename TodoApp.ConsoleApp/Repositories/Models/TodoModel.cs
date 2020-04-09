@@ -4,7 +4,7 @@ namespace TodoApp.ConsoleApp.Repositories.Models
 {
     public class TodoModel : IModel<Guid>
     {
-        public Guid ID { get; set; }
+        public Guid Id { get; set; }
 
         public string Title { get; set; }
 

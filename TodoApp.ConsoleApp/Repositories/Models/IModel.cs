@@ -4,6 +4,6 @@ namespace TodoApp.ConsoleApp.Repositories.Models
 {
     public interface IModel<TId>
     {
-         TId ID { get; set; }
+         TId Id { get; set; }
     }
 }

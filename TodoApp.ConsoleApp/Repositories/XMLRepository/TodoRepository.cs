@@ -3,7 +3,7 @@ using System.Xml.Linq;
 using TodoApp.ConsoleApp.Repositories.Models;
 using TodoApp.ConsoleApp.Repositories.Interfaces;
 
-namespace TodoApp.ConsoleApp.Repositories.XMLRepository
+namespace TodoApp.ConsoleApp.Repositories.XmlRepository
 {
     public class TodoRepository : RepositoryBase<TodoModel, Guid>, ITodoRepository
     {
@@ -27,7 +27,7 @@ namespace TodoApp.ConsoleApp.Repositories.XMLRepository
             entity.Description = XmlParser.GetString(element, "Description");
             entity.CreatedOn = XmlParser.GetDateTime(element, "CreatedOn");
             entity.DueDate = XmlParser.GetDateTime(element, "DueDate");
-            entity.ID = XmlParser.GetGuid(element, IdName);
+            entity.Id = XmlParser.GetGuid(element, IdName);
 
             return entity;
         }
@@ -44,7 +44,7 @@ namespace TodoApp.ConsoleApp.Repositories.XMLRepository
             XmlParser.SetString(element, "Description", entity.Description);
             XmlParser.SetDateTime(element, "CreatedOn", entity.CreatedOn);
             XmlParser.SetDateTime(element, "DueDate", entity.DueDate);
-            XmlParser.SetGuid(element, IdName, entity.ID);
+            XmlParser.SetGuid(element, IdName, entity.Id);
 
             return element;
         }

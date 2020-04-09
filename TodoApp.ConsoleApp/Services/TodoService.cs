@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using TodoApp.ConsoleApp.Repositories.Models;
-using TodoApp.ConsoleApp.Repositories.XMLRepository;
+using TodoApp.ConsoleApp.Repositories.XmlRepository;
 using System.Linq;
 using System;
 using System.IO;
@@ -31,7 +31,7 @@ namespace TodoApp.ConsoleApp.Services
                 throw new ArgumentNullException(nameof(model));
             }
 
-            bool isDeleted = Delete(model.ID);
+            bool isDeleted = Delete(model.Id);
 
             if (!isDeleted)
             {
@@ -80,7 +80,7 @@ namespace TodoApp.ConsoleApp.Services
         public bool DeleteByIndex(int index)
         {
             var models = this.GetAll();
-            var modelId = models.ElementAt(index).ID;
+            var modelId = models.ElementAt(index).Id;
             return this.Delete(modelId);
         }
     }

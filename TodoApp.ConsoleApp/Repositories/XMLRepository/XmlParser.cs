@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Xml.Linq;
 
-namespace TodoApp.ConsoleApp.Repositories.XMLRepository
+namespace TodoApp.ConsoleApp.Repositories.XmlRepository
 {
     internal static class XmlParser
     {

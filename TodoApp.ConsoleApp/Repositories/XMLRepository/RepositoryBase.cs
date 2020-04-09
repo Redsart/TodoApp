@@ -7,7 +7,7 @@ using System.Linq;
 using System.IO;
 using System.Data;
 
-namespace TodoApp.ConsoleApp.Repositories.XMLRepository
+namespace TodoApp.ConsoleApp.Repositories.XmlRepository
 {
     public abstract class RepositoryBase<TModel, TId> : IRepository<TModel, TId> where TModel : IModel<TId>
     {
@@ -104,7 +104,7 @@ namespace TodoApp.ConsoleApp.Repositories.XMLRepository
 
         public void Update(TModel model)
         {
-            var oldElement = GetElementById(model.ID);
+            var oldElement = GetElementById(model.Id);
             var newElement = EntityToElement(model);
 
             oldElement?.ReplaceWith(newElement);
