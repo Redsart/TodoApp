@@ -27,7 +27,16 @@ namespace TodoApp.ConsoleApp.Repositories.XmlRepository
         protected RepositoryBase(string path, XName containerName)
         {
             Path = path;
-            Document = XDocument.Load(path);
+
+            if (File.Exists(path))
+            {
+                Document = XDocument.Load(path);
+            }
+            else
+            {
+                Document = new XDocument(new XElement(containerName));
+            }
+            
             ContainerElement = Document.Element(containerName);
         }
 
