@@ -67,7 +67,6 @@ namespace TodoApp.ConsoleApp.Services
             var models = repo.GetAll();
             var modelId = models.ElementAt(index).Id;
             bool isDeleted = this.Delete(modelId);
-            repo.Save();
             return isDeleted;
         }
     }

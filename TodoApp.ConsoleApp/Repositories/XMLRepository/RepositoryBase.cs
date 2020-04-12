@@ -102,11 +102,6 @@ namespace TodoApp.ConsoleApp.Repositories.XmlRepository
 
         public bool Save()
         {
-            if (!Directory.Exists(Path))
-            {
-                return false;
-            }
-
             Document.Save(Path);
             return true;
         }

@@ -43,5 +43,20 @@ namespace TodoApp.ConsoleApp.Repositories.XmlRepository
             var id = new XAttribute(propName, strValue);
             element.Add(id);
         }
+
+        public static T GetEnum<T>(XElement element, string propName) where T : Enum
+        {
+            string strEnum = GetString(element, propName);
+
+            T enumValue = (T)Enum.Parse(typeof(T), strEnum, true);
+
+            return enumValue;
+        }
+
+        public static void SetEnum<T>(XElement element, string propName, T value) where T : Enum
+        {
+            string strEnum = Enum.GetName(typeof(T),value);
+            SetString(element, propName, strEnum);
+        }
     }
 }

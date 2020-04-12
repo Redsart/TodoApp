@@ -25,6 +25,7 @@ namespace TodoApp.ConsoleApp.Repositories.XmlRepository
             var entity = new TodoModel();
             entity.Title = XmlParser.GetString(element, "Title");
             entity.Description = XmlParser.GetString(element, "Description");
+            entity.Status = XmlParser.GetEnum<TodoStatus>(element, "Status");
             entity.CreatedOn = XmlParser.GetDateTime(element, "CreatedOn");
             entity.DueDate = XmlParser.GetDateTime(element, "DueDate");
             entity.Id = XmlParser.GetGuid(element, IdName);
@@ -42,6 +43,7 @@ namespace TodoApp.ConsoleApp.Repositories.XmlRepository
             var element = new XElement("todo");
             XmlParser.SetString(element, "Title", entity.Title);
             XmlParser.SetString(element, "Description", entity.Description);
+            XmlParser.SetEnum<TodoStatus>(element, "Status", entity.Status);
             XmlParser.SetDateTime(element, "CreatedOn", entity.CreatedOn);
             XmlParser.SetDateTime(element, "DueDate", entity.DueDate);
             XmlParser.SetGuid(element, IdName, entity.Id);
