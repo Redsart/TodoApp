@@ -92,7 +92,7 @@ namespace TodoApp.ConsoleApp.UI
             string title = UserInput.ReadText("Enter a title: ", true);
             string description = UserInput.ReadText("Enter a description: ", true);
             string strDueDate = UserInput.ReadText("Enter dueDate: ", true);
-            DateTime duedate = DateTime.Parse(strDueDate, CultureInfo.InvariantCulture, DateTimeStyles.RoundtripKind);
+            DateTime duedate = UserInput.ReadDate();
 
             var model = new TodoModel() { Title = title, Description = description, CreatedOn = DateTime.Now, DueDate = duedate};
 
