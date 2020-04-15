@@ -11,7 +11,7 @@ namespace TodoApp.ConsoleApp.Repositories.XmlRepository
 {
     public abstract class RepositoryBase<TModel, TId> : IRepository<TModel, TId> where TModel : IModel<TId>
     {
-        protected string Path { get; }
+        protected string Path { get; set; }
         protected XDocument Document { get; }
         protected XElement ContainerElement { get; }
         protected abstract string IdName { get; }

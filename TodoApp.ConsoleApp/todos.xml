@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<todos>
+  <todo Id="00000000-0000-0000-0000-000000000000">
+    <Title>Repository Pattern</Title>
+    <Description>Learn the repository pattern.</Description>
+    <Status>Open</Status>
+    <CreatedOn>2020-04-15T14:29:15.1823029Z</CreatedOn>
+    <DueDate>2020-04-19T21:00:00.0000000Z</DueDate>
+  </todo>
+</todos>

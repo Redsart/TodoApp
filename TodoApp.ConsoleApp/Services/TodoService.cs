@@ -8,14 +8,16 @@ namespace TodoApp.ConsoleApp.Services
 {
     public class TodoService : ITodoService
     {
+        TodoRepository repo;
         static string Path { get; set; }
-        TodoRepository repo = new TodoRepository(Path);
 
         public TodoService(string path)
         {
             Path = path;
-        }
+            repo = new TodoRepository(Path);
+        }   
 
+        
         public IEnumerable<TodoModel> GetAll()
         {
             return repo.GetAll();
