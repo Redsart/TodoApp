@@ -10,7 +10,7 @@ namespace TodoApp.ConsoleApp.UI
 {
     public static class TaskOperations
     {
-        const string path = "../../todos.xml";
+        const string path = "../../data/todos.xml";
         static ITodoService service = new TodoService(path);
         static readonly IFormatProvider provider = CultureInfo.CurrentCulture;
 

@@ -5,6 +5,7 @@
 
 TodoApp.ConsoleApp/tasks.xml
 
+data/
 # User-specific files
 *.rsuser
 *.suo
