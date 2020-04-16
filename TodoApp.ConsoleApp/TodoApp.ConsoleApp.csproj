@@ -92,12 +92,6 @@
     <None Include="FxCodeRules.ruleset" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TodoApp.Library\TodoApp.Library.csproj">
-      <Project>{b13fed57-6b17-4402-9e34-eebf31d0561d}</Project>
-      <Name>TodoApp.Library</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers">
       <Version>2.9.8</Version>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
