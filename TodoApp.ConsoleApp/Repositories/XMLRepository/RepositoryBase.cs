@@ -91,7 +91,7 @@ namespace TodoApp.ConsoleApp.Repositories.XmlRepository
         {
             XElement newElement = EntityToElement(model);
 
-            Guid id = new Guid();
+            Guid id = Guid.NewGuid();
             newElement.Attribute(IdName).SetValue(id);
             ContainerElement.Add(newElement);
 
