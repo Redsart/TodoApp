@@ -1,18 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using TodoApp.Library.Models;
+using TodoApp.ConsoleApp.Repositories.Models;
 using System.IO;
 using TodoApp.ConsoleApp.Services;
 using System.Linq;
 using System.Globalization;
 
-
 namespace TodoApp.ConsoleApp.UI
 {
     public static class TaskOperations
     {
-        const string path = "../../tasks.xml";
-        static ITodoService service = new TodoService();
+        const string path = "../../data/todos.xml";
+        static ITodoService service = new TodoService(path);
         static readonly IFormatProvider provider = CultureInfo.CurrentCulture;
 
         public static void ReadOrWrite()
@@ -52,11 +51,11 @@ namespace TodoApp.ConsoleApp.UI
 
             else
             {
-                IEnumerable<Task> tasks = service.GetAll();
+                IEnumerable<TodoModel> models = service.GetAll();
                 int count = 1;
-                foreach (var task in tasks)
+                foreach (var model in models)
                 {
-                    Console.WriteLine($"Task {count++}:\n{task.Title}\nDescription: {task.Message}\nstarted at: {task.StartDate}\nterm to: {task.EndDate}");
+                    Console.WriteLine($"Task {count++}:\n{model.Title}\nDescription: {model.Description}\nstarted at: {model.CreatedOn}\nterm to: {model.DueDate}");
                     Console.WriteLine();
                 }
             }
@@ -91,17 +90,17 @@ namespace TodoApp.ConsoleApp.UI
         static void TaskMaker()
         {
             string title = UserInput.ReadText("Enter a title: ", true);
-            string message = UserInput.ReadText("Enter a description: ", true);
-            int deadLine = int.Parse(UserInput.ReadText("How many days you need to finish the task?: ",true),provider);
+            string description = UserInput.ReadText("Enter a description: ", true);
+            DateTime duedate = UserInput.ReadDate();
 
-            var task = new Task(title, message, deadLine);
+            var model = new TodoModel() { Title = title, Description = description, CreatedOn = DateTime.Now, DueDate = duedate};
 
             bool isSave = UserInput.ReadYesNo("Do you want to save this task?");
             if (isSave)
             {
-                Task savedTask = service.Create(task);
+                TodoModel savedModel = service.Create(model);
                 Console.WriteLine(Messages.SaveCompleted());
-                Console.WriteLine(savedTask);
+                Console.WriteLine(savedModel);
                 Console.WriteLine();
                 return;
             }

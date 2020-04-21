@@ -113,6 +113,14 @@ namespace TodoApp.ConsoleApp.UI
 
             return number;
         }
+
+        public static DateTime ReadDate()
+        {
+            string strDueDate = UserInput.ReadText("Enter dueDate: ", true);
+            DateTime duedate = DateTime.Parse(strDueDate, CultureInfo.InvariantCulture, DateTimeStyles.RoundtripKind);
+
+            return duedate;
+        }
     }
 }
 

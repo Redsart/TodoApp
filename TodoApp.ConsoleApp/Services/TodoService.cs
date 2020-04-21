@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using TodoApp.Library.Data;
-using TodoApp.Library.Models;
+using TodoApp.ConsoleApp.Repositories.Models;
+using TodoApp.ConsoleApp.Repositories.XmlRepository;
 using System.Linq;
 using System;
 
@@ -8,70 +8,68 @@ namespace TodoApp.ConsoleApp.Services
 {
     public class TodoService : ITodoService
     {
-        public IEnumerable<Task> GetAll()
+        TodoRepository repo;
+        static string Path { get; set; }
+
+        public TodoService(string path)
         {
-            XMLTaskReader reader = new XMLTaskReader();
+            Path = path;
+            repo = new TodoRepository(Path);
+        }   
 
-            IEnumerable<Task> tasks = reader.ReadTasks();
-
-            return tasks;
+        
+        public IEnumerable<TodoModel> GetAll()
+        {
+            return repo.GetAll();
         }
 
-        public Task GetByID(Guid id)
+        public TodoModel GetByID(Guid id)
         {
-            IEnumerable<Task> tasks = GetAll();
-
-            Task wantedTask = null;
-
-            wantedTask = tasks.FirstOrDefault(task => task.ID == id);
-
-            return wantedTask;
+            return repo.GetById(id);
         }
 
-        public bool Update(Task task)
+        public bool Update(TodoModel model)
         {
-            if (task == null)
+            if (model == null)
             {
-                throw new ArgumentNullException(nameof(task));
+                throw new ArgumentNullException(nameof(model));
             }
 
-            bool isDeleted = Delete(task.ID);
+            repo.Update(model);
+            repo.Save();
 
-            if (!isDeleted)
-            {
-                return false;
-            }
-
-            var newTask = Create(task);
-
-            return newTask != null;
+            return model != null;
         }
 
-        public Task Create(Task task)
+        public TodoModel Create(TodoModel model)
         {
-            XMLTaskWriter.Save(task);
+            repo.Insert(model);
+            repo.Save();
 
-            return task;
+            return model;
         }
 
         public bool Delete(Guid id)
         {
-            Task taskToBeDeleted = GetByID(id);
+            TodoModel modelToBeDeleted = GetByID(id);
             
-            if (taskToBeDeleted == null)
+            if (modelToBeDeleted == null)
             {
                 return false;
             }
 
-            XMLTaskWriter.Delete(taskToBeDeleted);
+            repo.Delete(id);
+            repo.Save();
+
             return true;
         }
 
         public bool DeleteByIndex(int index)
         {
-            var tasks = this.GetAll();
-            var taskId = tasks.ElementAt(index).ID;
-            return this.Delete(taskId);
+            var models = repo.GetAll();
+            var modelId = models.ElementAt(index).Id;
+            bool isDeleted = this.Delete(modelId);
+            return isDeleted;
         }
     }
 }
