@@ -140,6 +140,8 @@
       <SubType>Designer</SubType>
     </CodeAnalysisDictionary>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Data\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
