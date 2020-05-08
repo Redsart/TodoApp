@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
-using TodoApp.ConsoleApp.Repositories.Models;
-using TodoApp.ConsoleApp.Repositories.XmlRepository;
+using TodoApp.Repositories.Models;
+using TodoApp.Repositories.XmlRepository;
 using System.Linq;
 using System;
 
-namespace TodoApp.ConsoleApp.Services
+namespace TodoApp.Services
 {
     public class TodoService : ITodoService
     {

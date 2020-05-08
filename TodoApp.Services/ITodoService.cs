@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
-using TodoApp.ConsoleApp.Repositories.Models;
+using TodoApp.Repositories.Models;
 using System;
 
-namespace TodoApp.ConsoleApp.Services
+namespace TodoApp.Services
 {
-    interface ITodoService
+    public interface ITodoService
     {
         IEnumerable<TodoModel> GetAll();
         TodoModel GetByID(Guid id);

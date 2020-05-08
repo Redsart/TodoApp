@@ -1,7 +1,7 @@
 ﻿using System;
-using TodoApp.ConsoleApp.Repositories.Models;
+using TodoApp.Repositories.Models;
 
-namespace TodoApp.ConsoleApp.Repositories.Interfaces
+namespace TodoApp.Repositories.Interfaces
 {
     public interface ITodoRepository : IRepository<TodoModel, Guid>
     {

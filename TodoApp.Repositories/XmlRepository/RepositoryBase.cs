@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Xml.Linq;
-using TodoApp.ConsoleApp.Repositories.Interfaces;
-using TodoApp.ConsoleApp.Repositories.Models;
+using TodoApp.Repositories.Interfaces;
+using TodoApp.Repositories.Models;
 using System.Linq;
 using System.IO;
 using System.Data;
 
-namespace TodoApp.ConsoleApp.Repositories.XmlRepository
+namespace TodoApp.Repositories.XmlRepository
 {
     public abstract class RepositoryBase<TModel, TId> : IRepository<TModel, TId> where TModel : IModel<TId>
     {

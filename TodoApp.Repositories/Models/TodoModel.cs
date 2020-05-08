@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
 
-namespace TodoApp.ConsoleApp.Repositories.Models
+namespace TodoApp.Repositories.Models
 {
     public class TodoModel : IModel<Guid>
     {

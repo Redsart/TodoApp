@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TodoApp.ConsoleApp.Repositories.Models
+namespace TodoApp.Repositories.Models
 {
     public interface IModel<TId>
     {

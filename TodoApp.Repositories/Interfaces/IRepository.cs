@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using TodoApp.ConsoleApp.Repositories.Models;
+using TodoApp.Repositories.Models;
 
-namespace TodoApp.ConsoleApp.Repositories.Interfaces
+namespace TodoApp.Repositories.Interfaces
 {
     public interface IRepository<TModel, TId> where TModel : IModel<TId>
     {

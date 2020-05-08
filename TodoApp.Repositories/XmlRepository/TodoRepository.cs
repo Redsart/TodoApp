@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Xml.Linq;
-using TodoApp.ConsoleApp.Repositories.Models;
-using TodoApp.ConsoleApp.Repositories.Interfaces;
+using TodoApp.Repositories.Models;
+using TodoApp.Repositories.Interfaces;
 
-namespace TodoApp.ConsoleApp.Repositories.XmlRepository
+namespace TodoApp.Repositories.XmlRepository
 {
     public class TodoRepository : RepositoryBase<TodoModel, Guid>, ITodoRepository
     {

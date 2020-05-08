@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using TodoApp.ConsoleApp.Repositories.Models;
+using TodoApp.Repositories.Models;
 using System.IO;
-using TodoApp.ConsoleApp.Services;
+using TodoApp.Services;
 using System.Linq;
 using System.Globalization;
 
@@ -10,7 +10,7 @@ namespace TodoApp.ConsoleApp.UI
 {
     public static class TaskOperations
     {
-        const string path = "../../data/todos.xml";
+        const string path = "../../data/todos.xml"; 
         static ITodoService service = new TodoService(path);
         static readonly IFormatProvider provider = CultureInfo.CurrentCulture;
 
