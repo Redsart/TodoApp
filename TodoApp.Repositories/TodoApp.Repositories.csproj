@@ -51,7 +51,9 @@
     <Compile Include="Models\TodoStatus.cs" />
     <Compile Include="XmlRepository\RepositoryBase.cs" />
     <Compile Include="XmlRepository\TodoRepository.cs" />
-    <Compile Include="XmlRepository\XmlParser.cs" />
+    <Compile Include="XmlRepository\Utils\IXmlContext.cs" />
+    <Compile Include="XmlRepository\Utils\XmlContext.cs" />
+    <Compile Include="XmlRepository\Utils\XmlParser.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
