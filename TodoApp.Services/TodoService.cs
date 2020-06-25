@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using TodoApp.Repositories.Models;
-using TodoApp.Repositories.XmlRepository;
+using TodoApp.Repositories.Interfaces;
 using System.Linq;
 using System;
 
@@ -8,14 +8,12 @@ namespace TodoApp.Services
 {
     public class TodoService : ITodoService
     {
-        TodoRepository repo;
-        static string Path { get; set; }
+        ITodoRepository repo;
 
-        public TodoService(string path)
+        public TodoService(ITodoRepository repo)
         {
-            Path = path;
-            repo = new TodoRepository(Path);
-        }   
+            this.repo = repo;
+        }
 
         
         public IEnumerable<TodoModel> GetAll()

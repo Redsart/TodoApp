@@ -8,7 +8,7 @@ namespace TodoApp.Repositories.XmlRepository
 {
     public class TodoRepository : RepositoryBase<TodoModel, Guid>, ITodoRepository
     {
-        public TodoRepository(string path) : base(path, "todos")
+        public TodoRepository(IXmlContext context) : base(context, "todos")
         {
 
         }

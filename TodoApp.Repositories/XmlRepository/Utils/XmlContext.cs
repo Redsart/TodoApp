@@ -6,24 +6,24 @@ namespace TodoApp.Repositories.XmlRepository.Utils
     {
         static string Path { get; set; }
 
-        static XDocument doc;
+        static XDocument Document;
 
         XmlContext(string path)
         {
             Path = path;
-            doc = XDocument.Load(path);
+            Document = XDocument.Load(path);
         }
 
         public XElement GetContainer(XName name)
         {
-            XElement containerElement = doc.Element(name);
+            XElement containerElement = Document.Element(name);
 
             return containerElement;
         }
 
         public void Save()
         {
-            doc.Save(Path);
+            Document.Save(Path);
         }
     }
 }

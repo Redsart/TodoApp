@@ -2,7 +2,7 @@
 
 namespace TodoApp.Repositories.XmlRepository.Utils
 {
-    interface IXmlContext
+    public interface IXmlContext
     {
         XElement GetContainer(XName name);
         void Save();

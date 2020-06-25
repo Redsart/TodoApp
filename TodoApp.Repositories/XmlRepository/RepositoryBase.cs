@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Xml.Linq;
 using TodoApp.Repositories.Interfaces;
 using TodoApp.Repositories.Models;
+using TodoApp.Repositories.XmlRepository.Utils;
 using System.Linq;
 using System.IO;
 using System.Data;
@@ -15,6 +16,7 @@ namespace TodoApp.Repositories.XmlRepository
         protected XDocument Document { get; }
         protected XElement ContainerElement { get; }
         protected abstract string IdName { get; }
+        protected IXmlContext Context;
 
         protected XElement GetElementById(TId id)
         {
@@ -24,20 +26,11 @@ namespace TodoApp.Repositories.XmlRepository
             return element;
         }
 
-        protected RepositoryBase(string path, XName containerName)
+        protected RepositoryBase(IXmlContext context, XName name)
         {
-            Path = path;
+            Context = context;
 
-            if (File.Exists(path))
-            {
-                Document = XDocument.Load(path);
-            }
-            else
-            {
-                Document = new XDocument(new XElement(containerName));
-            }
-            
-            ContainerElement = Document.Element(containerName);
+            ContainerElement = context.GetContainer(name);
         }
 
         protected abstract TModel ElementToEntity(XElement element);
