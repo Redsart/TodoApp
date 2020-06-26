@@ -5,15 +5,12 @@ using TodoApp.Repositories.Interfaces;
 using TodoApp.Repositories.Models;
 using TodoApp.Repositories.XmlRepository.Utils;
 using System.Linq;
-using System.IO;
 using System.Data;
 
 namespace TodoApp.Repositories.XmlRepository
 {
     public abstract class RepositoryBase<TModel, TId> : IRepository<TModel, TId> where TModel : IModel<TId>
     {
-        protected string Path { get; set; }
-        protected XDocument Document { get; }
         protected XElement ContainerElement { get; }
         protected abstract string IdName { get; }
         protected IXmlContext Context;
@@ -95,7 +92,7 @@ namespace TodoApp.Repositories.XmlRepository
 
         public bool Save()
         {
-            Document.Save(Path);
+            Context.Save();
             return true;
         }
 
