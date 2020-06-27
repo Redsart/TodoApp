@@ -2,13 +2,13 @@
 
 namespace TodoApp.Repositories.XmlRepository.Utils
 {
-    class XmlContext : IXmlContext
+    public class XmlContext : IXmlContext
     {
         static string Path { get; set; }
 
         static XDocument Document;
 
-        XmlContext(string path)
+        public XmlContext(string path)
         {
             Path = path;
             Document = XDocument.Load(path);
