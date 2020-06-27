@@ -12,5 +12,6 @@ namespace TodoApp.Services
         TodoModel Create(TodoModel model);
         bool Delete(Guid id);
         bool DeleteByIndex(int index);
+        bool HasTodos();
     }
 }

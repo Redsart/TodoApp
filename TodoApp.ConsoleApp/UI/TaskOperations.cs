@@ -10,9 +10,8 @@ namespace TodoApp.ConsoleApp.UI
 {
     public class TaskOperations
     {
-        const string path = "../../data/todos.xml";
         ITodoService service;
-        static readonly IFormatProvider provider = CultureInfo.CurrentCulture;
+        readonly IFormatProvider provider = CultureInfo.CurrentCulture;
 
         public TaskOperations(ITodoService service)
         {
@@ -48,7 +47,7 @@ namespace TodoApp.ConsoleApp.UI
 
         void ReadTasks()
         {
-            if (!File.Exists(path))
+            if (!service.HasTodos())
             {
                 Console.WriteLine(Messages.NoSavedTasks());
                 return;

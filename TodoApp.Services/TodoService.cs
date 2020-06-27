@@ -69,5 +69,10 @@ namespace TodoApp.Services
             bool isDeleted = this.Delete(modelId);
             return isDeleted;
         }
+
+        public bool HasTodos()
+        {
+            return repo.GetAll() != null;
+        }
     }
 }
