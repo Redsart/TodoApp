@@ -15,7 +15,6 @@ namespace TodoApp.Repositories.XmlRepository
 
         protected override string IdName => "Id";
 
-
         protected override TodoModel ElementToEntity(XElement element)
         {
             if (element == null)
