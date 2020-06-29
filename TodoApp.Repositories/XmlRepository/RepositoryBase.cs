@@ -15,19 +15,19 @@ namespace TodoApp.Repositories.XmlRepository
         protected abstract string IdName { get; }
         protected IXmlContext Context;
 
+        protected RepositoryBase(IXmlContext context, XName name)
+        {
+            Context = context;
+
+            ContainerElement = context.GetContainer(name);
+        }
+
         protected XElement GetElementById(TId id)
         {
             XElement element = ContainerElement.Elements()
                 .FirstOrDefault(a => a.Attribute(IdName).Value == id.ToString());
 
             return element;
-        }
-
-        protected RepositoryBase(IXmlContext context, XName name)
-        {
-            Context = context;
-
-            ContainerElement = context.GetContainer(name);
         }
 
         protected abstract TModel ElementToEntity(XElement element);

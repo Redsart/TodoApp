@@ -1,17 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using TodoApp.Repositories.Models;
-using System.IO;
 using TodoApp.Services;
 using System.Linq;
-using System.Globalization;
 
 namespace TodoApp.ConsoleApp.UI
 {
     public class TaskOperations
     {
         ITodoService service;
-        readonly IFormatProvider provider = CultureInfo.CurrentCulture;
 
         public TaskOperations(ITodoService service)
         {
