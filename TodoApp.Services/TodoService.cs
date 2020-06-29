@@ -14,7 +14,6 @@ namespace TodoApp.Services
         {
             this.repo = repo;
         }
-
         
         public IEnumerable<TodoModel> GetAll()
         {
