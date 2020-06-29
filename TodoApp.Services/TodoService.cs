@@ -72,7 +72,8 @@ namespace TodoApp.Services
 
         public bool HasTodos()
         {
-            return repo.GetAll() != null;
+            var todos = repo.GetAll();
+            return todos != null && todos.Any();
         }
     }
 }
