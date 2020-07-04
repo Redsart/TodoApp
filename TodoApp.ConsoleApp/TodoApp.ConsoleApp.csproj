@@ -131,6 +131,9 @@
     </CodeAnalysisDictionary>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Data\" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\TodoApp.Repositories\TodoApp.Repositories.csproj">
       <Project>{519851b3-95c9-40e4-87d1-fb12529637e8}</Project>
       <Name>TodoApp.Repositories</Name>
