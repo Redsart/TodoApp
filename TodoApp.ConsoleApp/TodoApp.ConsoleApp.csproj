@@ -73,16 +73,6 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\Interfaces\IRepository.cs" />
-    <Compile Include="Repositories\Models\IModel.cs" />
-    <Compile Include="Repositories\Interfaces\ITodoRepository.cs" />
-    <Compile Include="Repositories\Models\TodoModel.cs" />
-    <Compile Include="Repositories\Models\TodoStatus.cs" />
-    <Compile Include="Repositories\XmlRepository\RepositoryBase.cs" />
-    <Compile Include="Repositories\XmlRepository\TodoRepository.cs" />
-    <Compile Include="Repositories\XmlRepository\XmlParser.cs" />
-    <Compile Include="Services\ITodoService.cs" />
-    <Compile Include="Services\TodoService.cs" />
     <Compile Include="UI\TaskOperations.cs" />
     <Compile Include="UI\Messages.cs" />
     <Compile Include="UI\UserInput.cs" />
@@ -142,6 +132,16 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TodoApp.Repositories\TodoApp.Repositories.csproj">
+      <Project>{519851b3-95c9-40e4-87d1-fb12529637e8}</Project>
+      <Name>TodoApp.Repositories</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TodoApp.Services\TodoApp.Services.csproj">
+      <Project>{aa853e13-7588-4020-bcdc-b7aeaefb5100}</Project>
+      <Name>TodoApp.Services</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,22 +1,19 @@
 ﻿using System.Collections.Generic;
-using TodoApp.ConsoleApp.Repositories.Models;
-using TodoApp.ConsoleApp.Repositories.XmlRepository;
+using TodoApp.Repositories.Models;
+using TodoApp.Repositories.Interfaces;
 using System.Linq;
 using System;
 
-namespace TodoApp.ConsoleApp.Services
+namespace TodoApp.Services
 {
     public class TodoService : ITodoService
     {
-        TodoRepository repo;
-        static string Path { get; set; }
+        ITodoRepository repo;
 
-        public TodoService(string path)
+        public TodoService(ITodoRepository repo)
         {
-            Path = path;
-            repo = new TodoRepository(Path);
-        }   
-
+            this.repo = repo;
+        }
         
         public IEnumerable<TodoModel> GetAll()
         {
@@ -70,6 +67,12 @@ namespace TodoApp.ConsoleApp.Services
             var modelId = models.ElementAt(index).Id;
             bool isDeleted = this.Delete(modelId);
             return isDeleted;
+        }
+
+        public bool HasTodos()
+        {
+            var todos = repo.GetAll();
+            return todos != null && todos.Any();
         }
     }
 }

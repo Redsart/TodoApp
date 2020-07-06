@@ -1,20 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Xml.Linq;
-using TodoApp.ConsoleApp.Repositories.Interfaces;
-using TodoApp.ConsoleApp.Repositories.Models;
+using TodoApp.Repositories.Interfaces;
+using TodoApp.Repositories.Models;
+using TodoApp.Repositories.XmlRepository.Utils;
 using System.Linq;
-using System.IO;
 using System.Data;
 
-namespace TodoApp.ConsoleApp.Repositories.XmlRepository
+namespace TodoApp.Repositories.XmlRepository
 {
     public abstract class RepositoryBase<TModel, TId> : IRepository<TModel, TId> where TModel : IModel<TId>
     {
-        protected string Path { get; set; }
-        protected XDocument Document { get; }
         protected XElement ContainerElement { get; }
         protected abstract string IdName { get; }
+        protected IXmlContext Context;
+
+        protected RepositoryBase(IXmlContext context, XName name)
+        {
+            Context = context;
+
+            ContainerElement = context.GetContainer(name);
+        }
 
         protected XElement GetElementById(TId id)
         {
@@ -22,22 +28,6 @@ namespace TodoApp.ConsoleApp.Repositories.XmlRepository
                 .FirstOrDefault(a => a.Attribute(IdName).Value == id.ToString());
 
             return element;
-        }
-
-        protected RepositoryBase(string path, XName containerName)
-        {
-            Path = path;
-
-            if (File.Exists(path))
-            {
-                Document = XDocument.Load(path);
-            }
-            else
-            {
-                Document = new XDocument(new XElement(containerName));
-            }
-            
-            ContainerElement = Document.Element(containerName);
         }
 
         protected abstract TModel ElementToEntity(XElement element);
@@ -102,7 +92,7 @@ namespace TodoApp.ConsoleApp.Repositories.XmlRepository
 
         public bool Save()
         {
-            Document.Save(Path);
+            Context.Save();
             return true;
         }
 

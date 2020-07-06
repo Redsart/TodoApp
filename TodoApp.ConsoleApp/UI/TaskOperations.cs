@@ -1,20 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using TodoApp.ConsoleApp.Repositories.Models;
-using System.IO;
-using TodoApp.ConsoleApp.Services;
+using TodoApp.Repositories.Models;
+using TodoApp.Services;
 using System.Linq;
-using System.Globalization;
 
 namespace TodoApp.ConsoleApp.UI
 {
-    public static class TaskOperations
+    public class TaskOperations
     {
-        const string path = "../../data/todos.xml";
-        static ITodoService service = new TodoService(path);
-        static readonly IFormatProvider provider = CultureInfo.CurrentCulture;
+        ITodoService service;
 
-        public static void ReadOrWrite()
+        public TaskOperations(ITodoService service)
+        {
+            this.service = service;
+        }
+
+        public void ReadOrWrite()
         {
             bool toContinue = true;
 
@@ -41,9 +42,9 @@ namespace TodoApp.ConsoleApp.UI
             }
         }
 
-        static void ReadTasks()
+        void ReadTasks()
         {
-            if (!File.Exists(path))
+            if (!service.HasTodos())
             {
                 Console.WriteLine(Messages.NoSavedTasks());
                 return;
@@ -61,7 +62,7 @@ namespace TodoApp.ConsoleApp.UI
             }
         }
 
-        static void ManipulateTask()
+        void ManipulateTask()
         {
             int operation = UserInput.ReadOption("Choose an option!", new string[] { "make a new task", "delete a task" }, true);
 
@@ -69,7 +70,7 @@ namespace TodoApp.ConsoleApp.UI
             {
                 case 1:
                     TaskMaker();
-                    bool choice = UserInput.ReadYesNo("Do yoy want to make another task?", true);
+                    bool choice = UserInput.ReadYesNo("Do you want to make another task?", true);
                     if (choice)
                     {
                         TaskMaker();
@@ -87,7 +88,7 @@ namespace TodoApp.ConsoleApp.UI
             }
         }
 
-        static void TaskMaker()
+        void TaskMaker()
         {
             string title = UserInput.ReadText("Enter a title: ", true);
             string description = UserInput.ReadText("Enter a description: ", true);

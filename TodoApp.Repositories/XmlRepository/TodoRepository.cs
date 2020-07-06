@@ -1,19 +1,19 @@
 ﻿using System;
 using System.Xml.Linq;
-using TodoApp.ConsoleApp.Repositories.Models;
-using TodoApp.ConsoleApp.Repositories.Interfaces;
+using TodoApp.Repositories.Models;
+using TodoApp.Repositories.Interfaces;
+using TodoApp.Repositories.XmlRepository.Utils;
 
-namespace TodoApp.ConsoleApp.Repositories.XmlRepository
+namespace TodoApp.Repositories.XmlRepository
 {
     public class TodoRepository : RepositoryBase<TodoModel, Guid>, ITodoRepository
     {
-        public TodoRepository(string path) : base(path, "todos")
+        public TodoRepository(IXmlContext context) : base(context, "todos")
         {
 
         }
 
         protected override string IdName => "Id";
-
 
         protected override TodoModel ElementToEntity(XElement element)
         {
