@@ -3,8 +3,10 @@ using Xunit;
 using Moq;
 using TodoApp.Repositories.XmlRepository.Utils;
 using TodoApp.Repositories.XmlRepository;
+using TodoApp.Repositories.Models;
 using System.Xml.Linq;
 using Xml = TodoApp.Repositories.XmlRepository;
+using System.Globalization;
 
 namespace TodoApp.Tests.Repositories.TodoRepositories
 {
@@ -55,6 +57,55 @@ namespace TodoApp.Tests.Repositories.TodoRepositories
             var guid = new Guid(id);
 
             var todo = repo.GetById(guid);
+
+            Assert.NotNull(todo);
+        }
+
+        //[Theory]
+        //[InlineData("00000000-0000-0000-0000-000000000000")]
+        //[InlineData("20975aeb-d490-4aa6-95ba-5b7c50b074a4")]
+        //public void GivenValidEntity_Update_UpdateEntity(string id)
+        //{
+        //    var repo = new Xml.TodoRepository(MockXmlContext.Object);
+
+        //    var guid = new Guid(id);
+
+        //    var entity = repo.GetById(guid);
+
+
+        //}
+
+        [Fact]
+        public void GivenValidEntity_Insert_InsertSuccesfully()
+        {
+
+            var repo = new Xml.TodoRepository(MockXmlContext.Object);
+
+            var element = new XElement("todo");
+            element.Add(new XAttribute("Id", "fb7043c0-fa34-440c-9f7d-97a094f053ae"));
+            element.Add(new XElement("Title", "Picnic"));
+            element.Add(new XElement("Description", "Go to a picnic with friends"));
+            element.Add(new XElement("Status", "Open"));
+            element.Add(new XElement("CreatedOn", "2020-05-15T14:29:15.1823029Z"));
+            element.Add(new XElement("DueDate", "2020-05-19T21:00:00.0000000Z"));
+
+            var entity = new TodoModel();
+            entity.Title = element.Element("Title").Value;
+            entity.Description = element.Element("Description").Value;
+
+            string statusStr = element.Element("Status").Value;
+            entity.Status = (TodoStatus)Enum.Parse(typeof(TodoStatus), statusStr);
+
+            string createdOnStr = element.Element("CreatedOn").Value;
+            entity.CreatedOn = DateTime.Parse(createdOnStr, CultureInfo.InvariantCulture, DateTimeStyles.RoundtripKind);
+
+            string dueDateStr = element.Element("DueDate").Value;
+            entity.DueDate = DateTime.Parse(dueDateStr, CultureInfo.InvariantCulture, DateTimeStyles.RoundtripKind);
+
+            var guid = Guid.Parse(element.Attribute("Id").Value);
+            entity.Id = guid;
+
+            var todo = repo.Insert(entity);
 
             Assert.NotNull(todo);
         }
