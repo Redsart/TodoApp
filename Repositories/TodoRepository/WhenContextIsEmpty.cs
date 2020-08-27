@@ -5,23 +5,25 @@ using TodoApp.Repositories.XmlRepository.Utils;
 using System.Xml.Linq;
 using Xml = TodoApp.Repositories.XmlRepository;
 
-namespace TodoApp.Tests.Repositories
+namespace TodoApp.Tests.Repositories.TodoRepositories
 {
-    public class WhenContextIsDefined
+    public class WhenContextIsEmpty
     {
         protected Mock<IXmlContext> MockXmlContext;
 
-        public WhenContextIsDefined()
+        protected XElement Container;
+
+        public WhenContextIsEmpty()
         {
             // Arrange
             MockXmlContext = new Mock<IXmlContext>();
 
             var containerName = "todos";
-            var container = new XElement(containerName);
+            Container = new XElement(containerName);
 
             MockXmlContext
                 .Setup(ctx => ctx.GetContainer(containerName))
-                .Returns(container);
+                .Returns(Container);
         }
 
         [Fact]
@@ -40,11 +42,14 @@ namespace TodoApp.Tests.Repositories
         [Fact]
         public void GetById_ReturnsEmpty()
         {
+            //Arange
             var repo = new Xml.TodoRepository(MockXmlContext.Object);
 
-            var getById = repo.GetById(Guid.Empty);
+            //Act
+            var todo = repo.GetById(Guid.Empty);
 
-            Assert.Null(getById);
+            //Assert
+            Assert.Null(todo);
         }
     }
 }
