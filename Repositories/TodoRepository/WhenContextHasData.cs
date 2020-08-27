@@ -2,6 +2,7 @@
 using Xunit;
 using Moq;
 using TodoApp.Repositories.XmlRepository.Utils;
+using TodoApp.Repositories.XmlRepository;
 using System.Xml.Linq;
 using Xml = TodoApp.Repositories.XmlRepository;
 
@@ -56,6 +57,19 @@ namespace TodoApp.Tests.Repositories.TodoRepositories
             var todo = repo.GetById(guid);
 
             Assert.NotNull(todo);
+        }
+
+        [Fact]
+        public void GivenValidElement_Delete_RemoveElement()
+        {
+            var repo = new Xml.TodoRepository(MockXmlContext.Object);
+
+            var guid = new Guid("00000000-0000-0000-0000-000000000000");
+            repo.Delete(guid);
+
+            var todo = repo.GetById(guid);
+
+            Assert.Null(todo);
         }
     }
 }
