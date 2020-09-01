@@ -78,7 +78,6 @@ namespace TodoApp.Tests.Repositories.TodoRepositories
         [Fact]
         public void GivenValidEntity_Insert_InsertSuccesfully()
         {
-
             var repo = new Xml.TodoRepository(MockXmlContext.Object);
 
             var element = new XElement("todo");
@@ -102,8 +101,7 @@ namespace TodoApp.Tests.Repositories.TodoRepositories
             string dueDateStr = element.Element("DueDate").Value;
             entity.DueDate = DateTime.Parse(dueDateStr, CultureInfo.InvariantCulture, DateTimeStyles.RoundtripKind);
 
-            var guid = Guid.Parse(element.Attribute("Id").Value);
-            entity.Id = guid;
+            entity.Id = Guid.Parse(element.Attribute("Id").Value);
 
             var todo = repo.Insert(entity);
 

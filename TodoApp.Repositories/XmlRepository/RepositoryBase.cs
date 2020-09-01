@@ -81,6 +81,11 @@ namespace TodoApp.Repositories.XmlRepository
         {
             XElement newElement = EntityToElement(model);
 
+            if (newElement.Element("Title").IsEmpty)
+            {
+                throw new ArgumentException("Empty todo!");
+            }
+
             Guid id = Guid.NewGuid();
             newElement.Attribute(IdName).SetValue(id);
             ContainerElement.Add(newElement);

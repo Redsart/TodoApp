@@ -3,6 +3,7 @@ using Xunit;
 using Moq;
 using TodoApp.Repositories.XmlRepository.Utils;
 using System.Xml.Linq;
+using TodoApp.Repositories.Models;
 using Xml = TodoApp.Repositories.XmlRepository;
 
 namespace TodoApp.Tests.Repositories.TodoRepositories
@@ -40,7 +41,7 @@ namespace TodoApp.Tests.Repositories.TodoRepositories
         }
 
         [Fact]
-        public void GetById_ReturnsEmpty()
+        public void GetById_ReturnsNull()
         {
             //Arange
             var repo = new Xml.TodoRepository(MockXmlContext.Object);
@@ -50,6 +51,17 @@ namespace TodoApp.Tests.Repositories.TodoRepositories
 
             //Assert
             Assert.Null(todo);
+        }
+
+        [Fact]
+        public void Insert_ThrowsArgumentException()
+        {
+            var repo = new Xml.TodoRepository(MockXmlContext.Object);
+            var model = new TodoModel();
+
+            var ex = Assert.Throws<ArgumentException>(() => repo.Insert(model));
+
+            Assert.Equal("Empty todo!", ex.Message);
         }
     }
 }
