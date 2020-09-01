@@ -61,19 +61,22 @@ namespace TodoApp.Tests.Repositories.TodoRepositories
             Assert.NotNull(todo);
         }
 
-        //[Theory]
-        //[InlineData("00000000-0000-0000-0000-000000000000")]
-        //[InlineData("20975aeb-d490-4aa6-95ba-5b7c50b074a4")]
-        //public void GivenValidEntity_Update_UpdateEntity(string id)
-        //{
-        //    var repo = new Xml.TodoRepository(MockXmlContext.Object);
+        [Fact]
+        public void GivenValidEntity_Update_UpdateEntity()
+        {
+            var repo = new Xml.TodoRepository(MockXmlContext.Object);
+            var guid = new Guid("20975aeb-d490-4aa6-95ba-5b7c50b074a4");
+            var todo = repo.GetById(guid);
 
-        //    var guid = new Guid(id);
+            todo.Title = "Concert";
+            todo.Description = "Go to Metallica concert";
+            repo.Update(todo);
+            var newTodo = repo.GetById(guid);
 
-        //    var entity = repo.GetById(guid);
-
-
-        //}
+            Assert.NotNull(newTodo);
+            Assert.Equal(todo.Title, newTodo.Title);
+            Assert.Equal(todo.Description, newTodo.Description);
+        }
 
         [Fact]
         public void GivenValidEntity_Insert_InsertSuccesfully()
