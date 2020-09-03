@@ -24,6 +24,12 @@ namespace TodoApp.Repositories.XmlRepository
 
             var entity = new TodoModel();
             entity.Title = XmlParser.GetString(element, "Title");
+
+            if (element.Element("Title").IsEmpty)
+            {
+                throw new ArgumentException("Empty todo!");
+            }
+
             entity.Description = XmlParser.GetString(element, "Description");
             entity.Status = XmlParser.GetEnum<TodoStatus>(element, "Status");
             entity.CreatedOn = XmlParser.GetDateTime(element, "CreatedOn");
@@ -42,6 +48,12 @@ namespace TodoApp.Repositories.XmlRepository
 
             var element = new XElement("todo");
             XmlParser.SetString(element, "Title", entity.Title);
+
+            if (element.Element("Title").IsEmpty)
+            {
+                throw new ArgumentException("Empty todo!");
+            }
+
             XmlParser.SetString(element, "Description", entity.Description);
             XmlParser.SetEnum<TodoStatus>(element, "Status", entity.Status);
             XmlParser.SetDateTime(element, "CreatedOn", entity.CreatedOn);
