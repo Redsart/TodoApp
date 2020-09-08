@@ -78,33 +78,21 @@ namespace TodoApp.Tests.Repositories.TodoRepositories
             Assert.Equal(todo.Description, newTodo.Description);
         }
 
-        [Fact]
-        public void GivenValidEntity_Insert_InsertSuccesfully()
+        [Theory]
+        [InlineData("Picnic","Go to a picnic with friends",TodoStatus.Open,"2020-05-15T14:29:15.1823029Z","2020-05-19T21:00:00.0000000Z")]
+        [InlineData("Football", "", TodoStatus.InProgress, "2020-05-15T14:29:15.1823029Z", "2020-05-19T21:00:00.0000000Z")] // without Description
+        public void GivenValidEntity_Insert_InsertSuccesfully(string title,string description, TodoStatus status, string createdOn, string dueDate)
         {
             var repo = new Xml.TodoRepository(MockXmlContext.Object);
 
-            var element = new XElement("todo");
-            element.Add(new XAttribute("Id", "fb7043c0-fa34-440c-9f7d-97a094f053ae"));
-            element.Add(new XElement("Title", "Picnic"));
-            element.Add(new XElement("Description", "Go to a picnic with friends"));
-            element.Add(new XElement("Status", "Open"));
-            element.Add(new XElement("CreatedOn", "2020-05-15T14:29:15.1823029Z"));
-            element.Add(new XElement("DueDate", "2020-05-19T21:00:00.0000000Z"));
-
-            var entity = new TodoModel();
-            entity.Title = element.Element("Title").Value;
-            entity.Description = element.Element("Description").Value;
-
-            string statusStr = element.Element("Status").Value;
-            entity.Status = (TodoStatus)Enum.Parse(typeof(TodoStatus), statusStr);
-
-            string createdOnStr = element.Element("CreatedOn").Value;
-            entity.CreatedOn = DateTime.Parse(createdOnStr, CultureInfo.InvariantCulture, DateTimeStyles.RoundtripKind);
-
-            string dueDateStr = element.Element("DueDate").Value;
-            entity.DueDate = DateTime.Parse(dueDateStr, CultureInfo.InvariantCulture, DateTimeStyles.RoundtripKind);
-
-            entity.Id = Guid.Parse(element.Attribute("Id").Value);
+            var entity = new TodoModel()
+            {
+                Title = title,
+                Description = description,
+                Status = status,
+                CreatedOn = DateTime.Parse(createdOn),
+                DueDate = DateTime.Parse(dueDate)
+            };
 
             var todo = repo.Insert(entity);
 

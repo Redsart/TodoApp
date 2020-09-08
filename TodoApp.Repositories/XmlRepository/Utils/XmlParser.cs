@@ -14,6 +14,7 @@ namespace TodoApp.Repositories.XmlRepository.Utils
         public static DateTime GetDateTime(XElement element, string propName)
         {
             var strValue = GetString(element, propName);
+        
             var date = DateTime.Parse(strValue, CultureInfo.InvariantCulture, DateTimeStyles.RoundtripKind);
 
             return date;
