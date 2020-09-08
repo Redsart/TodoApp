@@ -28,7 +28,7 @@ namespace TodoApp.Tests.Repositories.TodoRepositories
         }
 
         [Fact]
-        public void GetAll_ReturnsEmpty()
+        public void GivenEmptyRepository_GetAll_ReturnsEmpty()
         {
             // Arrange
             var repo = new Xml.TodoRepository(MockXmlContext.Object);
@@ -41,7 +41,7 @@ namespace TodoApp.Tests.Repositories.TodoRepositories
         }
 
         [Fact]
-        public void GetById_ReturnsNull()
+        public void GivenEmptyId_GetById_ReturnsNull()
         {
             //Arange
             var repo = new Xml.TodoRepository(MockXmlContext.Object);
@@ -55,7 +55,7 @@ namespace TodoApp.Tests.Repositories.TodoRepositories
 
         [Theory]
         [InlineData("", "Go to a picnic with friends", TodoStatus.Open, "2020-05-15T14:29:15.1823029Z", "2020-05-19T21:00:00.0000000Z")] // without title
-        public void Insert_ThrowsArgumentException(string title, string description, TodoStatus status, string createdOn, string dueDate)
+        public void GivenInvalidTodo_Insert_ThrowsArgumentException(string title, string description, TodoStatus status, string createdOn, string dueDate)
         {
             var repo = new Xml.TodoRepository(MockXmlContext.Object);
             var model = new TodoModel

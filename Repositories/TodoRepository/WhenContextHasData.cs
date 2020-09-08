@@ -2,11 +2,9 @@
 using Xunit;
 using Moq;
 using TodoApp.Repositories.XmlRepository.Utils;
-using TodoApp.Repositories.XmlRepository;
 using TodoApp.Repositories.Models;
 using System.Xml.Linq;
 using Xml = TodoApp.Repositories.XmlRepository;
-using System.Globalization;
 
 namespace TodoApp.Tests.Repositories.TodoRepositories
 {
