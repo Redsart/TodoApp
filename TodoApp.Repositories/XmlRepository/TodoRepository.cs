@@ -30,16 +30,9 @@ namespace TodoApp.Repositories.XmlRepository
             entity.DueDate = XmlParser.GetDateTime(element, "DueDate");
             entity.Id = XmlParser.GetGuid(element, IdName);
 
-            if (string.IsNullOrEmpty(element.Element("Title").Value) ||
-                string.IsNullOrEmpty(element.Element("Status").Value))
+            if (string.IsNullOrEmpty(element.Element("Title").Value))
             {
                 throw new ArgumentException("Empty todo!");
-            }
-
-            if (string.IsNullOrEmpty(element.Element("CreatedOn").Value) ||
-            string.IsNullOrEmpty(element.Element("DueDate").Value))
-            {
-                throw new FormatException("Empty todo, wrong time!");
             }
 
             return entity;
@@ -64,12 +57,6 @@ namespace TodoApp.Repositories.XmlRepository
                 string.IsNullOrEmpty(element.Element("Status").Value))
             {
                 throw new ArgumentException("Empty todo!");
-            }
-
-            if (string.IsNullOrEmpty(element.Element("CreatedOn").Value) ||
-            string.IsNullOrEmpty(element.Element("DueDate").Value))
-            {
-                throw new FormatException("Empty todo, wrong time!");
             }
 
             return element;
