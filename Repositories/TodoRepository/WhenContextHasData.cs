@@ -79,7 +79,7 @@ namespace TodoApp.Tests.Repositories.TodoRepositories
         [Theory]
         [InlineData("Picnic","Go to a picnic with friends",TodoStatus.Open,"2020-05-15T14:29:15.1823029Z","2020-05-19T21:00:00.0000000Z")]
         [InlineData("Football", "", TodoStatus.InProgress, "2020-05-15T14:29:15.1823029Z", "2020-05-19T21:00:00.0000000Z")] // without Description
-        public void GivenValidEntity_Insert_InsertSuccesfully(string title,string description, TodoStatus status, string createdOn, string dueDate)
+        public void GivenValidTodo_Insert_ReturnsNewTodo(string title,string description, TodoStatus status, string createdOn, string dueDate)
         {
             var repo = new Xml.TodoRepository(MockXmlContext.Object);
 
@@ -93,8 +93,32 @@ namespace TodoApp.Tests.Repositories.TodoRepositories
             };
 
             var todo = repo.Insert(entity);
-
+            
             Assert.NotNull(todo);
+        }
+
+        [Theory]
+        [InlineData("Picnic", "Go to a picnic with friends", TodoStatus.Open, "2020-05-15T14:29:15.1823029Z", "2020-05-19T21:00:00.0000000Z")]
+        [InlineData("Football", "", TodoStatus.InProgress, "2020-05-15T14:29:15.1823029Z", "2020-05-19T21:00:00.0000000Z")] // without Description
+        public void GivenValidTodo_Insert_AddsTodo(string title, string description, TodoStatus status, string createdOn, string dueDate)
+        {
+            var repo = new Xml.TodoRepository(MockXmlContext.Object);
+
+            var entity = new TodoModel()
+            {
+                Title = title,
+                Description = description,
+                Status = status,
+                CreatedOn = DateTime.Parse(createdOn),
+                DueDate = DateTime.Parse(dueDate)
+            };
+
+            var todo = repo.Insert(entity);
+            
+            var guid = todo.Id;
+            var addedTodo = repo.GetById(guid);
+
+            Assert.NotNull(addedTodo);
         }
 
         [Fact]
