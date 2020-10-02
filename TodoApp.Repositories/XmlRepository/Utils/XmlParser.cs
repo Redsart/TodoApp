@@ -54,7 +54,7 @@ namespace TodoApp.Repositories.XmlRepository.Utils
             return enumValue;
         }
 
-        public static void SetEnum<T>(XElement element, string propName, T value) where T : Enum
+        public static void SetEnum<T>(XElement element, string propName, T? value) where T : struct, Enum
         {
             string strEnum = Enum.GetName(typeof(T),value);
             SetString(element, propName, strEnum);

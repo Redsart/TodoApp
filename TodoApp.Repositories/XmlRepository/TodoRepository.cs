@@ -22,6 +22,12 @@ namespace TodoApp.Repositories.XmlRepository
                 return null;
             }
 
+            if (string.IsNullOrEmpty(element.Element("Title").Value) || 
+                string.IsNullOrEmpty(element.Element("Status").Value))
+            {
+                throw new ArgumentException("Empty todo!");
+            }
+
             var entity = new TodoModel();
             entity.Title = XmlParser.GetString(element, "Title");
             entity.Description = XmlParser.GetString(element, "Description");
@@ -29,11 +35,6 @@ namespace TodoApp.Repositories.XmlRepository
             entity.CreatedOn = XmlParser.GetDateTime(element, "CreatedOn");
             entity.DueDate = XmlParser.GetDateTime(element, "DueDate");
             entity.Id = XmlParser.GetGuid(element, IdName);
-
-            if (string.IsNullOrEmpty(element.Element("Title").Value))
-            {
-                throw new ArgumentException("Empty todo!");
-            }
 
             return entity;
         }
@@ -45,6 +46,11 @@ namespace TodoApp.Repositories.XmlRepository
                 return null;
             }
 
+            if (string.IsNullOrEmpty(entity.Title) || entity.Status == null)
+            {
+                throw new ArgumentException("Empty todo!");
+            }
+
             var element = new XElement("todo");
             XmlParser.SetString(element, "Title", entity.Title);
             XmlParser.SetString(element, "Description", entity.Description);
@@ -52,12 +58,6 @@ namespace TodoApp.Repositories.XmlRepository
             XmlParser.SetDateTime(element, "CreatedOn", entity.CreatedOn);
             XmlParser.SetDateTime(element, "DueDate", entity.DueDate);
             XmlParser.SetGuid(element, IdName, entity.Id);
-
-            if (string.IsNullOrEmpty(element.Element("Title").Value) || 
-                string.IsNullOrEmpty(element.Element("Status").Value))
-            {
-                throw new ArgumentException("Empty todo!");
-            }
 
             return element;
         }
