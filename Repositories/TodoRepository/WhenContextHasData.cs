@@ -49,7 +49,7 @@ namespace TodoApp.Tests.Repositories.TodoRepositories
         [Theory]
         [InlineData("00000000-0000-0000-0000-000000000000")]
         [InlineData("20975aeb-d490-4aa6-95ba-5b7c50b074a4")]
-        public void GivenValidID_GetByID_ReturnsTodoEntity(string id)
+        public void GivenValidID_GetById_ReturnsTodoEntity(string id)
         {
             var repo = new Xml.TodoRepository(MockXmlContext.Object);
             var guid = new Guid(id);
@@ -57,6 +57,30 @@ namespace TodoApp.Tests.Repositories.TodoRepositories
             var todo = repo.GetById(guid);
 
             Assert.NotNull(todo);
+        }
+
+        [Fact]
+        public void GivenValidID_GetById_ReturnsCorrectTodo()
+        {
+            //make a todoToBeCompared the same like one of the actual todos and compare the properties of both items
+            var expectedTodo = new TodoModel();
+            expectedTodo.Id = Guid.Parse("00000000-0000-0000-0000-000000000000");
+            expectedTodo.Title = "Unit tests";
+            expectedTodo.Description = "Learn how to make unit tests";
+            expectedTodo.Status = TodoStatus.Open;
+            expectedTodo.CreatedOn = DateTime.Parse("2020-04-15T14:29:15.1823029Z");
+            expectedTodo.DueDate = DateTime.Parse("2020-04-19T21:00:00.0000000Z");
+
+            var repo = new Xml.TodoRepository(MockXmlContext.Object);
+
+            var todo = repo.GetById(Guid.Parse("00000000-0000-0000-0000-000000000000"));
+
+            Assert.Equal(todo.Id, expectedTodo.Id);
+            Assert.Equal(todo.Title, expectedTodo.Title);
+            Assert.Equal(todo.Description, expectedTodo.Description);
+            Assert.Equal(todo.Status, expectedTodo.Status);
+            Assert.Equal(todo.CreatedOn, expectedTodo.CreatedOn.ToUniversalTime());
+            Assert.Equal(todo.DueDate, expectedTodo.DueDate.ToUniversalTime());
         }
 
         [Fact]
