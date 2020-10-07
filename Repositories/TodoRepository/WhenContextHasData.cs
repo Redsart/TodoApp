@@ -38,6 +38,20 @@ namespace TodoApp.Tests.Repositories.TodoRepositories
             secondTodo.Add(new XElement("CreatedOn", "2020-04-16T10:17:33.2653554Z"));
             secondTodo.Add(new XElement("DueDate", "2020-05-29T21:00:00.0000000Z"));
 
+            var thirdTodo = new XElement("todo");
+            thirdTodo.Add(new XAttribute("Id", "30000300-4000-0000-0900-00a0000f0050"));
+            thirdTodo.Add(new XElement("Description", "Finish it"));
+            thirdTodo.Add(new XElement("Status", "InProgress"));
+            thirdTodo.Add(new XElement("CreatedOn", "2020-09-20T14:29:15.1823029Z"));
+            thirdTodo.Add(new XElement("DueDate", "2020-09-30T21:00:00.0000000Z"));
+
+            var fourthTodo = new XElement("todo");
+            fourthTodo.Add(new XAttribute("Id", "00000000-0000-0000-0000-000000000000"));
+            fourthTodo.Add(new XElement("Title", "Without Status"));
+            fourthTodo.Add(new XElement("Description", "Hope he will pass"));
+            fourthTodo.Add(new XElement("CreatedOn", "2020-04-15T14:29:15.1823029Z"));
+            fourthTodo.Add(new XElement("DueDate", "2020-04-19T21:00:00.0000000Z"));
+
             Container.Add(firstTodo);
             Container.Add(secondTodo);
 
