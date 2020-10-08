@@ -5,6 +5,8 @@ using TodoApp.Repositories.XmlRepository.Utils;
 using TodoApp.Repositories.Models;
 using System.Xml.Linq;
 using Xml = TodoApp.Repositories.XmlRepository;
+using System.Linq;
+using System.Globalization;
 
 namespace TodoApp.Tests.Repositories.TodoRepositories
 {
@@ -40,17 +42,11 @@ namespace TodoApp.Tests.Repositories.TodoRepositories
 
             var thirdTodo = new XElement("todo");
             thirdTodo.Add(new XAttribute("Id", "30000300-4000-0000-0900-00a0000f0050"));
-            thirdTodo.Add(new XElement("Description", "Finish it"));
+            thirdTodo.Add(new XElement("Title", "Another todo"));
+            thirdTodo.Add(new XElement("Description", ""));
             thirdTodo.Add(new XElement("Status", "InProgress"));
             thirdTodo.Add(new XElement("CreatedOn", "2020-09-20T14:29:15.1823029Z"));
             thirdTodo.Add(new XElement("DueDate", "2020-09-30T21:00:00.0000000Z"));
-
-            var fourthTodo = new XElement("todo");
-            fourthTodo.Add(new XAttribute("Id", "00000000-0000-0000-0000-000000000000"));
-            fourthTodo.Add(new XElement("Title", "Without Status"));
-            fourthTodo.Add(new XElement("Description", "Hope he will pass"));
-            fourthTodo.Add(new XElement("CreatedOn", "2020-04-15T14:29:15.1823029Z"));
-            fourthTodo.Add(new XElement("DueDate", "2020-04-19T21:00:00.0000000Z"));
 
             Container.Add(firstTodo);
             Container.Add(secondTodo);
@@ -97,21 +93,35 @@ namespace TodoApp.Tests.Repositories.TodoRepositories
             Assert.Equal(todo.DueDate, expectedTodo.DueDate.ToUniversalTime());
         }
 
-        [Fact]
-        public void GivenValidEntity_Update_UpdateEntity()
+        [Theory]
+        [InlineData("Picnic", "Go to a picnic with friends", TodoStatus.Open, "2020-05-15T14:29:15.1823029Z", "2020-05-19T21:00:00.0000000Z")]
+        [InlineData("Football", "", TodoStatus.InProgress, "2020-05-15T14:29:15.1823029Z", "2020-05-19T21:00:00.0000000Z")] // without Description
+        public void GivenValidEntity_Update_UpdateEntity(string title, string description, TodoStatus status, string createdOn, string dueDate)
         {
             var repo = new Xml.TodoRepository(MockXmlContext.Object);
-            var guid = new Guid("20975aeb-d490-4aa6-95ba-5b7c50b074a4");
-            var todo = repo.GetById(guid);
+
+            var todo = new TodoModel()
+            {
+                Title = title,
+                Description = description,
+                Status = status,
+                CreatedOn = DateTime.Parse(createdOn),
+                DueDate = DateTime.Parse(dueDate)
+            };
 
             todo.Title = "Concert";
             todo.Description = "Go to Metallica concert";
             repo.Update(todo);
-            var newTodo = repo.GetById(guid);
 
-            Assert.NotNull(newTodo);
-            Assert.Equal(todo.Title, newTodo.Title);
-            Assert.Equal(todo.Description, newTodo.Description);
+            var all = Container.Elements();
+            var element = all.First(a => a.Attribute("Id").Value == todo.Id.ToString());
+
+            Assert.Equal(todo.Id.ToString(), element.Attribute("Id").Value);
+            Assert.Equal(todo.Title, element.Element("Title").Value);
+            Assert.Equal(todo.Description, element.Element("Description").Value);
+            Assert.Equal(todo.Status.ToString(), element.Element("Status").Value);
+            Assert.Equal(todo.CreatedOn.ToUniversalTime().ToString("o", CultureInfo.InvariantCulture), element.Element("CreatedOn").Value);
+            Assert.Equal(todo.DueDate.ToUniversalTime().ToString("o", CultureInfo.InvariantCulture), element.Element("DueDate").Value);
         }
 
         [Theory]
