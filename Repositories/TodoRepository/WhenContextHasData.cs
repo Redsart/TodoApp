@@ -198,11 +198,17 @@ namespace TodoApp.Tests.Repositories.TodoRepositories
             };
 
             var todo = repo.Insert(entity);
-            
-            var guid = todo.Id;
-            var addedTodo = repo.GetById(guid);
 
-            Assert.NotNull(addedTodo);
+            var all = Container.Elements();
+            var element = all.First(a => a.Attribute("Id").Value == todo.Id.ToString());
+
+            Assert.NotNull(element);
+            Assert.Equal(todo.Id.ToString(), element.Attribute("Id").Value);
+            Assert.Equal(todo.Title, element.Element("Title").Value);
+            Assert.Equal(todo.Description, element.Element("Description").Value);
+            Assert.Equal(todo.Status.ToString(), element.Element("Status").Value);
+            Assert.Equal(todo.CreatedOn.ToUniversalTime().ToString("o", CultureInfo.InvariantCulture), element.Element("CreatedOn").Value);
+            Assert.Equal(todo.DueDate.ToUniversalTime().ToString("o", CultureInfo.InvariantCulture), element.Element("DueDate").Value);
         }
 
         [Fact]
