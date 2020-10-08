@@ -27,6 +27,11 @@ namespace TodoApp.Repositories.XmlRepository
             XElement element = ContainerElement.Elements()
                 .FirstOrDefault(a => a.Attribute(IdName).Value == id.ToString());
 
+            if (element == null)
+            {
+                return null;
+            }
+
             return element;
         }
 

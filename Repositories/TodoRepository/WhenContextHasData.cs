@@ -124,6 +124,32 @@ namespace TodoApp.Tests.Repositories.TodoRepositories
             Assert.Equal(todo.DueDate.ToUniversalTime().ToString("o", CultureInfo.InvariantCulture), element.Element("DueDate").Value);
         }
 
+        /*
+        [Theory]
+        [InlineData("Picnic", "Go to a picnic with friends", TodoStatus.InProgress, "2020-05-15T14:29:15.1823029Z", "2020-05-19T21:00:00.0000000Z")]
+        [InlineData("Football", "", null, "2020-05-15T14:29:15.1823029Z", "2020-05-19T21:00:00.0000000Z")]
+        public void GivenInvalidTodoEntity_Update_ThrowsException(string title, string description, TodoStatus status, string createdOn, string dueDate)
+        {
+            var repo = new Xml.TodoRepository(MockXmlContext.Object);
+
+            var todo = new TodoModel()
+            {
+                Title = title,
+                Description = description,
+                Status = status,
+                CreatedOn = DateTime.Parse(createdOn),
+                DueDate = DateTime.Parse(dueDate)
+            };
+
+            todo.Title = "";
+            todo.Description = "Go to Metallica concert";
+
+            var ex = Assert.Throws<ArgumentException>(() => repo.Update(todo));
+
+            Assert.Equal("Empty Todo!", ex.Message);
+        }
+        */
+
         [Theory]
         [InlineData("Picnic","Go to a picnic with friends",TodoStatus.Open,"2020-05-15T14:29:15.1823029Z","2020-05-19T21:00:00.0000000Z")]
         [InlineData("Football", "", TodoStatus.InProgress, "2020-05-15T14:29:15.1823029Z", "2020-05-19T21:00:00.0000000Z")] // without Description
@@ -141,8 +167,18 @@ namespace TodoApp.Tests.Repositories.TodoRepositories
             };
 
             var todo = repo.Insert(entity);
-            
+
+            var all = Container.Elements();
+            var element = all.First(a => a.Attribute("Id").Value == todo.Id.ToString());
+
             Assert.NotNull(todo);
+            Assert.NotEmpty(todo.Id.ToString());
+            Assert.Equal(todo.Id.ToString(), element.Attribute("Id").Value);
+            Assert.Equal(todo.Title, element.Element("Title").Value);
+            Assert.Equal(todo.Description, element.Element("Description").Value);
+            Assert.Equal(todo.Status.ToString(), element.Element("Status").Value);
+            Assert.Equal(todo.CreatedOn.ToUniversalTime().ToString("o", CultureInfo.InvariantCulture), element.Element("CreatedOn").Value);
+            Assert.Equal(todo.DueDate.ToUniversalTime().ToString("o", CultureInfo.InvariantCulture), element.Element("DueDate").Value);
         }
 
         [Theory]
