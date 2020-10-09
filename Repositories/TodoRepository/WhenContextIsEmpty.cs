@@ -52,7 +52,5 @@ namespace TodoApp.Tests.Repositories.TodoRepositories
             //Assert
             Assert.Null(todo);
         }
-
-
     }
 }

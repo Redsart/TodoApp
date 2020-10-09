@@ -239,9 +239,10 @@ namespace TodoApp.Tests.Repositories.TodoRepositories
             var guid = new Guid("00000000-0000-0000-0000-000000000000");
             repo.Delete(guid);
 
-            var todo = repo.GetById(guid);
-
-            Assert.Null(todo);
+            var all = Container.Elements();
+            var element = all.FirstOrDefault(a => a.Attribute("Id").Value == guid.ToString());
+            
+            Assert.Null(element);
         }
     }
 }
