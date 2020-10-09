@@ -53,25 +53,6 @@ namespace TodoApp.Tests.Repositories.TodoRepositories
             Assert.Null(todo);
         }
 
-        [Theory]
-        [InlineData("Picnic", "Go to a picnic with friends", null, "2020-05-15T14:29:15.1823029Z", "2020-05-19T21:00:00.0000000Z")]
-        [InlineData("", "Go to a picnic with friends", TodoStatus.Open, "2020-05-15T14:29:15.1823029Z", "2020-05-19T21:00:00.0000000Z")] // without title
-        
-        public void GivenInvalidTodo_Insert_ThrowsArgumentException(string title, string description, TodoStatus? status, string createdOn, string dueDate)
-        {
-            var repo = new Xml.TodoRepository(MockXmlContext.Object);
-            var model = new TodoModel
-            {
-                Title = title,
-                Description = description,
-                Status = status,
-                CreatedOn = DateTime.Parse(createdOn),
-                DueDate = DateTime.Parse(dueDate)
-            };
 
-            var ex = Assert.Throws<ArgumentException>(() => repo.Insert(model));
-
-            Assert.Equal("Empty todo!", ex.Message);
-        }
     }
 }
