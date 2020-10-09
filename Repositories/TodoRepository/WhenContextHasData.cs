@@ -72,9 +72,9 @@ namespace TodoApp.Tests.Repositories.TodoRepositories
         [Fact]
         public void GivenValidID_GetById_ReturnsCorrectTodo()
         {
-            //make a todoToBeCompared the same like one of the actual todos and compare the properties of both items
             var expectedTodo = new TodoModel();
-            expectedTodo.Id = Guid.Parse("00000000-0000-0000-0000-000000000000");
+            var guid = Guid.Parse("00000000-0000-0000-0000-000000000000");
+            expectedTodo.Id = guid;
             expectedTodo.Title = "Unit tests";
             expectedTodo.Description = "Learn how to make unit tests";
             expectedTodo.Status = TodoStatus.Open;
@@ -83,14 +83,15 @@ namespace TodoApp.Tests.Repositories.TodoRepositories
 
             var repo = new Xml.TodoRepository(MockXmlContext.Object);
 
-            var todo = repo.GetById(Guid.Parse("00000000-0000-0000-0000-000000000000"));
+            var all = Container.Elements();
+            var element = all.First(a => a.Attribute("Id").Value == guid.ToString());
 
-            Assert.Equal(todo.Id, expectedTodo.Id);
-            Assert.Equal(todo.Title, expectedTodo.Title);
-            Assert.Equal(todo.Description, expectedTodo.Description);
-            Assert.Equal(todo.Status, expectedTodo.Status);
-            Assert.Equal(todo.CreatedOn, expectedTodo.CreatedOn.ToUniversalTime());
-            Assert.Equal(todo.DueDate, expectedTodo.DueDate.ToUniversalTime());
+            Assert.Equal(element.Attribute("Id").Value, expectedTodo.Id.ToString());
+            Assert.Equal(element.Element("Title").Value, expectedTodo.Title);
+            Assert.Equal(element.Element("Description").Value, expectedTodo.Description);
+            Assert.Equal(element.Element("Status").Value, expectedTodo.Status.ToString());
+            Assert.Equal(element.Element("CreatedOn").Value, expectedTodo.CreatedOn.ToUniversalTime().ToString("o", CultureInfo.InvariantCulture));
+            Assert.Equal(element.Element("DueDate").Value, expectedTodo.DueDate.ToUniversalTime().ToString("o", CultureInfo.InvariantCulture));
         }
 
         [Theory]
@@ -123,7 +124,6 @@ namespace TodoApp.Tests.Repositories.TodoRepositories
             Assert.Equal(todo.CreatedOn.ToUniversalTime().ToString("o", CultureInfo.InvariantCulture), element.Element("CreatedOn").Value);
             Assert.Equal(todo.DueDate.ToUniversalTime().ToString("o", CultureInfo.InvariantCulture), element.Element("DueDate").Value);
         }
-
         
         [Theory]
         [InlineData("Picnic", "Go to a picnic with friends", TodoStatus.InProgress, "2020-05-15T14:29:15.1823029Z", "2020-05-19T21:00:00.0000000Z")]
@@ -148,7 +148,6 @@ namespace TodoApp.Tests.Repositories.TodoRepositories
 
             Assert.Equal("Empty todo!", ex.Message);
         }
-        
 
         [Theory]
         [InlineData("Picnic","Go to a picnic with friends",TodoStatus.Open,"2020-05-15T14:29:15.1823029Z","2020-05-19T21:00:00.0000000Z")]
@@ -229,6 +228,16 @@ namespace TodoApp.Tests.Repositories.TodoRepositories
             var ex = Assert.Throws<ArgumentException>(() => repo.Insert(model));
 
             Assert.Equal("Empty todo!", ex.Message);
+        }
+
+        [Fact]
+        public void Save_ReturnsTrue()
+        {
+            var repo = new Xml.TodoRepository(MockXmlContext.Object);
+
+            var isSaved = repo.Save();
+
+            Assert.True(isSaved);
         }
 
         [Fact]
