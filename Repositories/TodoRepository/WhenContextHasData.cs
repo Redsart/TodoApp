@@ -25,7 +25,7 @@ namespace TodoApp.Tests.Repositories.TodoRepositories
             Container = new XElement(containerName);
 
             var firstTodo = new XElement("todo");
-            firstTodo.Add(new XAttribute("Id", "00000000-0000-0000-0000-000000000000"));
+            firstTodo.Add(new XAttribute("Id", "00000000-0000-0000-0000-000000000001"));
             firstTodo.Add(new XElement("Title", "Unit tests"));
             firstTodo.Add(new XElement("Description", "Learn how to make unit tests"));
             firstTodo.Add(new XElement("Status", "Open"));
@@ -57,7 +57,7 @@ namespace TodoApp.Tests.Repositories.TodoRepositories
         }
 
         [Theory]
-        [InlineData("00000000-0000-0000-0000-000000000000")]
+        [InlineData("00000000-0000-0000-0000-000000000001")]
         [InlineData("20975aeb-d490-4aa6-95ba-5b7c50b074a4")]
         public void GivenValidID_GetById_ReturnsTodoEntity(string id)
         {
@@ -73,7 +73,7 @@ namespace TodoApp.Tests.Repositories.TodoRepositories
         public void GivenValidID_GetById_ReturnsCorrectTodo()
         {
             var expectedTodo = new TodoModel();
-            var guid = Guid.Parse("00000000-0000-0000-0000-000000000000");
+            var guid = Guid.Parse("00000000-0000-0000-0000-000000000001");
             expectedTodo.Id = guid;
             expectedTodo.Title = "Unit tests";
             expectedTodo.Description = "Learn how to make unit tests";
@@ -95,14 +95,15 @@ namespace TodoApp.Tests.Repositories.TodoRepositories
         }
 
         [Theory]
-        [InlineData("Picnic", "Go to a picnic with friends", TodoStatus.Open, "2020-05-15T14:29:15.1823029Z", "2020-05-19T21:00:00.0000000Z")]
-        [InlineData("Football", "", TodoStatus.InProgress, "2020-05-15T14:29:15.1823029Z", "2020-05-19T21:00:00.0000000Z")] // without Description
-        public void GivenValidEntity_Update_UpdateEntity(string title, string description, TodoStatus status, string createdOn, string dueDate)
+        [InlineData("0a000300-0600-0000-0100-0000f0700001","Picnic", "Go to a picnic with friends", TodoStatus.Open, "2020-05-15T14:29:15.1823029Z", "2020-05-19T21:00:00.0000000Z")]
+        [InlineData("a00k0400-3000-0000-3000-000050000001","Football", "", TodoStatus.InProgress, "2020-05-15T14:29:15.1823029Z", "2020-05-19T21:00:00.0000000Z")] // without Description
+        public void GivenValidEntity_Update_UpdateEntity(string id, string title, string description, TodoStatus status, string createdOn, string dueDate)
         {
-            var repo = new Xml.TodoRepository(MockXmlContext.Object);
+            
 
             var todo = new TodoModel()
             {
+                Id = Guid.Parse(id),
                 Title = title,
                 Description = description,
                 Status = status,
@@ -110,9 +111,14 @@ namespace TodoApp.Tests.Repositories.TodoRepositories
                 DueDate = DateTime.Parse(dueDate)
             };
 
+            var todoAsElement = EntityToElement(todo);
+            Container.Add(todoAsElement);
+
+            var repo = new Xml.TodoRepository(MockXmlContext.Object);
             todo.Title = "Concert";
             todo.Description = "Go to Metallica concert";
             repo.Update(todo);
+            repo.Save();
 
             var all = Container.Elements();
             var element = all.First(a => a.Attribute("Id").Value == todo.Id.ToString());
@@ -124,7 +130,7 @@ namespace TodoApp.Tests.Repositories.TodoRepositories
             Assert.Equal(todo.CreatedOn.ToUniversalTime().ToString("o", CultureInfo.InvariantCulture), element.Element("CreatedOn").Value);
             Assert.Equal(todo.DueDate.ToUniversalTime().ToString("o", CultureInfo.InvariantCulture), element.Element("DueDate").Value);
         }
-        
+
         [Theory]
         [InlineData("Picnic", "Go to a picnic with friends", TodoStatus.InProgress, "2020-05-15T14:29:15.1823029Z", "2020-05-19T21:00:00.0000000Z")]
         [InlineData("Football", "", null, "2020-05-15T14:29:15.1823029Z", "2020-05-19T21:00:00.0000000Z")]
@@ -147,6 +153,29 @@ namespace TodoApp.Tests.Repositories.TodoRepositories
             var ex = Assert.Throws<ArgumentException>(() => repo.Update(todo));
 
             Assert.Equal("Empty todo!", ex.Message);
+        }
+
+        [Theory]
+        [InlineData("Picnic", "Go to a picnic with friends", TodoStatus.Open, "2020-05-15T14:29:15.1823029Z", "2020-05-19T21:00:00.0000000Z")]
+        [InlineData("Football", "", TodoStatus.InProgress, "2020-05-15T14:29:15.1823029Z", "2020-05-19T21:00:00.0000000Z")] // without Description
+        public void GivenNotExistedId_Update_DoesNothing(string title, string description, TodoStatus status, string createdOn, string dueDate)
+        {
+            var repo = new Xml.TodoRepository(MockXmlContext.Object);
+
+            var todo = new TodoModel()
+            {
+                Title = title,
+                Description = description,
+                Status = status,
+                CreatedOn = DateTime.Parse(createdOn),
+                DueDate = DateTime.Parse(dueDate)
+            };
+
+            todo.Title = "Concert";
+            todo.Description = "Go to Metallica concert";
+            repo.Update(todo);
+
+
         }
 
         [Theory]
@@ -241,17 +270,38 @@ namespace TodoApp.Tests.Repositories.TodoRepositories
         }
 
         [Fact]
+        public void Save_CallContextSave()
+        {
+            MockXmlContext.Setup(a => a.Save());
+            
+            MockXmlContext.Verify(a => a.Save(), Times.Once);
+        }
+
+        [Fact]
         public void GivenValidElement_Delete_RemoveElement()
         {
             var repo = new Xml.TodoRepository(MockXmlContext.Object);
 
-            var guid = new Guid("00000000-0000-0000-0000-000000000000");
+            var guid = new Guid("00000000-0000-0000-0000-000000000001");
             repo.Delete(guid);
 
             var all = Container.Elements();
             var element = all.FirstOrDefault(a => a.Attribute("Id").Value == guid.ToString());
             
             Assert.Null(element);
+        }
+
+        public XElement EntityToElement(TodoModel todo)
+        {
+            XElement element = new XElement("todo");
+            element.Add(new XAttribute("Id",todo.Id.ToString()));
+            element.Add(new XElement("Title", todo.Title));
+            element.Add(new XElement("Description", todo.Description));
+            element.Add(new XElement("Status"), todo.Status.ToString());
+            element.Add(new XElement("CreatedOn", todo.CreatedOn.ToString("o", CultureInfo.InvariantCulture)));
+            element.Add(new XElement("DueDate", todo.DueDate.ToString("o", CultureInfo.InvariantCulture)));
+
+            return element;
         }
     }
 }

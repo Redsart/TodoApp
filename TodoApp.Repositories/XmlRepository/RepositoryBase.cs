@@ -51,6 +51,9 @@ namespace TodoApp.Repositories.XmlRepository
         {
             GetElementById(id)
                 .Remove();
+            //argoutofrange ex name of id
+            //assert dontchangecontext
+            // assert null and wrong id with theory
         }
 
         public IEnumerable<TModel> Get(Func<TModel, bool> filter)
@@ -103,6 +106,11 @@ namespace TodoApp.Repositories.XmlRepository
 
         public void Update(TModel model)
         {
+            var element = EntityToElement(model);
+            if (!ContainerElement.Attributes().Contains(element.Attribute("Id")) || model.Id == null)
+            {
+                return;
+            }
             var oldElement = GetElementById(model.Id);
             var newElement = EntityToElement(model);
 
