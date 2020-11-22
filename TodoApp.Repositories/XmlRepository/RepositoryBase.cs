@@ -107,10 +107,10 @@ namespace TodoApp.Repositories.XmlRepository
         public void Update(TModel model)
         {
             var element = EntityToElement(model);
-            if (!ContainerElement.Attributes().Contains(element.Attribute("Id")) || model.Id == null)
-            {
-                return;
-            }
+            //if (!ContainerElement.Attributes().Contains(element.Attribute("Id")) || model.Id == null)
+            //{
+            //    return;
+            //}
             var oldElement = GetElementById(model.Id);
             var newElement = EntityToElement(model);
 

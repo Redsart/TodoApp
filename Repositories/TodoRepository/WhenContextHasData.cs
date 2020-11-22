@@ -96,11 +96,9 @@ namespace TodoApp.Tests.Repositories.TodoRepositories
 
         [Theory]
         [InlineData("0a000300-0600-0000-0100-0000f0700001","Picnic", "Go to a picnic with friends", TodoStatus.Open, "2020-05-15T14:29:15.1823029Z", "2020-05-19T21:00:00.0000000Z")]
-        [InlineData("a00k0400-3000-0000-3000-000050000001","Football", "", TodoStatus.InProgress, "2020-05-15T14:29:15.1823029Z", "2020-05-19T21:00:00.0000000Z")] // without Description
+        [InlineData("a00e0400-3000-0000-3000-000050000001","Football", "", TodoStatus.InProgress, "2020-05-15T14:29:15.1823029Z", "2020-05-19T21:00:00.0000000Z")] // without Description
         public void GivenValidEntity_Update_UpdateEntity(string id, string title, string description, TodoStatus status, string createdOn, string dueDate)
         {
-            
-
             var todo = new TodoModel()
             {
                 Id = Guid.Parse(id),
@@ -134,7 +132,7 @@ namespace TodoApp.Tests.Repositories.TodoRepositories
         [Theory]
         [InlineData("Picnic", "Go to a picnic with friends", TodoStatus.InProgress, "2020-05-15T14:29:15.1823029Z", "2020-05-19T21:00:00.0000000Z")]
         [InlineData("Football", "", null, "2020-05-15T14:29:15.1823029Z", "2020-05-19T21:00:00.0000000Z")]
-        public void GivenInvalidTodoEntity_Update_ThrowsException(string title, string description, TodoStatus status, string createdOn, string dueDate)
+        public void GivenInvalidTodoEntity_Update_ThrowsException(string title, string description, TodoStatus? status, string createdOn, string dueDate)
         {
             var repo = new Xml.TodoRepository(MockXmlContext.Object);
 
