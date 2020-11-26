@@ -49,11 +49,10 @@ namespace TodoApp.Repositories.XmlRepository
 
         public void Delete(TId id)
         {
-            GetElementById(id)
-                .Remove();
-            //argoutofrange ex name of id
-            //assert dontchangecontext
-            // assert null and wrong id with theory
+            if (GetElementById(id) != null)
+            {
+                GetElementById(id).Remove();
+            }
         }
 
         public IEnumerable<TModel> Get(Func<TModel, bool> filter)

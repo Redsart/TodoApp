@@ -280,6 +280,23 @@ namespace TodoApp.Tests.Repositories.TodoRepositories
             MockXmlContext.Verify(a => a.Save(), Times.Once);
         }
 
+        [Theory]
+        [InlineData("a00e0700-3000-0b00-3000-000050080001")]
+        [InlineData("600e0400-3c00-0000-3000-020050000001")]
+        public void GivenInvalidId_Delete_DoesNothing(string id)
+        {
+            var repo = new Xml.TodoRepository(MockXmlContext.Object);
+
+            var expected = Container.Elements().Count();
+            var guid = new Guid(id);
+            repo.Delete(guid);
+
+            var all = Container.Elements();
+            var element = all.FirstOrDefault(a => a.Attribute("Id").Value == guid.ToString());
+
+            Assert.Equal(expected, all.Count());
+        }
+
         [Fact]
         public void GivenValidElement_Delete_RemoveElement()
         {
