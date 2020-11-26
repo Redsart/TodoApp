@@ -116,7 +116,7 @@ namespace TodoApp.Tests.Repositories.TodoRepositories
             todo.Title = "Concert";
             todo.Description = "Go to Metallica concert";
             repo.Update(todo);
-            repo.Save();
+            //repo.Save();
 
             var all = Container.Elements();
             var element = all.First(a => a.Attribute("Id").Value == todo.Id.ToString());
@@ -154,14 +154,13 @@ namespace TodoApp.Tests.Repositories.TodoRepositories
         }
 
         [Theory]
-        [InlineData("Picnic", "Go to a picnic with friends", TodoStatus.Open, "2020-05-15T14:29:15.1823029Z", "2020-05-19T21:00:00.0000000Z")]
-        [InlineData("Football", "", TodoStatus.InProgress, "2020-05-15T14:29:15.1823029Z", "2020-05-19T21:00:00.0000000Z")] // without Description
-        public void GivenNotExistedId_Update_DoesNothing(string title, string description, TodoStatus status, string createdOn, string dueDate)
+        [InlineData("a00e0700-3000-0b00-3000-000050080001", "Picnic", "Go to a picnic with friends", TodoStatus.Open, "2020-05-15T14:29:15.1823029Z", "2020-05-19T21:00:00.0000000Z")]
+        [InlineData("600e0400-3c00-0000-3000-020050000001", "Football", "", TodoStatus.InProgress, "2020-05-15T14:29:15.1823029Z", "2020-05-19T21:00:00.0000000Z")] // without Description
+        public void GivenNotExistedId_Update_DoesNothing(string id,string title, string description, TodoStatus status, string createdOn, string dueDate)
         {
-            var repo = new Xml.TodoRepository(MockXmlContext.Object);
-
             var todo = new TodoModel()
             {
+                Id = Guid.Parse(id),
                 Title = title,
                 Description = description,
                 Status = status,
@@ -169,11 +168,16 @@ namespace TodoApp.Tests.Repositories.TodoRepositories
                 DueDate = DateTime.Parse(dueDate)
             };
 
+            var repo = new Xml.TodoRepository(MockXmlContext.Object);
             todo.Title = "Concert";
             todo.Description = "Go to Metallica concert";
             repo.Update(todo);
+            //repo.Save();
 
+            var all = Container.Elements();
+            var element = all.FirstOrDefault(a => a.Attribute("Id").Value == todo.Id.ToString());
 
+            Assert.Null(element);
         }
 
         [Theory]
@@ -272,6 +276,7 @@ namespace TodoApp.Tests.Repositories.TodoRepositories
         {
             MockXmlContext.Setup(a => a.Save());
             MockXmlContext.Object.Save();
+
             MockXmlContext.Verify(a => a.Save(), Times.Once);
         }
 
