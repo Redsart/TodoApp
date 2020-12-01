@@ -283,7 +283,7 @@ namespace TodoApp.Tests.Repositories.TodoRepositories
         [Theory]
         [InlineData("a00e0700-3000-0b00-3000-000050080001")]
         [InlineData("600e0400-3c00-0000-3000-020050000001")]
-        public void GivenInvalidId_Delete_DoesNothing(string id)
+        public void GivenNotExistedId_Delete_DoesNothing(string id)
         {
             var repo = new Xml.TodoRepository(MockXmlContext.Object);
 
