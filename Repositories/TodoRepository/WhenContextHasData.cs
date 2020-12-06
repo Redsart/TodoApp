@@ -262,6 +262,29 @@ namespace TodoApp.Tests.Repositories.TodoRepositories
         }
 
         [Fact]
+        public void GetAll_ReturnsAllTodos()
+        {
+            var repo = new Xml.TodoRepository(MockXmlContext.Object);
+
+            var elements = Container.Elements();
+            var todos = repo.GetAll();
+
+            Assert.Equal(elements.Count(), todos.Count());
+            foreach (var todo in todos)
+            {
+                var element = elements.First(x => x.Attribute("Id").Value == todo.Id.ToString());
+                Assert.NotNull(todo);
+                Assert.NotEmpty(todo.Id.ToString());
+                Assert.Equal(todo.Id.ToString(), element.Attribute("Id").Value);
+                Assert.Equal(todo.Title, element.Element("Title").Value);
+                Assert.Equal(todo.Description, element.Element("Description").Value);
+                Assert.Equal(todo.Status.ToString(), element.Element("Status").Value);
+                Assert.Equal(todo.CreatedOn.ToUniversalTime().ToString("o", CultureInfo.InvariantCulture), element.Element("CreatedOn").Value);
+                Assert.Equal(todo.DueDate.ToUniversalTime().ToString("o", CultureInfo.InvariantCulture), element.Element("DueDate").Value);
+            }
+        }
+
+        [Fact]
         public void Save_ReturnsTrue()
         {
             var repo = new Xml.TodoRepository(MockXmlContext.Object);
