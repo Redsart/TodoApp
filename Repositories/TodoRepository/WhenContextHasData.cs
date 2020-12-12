@@ -94,6 +94,8 @@ namespace TodoApp.Tests.Repositories.TodoRepositories
             Assert.Equal(element.Element("DueDate").Value, expectedTodo.DueDate.ToUniversalTime().ToString("o", CultureInfo.InvariantCulture));
         }
 
+
+
         [Theory]
         [InlineData("0a000300-0600-0000-0100-0000f0700001","Picnic", "Go to a picnic with friends", TodoStatus.Open, "2020-05-15T14:29:15.1823029Z", "2020-05-19T21:00:00.0000000Z")]
         [InlineData("a00e0400-3000-0000-3000-000050000001","Football", "", TodoStatus.InProgress, "2020-05-15T14:29:15.1823029Z", "2020-05-19T21:00:00.0000000Z")] // without Description
@@ -301,6 +303,83 @@ namespace TodoApp.Tests.Repositories.TodoRepositories
             MockXmlContext.Object.Save();
 
             MockXmlContext.Verify(a => a.Save(), Times.Once);
+        }
+
+        public static TheoryData<(Func<TodoModel, bool>, string[])> FilterTests = new TheoryData<(Func<TodoModel, bool> filter, string[] eptected)>
+        {
+            ( todo => todo.Status == TodoStatus.Open, new string[] { "00000000-0000-0000-0000-000000000001", "20975aeb-d490-4aa6-95ba-5b7c50b074a4" } ),
+            ( todo => todo.Title == "Football", new string[] { "20975aeb-d490-4aa6-95ba-5b7c50b074a4"} ),
+        };
+
+        [Theory]
+        [MemberData(nameof(FilterTests))]
+        public void GivenFilter_Get_ReturnsMatchingTodos((Func<TodoModel, bool> filter, string[] expectedIds) data)
+        {
+            // Arrange
+            var repo = new Xml.TodoRepository(MockXmlContext.Object);
+
+            // Act
+            var result = repo.Get(data.filter);
+
+            // Assert
+            Assert.Equal(data.expectedIds.Length, result.Count());
+
+            foreach (var expectedId in data.expectedIds)
+            {
+                Assert.Contains(result, expectedTodo => expectedTodo.Id.ToString() == expectedId);
+            }
+        }
+
+        public static TheoryData<(Func<TodoModel, object>, string[])> OrderByTests = new TheoryData<(Func<TodoModel, object> orderByKey, string[] eptected)>
+        {
+            ( todo => todo.Title, new string[] { "20975aeb-d490-4aa6-95ba-5b7c50b074a4", "00000000-0000-0000-0000-000000000001" } ),
+        };
+
+        [Theory]
+        [MemberData(nameof(OrderByTests))]
+        public void GivenOrderBy_Get_ReturnsSortedTodos((Func<TodoModel, object> orderByKey, string[] expectedIds) data)
+        {
+            // Arrange
+            var repo = new Xml.TodoRepository(MockXmlContext.Object);
+
+            // Act
+            var result = repo.Get(data.orderByKey);
+
+            // Assert
+            Assert.Equal(data.expectedIds.Length, result.Count());
+
+            for (int i = 0; i < data.expectedIds.Length; i++)
+            {
+                var expectedId = data.expectedIds[i];
+                var todo = result.ElementAt(i);
+                Assert.Equal(expectedId, todo.Id.ToString());
+            }
+        }
+
+        public static TheoryData<(Func<TodoModel, bool>, Func<TodoModel, object>, string[])> FilterAndOrderByTests =
+            new TheoryData<(Func<TodoModel, bool> filter, Func<TodoModel, object> orderByKey, string[] expected)>
+        {
+            (todo => todo.Status == TodoStatus.Open, todo => todo.Title, new string[] {"20975aeb-d490-4aa6-95ba-5b7c50b074a4", "00000000-0000-0000-0000-000000000001" }),
+        };
+
+        [Theory]
+        [MemberData(nameof(FilterAndOrderByTests))]
+        public void GivenFilterAndOrderBy_Get_ReturnsMatchingSortedTodos((Func<TodoModel, bool> filter, Func<TodoModel, object> orderByKey, string[] expectedIds) data)
+        {
+            //Arange
+            var repo = new Xml.TodoRepository(MockXmlContext.Object);
+
+            //Act
+            var result = repo.Get(data.filter, data.orderByKey);
+
+            //Assert
+            Assert.Equal(data.expectedIds.Count(), result.Count());
+            for (int i = 0; i < data.expectedIds.Length; i++)
+            {
+                var expectedId = data.expectedIds[i];
+                var todo = result.ElementAt(i);
+                Assert.Equal(expectedId, todo.Id.ToString());
+            }
         }
 
         [Theory]
