@@ -72,6 +72,7 @@ namespace TodoApp.Tests.Repositories.TodoRepositories
         [Fact]
         public void GivenValidID_GetById_ReturnsCorrectTodo()
         {
+            //arange
             var expectedTodo = new TodoModel();
             var guid = Guid.Parse("00000000-0000-0000-0000-000000000001");
             expectedTodo.Id = guid;
@@ -83,8 +84,10 @@ namespace TodoApp.Tests.Repositories.TodoRepositories
 
             var repo = new Xml.TodoRepository(MockXmlContext.Object);
 
+            //act
             var todo = repo.GetById(guid);
 
+            //assert
             Assert.Equal(todo.Id, expectedTodo.Id);
             Assert.Equal(todo.Title, expectedTodo.Title);
             Assert.Equal(todo.Description, expectedTodo.Description);
@@ -100,6 +103,7 @@ namespace TodoApp.Tests.Repositories.TodoRepositories
         [InlineData("a00e0400-3000-0000-3000-000050000001","Football", "", TodoStatus.InProgress, "2020-05-15T14:29:15.1823029Z", "2020-05-19T21:00:00.0000000Z")] // without Description
         public void GivenValidEntity_Update_UpdateEntity(string id, string title, string description, TodoStatus status, string createdOn, string dueDate)
         {
+            //arange
             var todo = new TodoModel()
             {
                 Id = Guid.Parse(id),
@@ -114,11 +118,13 @@ namespace TodoApp.Tests.Repositories.TodoRepositories
             Container.Add(todoAsElement);
 
             var repo = new Xml.TodoRepository(MockXmlContext.Object);
+
+            //act
             todo.Title = "Concert";
             todo.Description = "Go to Metallica concert";
             repo.Update(todo);
-            //repo.Save();
 
+            //assert
             var all = Container.Elements();
             var element = all.First(a => a.Attribute("Id").Value == todo.Id.ToString());
 
@@ -159,6 +165,7 @@ namespace TodoApp.Tests.Repositories.TodoRepositories
         [InlineData("600e0400-3c00-0000-3000-020050000001", "Football", "", TodoStatus.InProgress, "2020-05-15T14:29:15.1823029Z", "2020-05-19T21:00:00.0000000Z")] // without Description
         public void GivenNotExistedId_Update_DoesNothing(string id,string title, string description, TodoStatus status, string createdOn, string dueDate)
         {
+            //arrange
             var todo = new TodoModel()
             {
                 Id = Guid.Parse(id),
@@ -170,11 +177,13 @@ namespace TodoApp.Tests.Repositories.TodoRepositories
             };
 
             var repo = new Xml.TodoRepository(MockXmlContext.Object);
+
+            //act
             todo.Title = "Concert";
             todo.Description = "Go to Metallica concert";
             repo.Update(todo);
-            //repo.Save();
 
+            //assert
             var all = Container.Elements();
             var element = all.FirstOrDefault(a => a.Attribute("Id").Value == todo.Id.ToString());
 
