@@ -405,6 +405,7 @@ namespace TodoApp.Tests.Repositories.TodoRepositories
             var element = all.FirstOrDefault(a => a.Attribute("Id").Value == guid.ToString());
 
             Assert.Equal(expected, all.Count());
+            Assert.Null(element);
         }
 
         [Fact]
