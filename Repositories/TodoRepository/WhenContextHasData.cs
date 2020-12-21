@@ -72,7 +72,7 @@ namespace TodoApp.Tests.Repositories.TodoRepositories
         [Fact]
         public void GivenValidID_GetById_ReturnsCorrectTodo()
         {
-            //arange
+            //arrange
             var expectedTodo = new TodoModel();
             var guid = Guid.Parse("00000000-0000-0000-0000-000000000001");
             expectedTodo.Id = guid;
@@ -103,7 +103,7 @@ namespace TodoApp.Tests.Repositories.TodoRepositories
         [InlineData("a00e0400-3000-0000-3000-000050000001","Football", "", TodoStatus.InProgress, "2020-05-15T14:29:15.1823029Z", "2020-05-19T21:00:00.0000000Z")] // without Description
         public void GivenValidEntity_Update_UpdateEntity(string id, string title, string description, TodoStatus status, string createdOn, string dueDate)
         {
-            //arange
+            //arrange
             var todo = new TodoModel()
             {
                 Id = Guid.Parse(id),
@@ -195,6 +195,7 @@ namespace TodoApp.Tests.Repositories.TodoRepositories
         [InlineData("Football", "", TodoStatus.InProgress, "2020-05-15T14:29:15.1823029Z", "2020-05-19T21:00:00.0000000Z")] // without Description
         public void GivenValidTodo_Insert_ReturnsNewTodo(string title,string description, TodoStatus status, string createdOn, string dueDate)
         {
+            //arrange
             var repo = new Xml.TodoRepository(MockXmlContext.Object);
 
             var entity = new TodoModel()
@@ -202,23 +203,22 @@ namespace TodoApp.Tests.Repositories.TodoRepositories
                 Title = title,
                 Description = description,
                 Status = status,
-                CreatedOn = DateTime.Parse(createdOn),
-                DueDate = DateTime.Parse(dueDate)
+                CreatedOn = DateTime.Parse(createdOn, CultureInfo.InvariantCulture, DateTimeStyles.RoundtripKind),
+                DueDate = DateTime.Parse(dueDate, CultureInfo.InvariantCulture, DateTimeStyles.RoundtripKind)
             };
 
+            //act
             var todo = repo.Insert(entity);
 
-            var all = Container.Elements();
-            var element = all.First(a => a.Attribute("Id").Value == todo.Id.ToString());
-
+            //assert
             Assert.NotNull(todo);
             Assert.NotEmpty(todo.Id.ToString());
-            Assert.Equal(todo.Id.ToString(), element.Attribute("Id").Value);
-            Assert.Equal(todo.Title, element.Element("Title").Value);
-            Assert.Equal(todo.Description, element.Element("Description").Value);
-            Assert.Equal(todo.Status.ToString(), element.Element("Status").Value);
-            Assert.Equal(todo.CreatedOn.ToUniversalTime().ToString("o", CultureInfo.InvariantCulture), element.Element("CreatedOn").Value);
-            Assert.Equal(todo.DueDate.ToUniversalTime().ToString("o", CultureInfo.InvariantCulture), element.Element("DueDate").Value);
+            Assert.NotEqual("00000000-0000-0000-0000-000000000000", todo.Id.ToString());
+            Assert.Equal(todo.Title, entity.Title);
+            Assert.Equal(todo.Description, entity.Description);
+            Assert.Equal(todo.Status, entity.Status);
+            Assert.Equal(todo.CreatedOn, entity.CreatedOn);
+            Assert.Equal(todo.DueDate, entity.DueDate);
         }
 
         [Theory]
