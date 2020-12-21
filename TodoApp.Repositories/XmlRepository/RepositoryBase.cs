@@ -27,6 +27,11 @@ namespace TodoApp.Repositories.XmlRepository
             XElement element = ContainerElement.Elements()
                 .FirstOrDefault(a => a.Attribute(IdName).Value == id.ToString());
 
+            if (element == null)
+            {
+                return null;
+            }
+
             return element;
         }
 
@@ -44,8 +49,10 @@ namespace TodoApp.Repositories.XmlRepository
 
         public void Delete(TId id)
         {
-            GetElementById(id)
-                .Remove();
+            if (GetElementById(id) != null)
+            {
+                GetElementById(id).Remove();
+            }
         }
 
         public IEnumerable<TModel> Get(Func<TModel, bool> filter)
@@ -98,6 +105,11 @@ namespace TodoApp.Repositories.XmlRepository
 
         public void Update(TModel model)
         {
+            var element = EntityToElement(model);
+            //if (!ContainerElement.Attributes().Contains(element.Attribute("Id")) || model.Id == null)
+            //{
+            //    return;
+            //}
             var oldElement = GetElementById(model.Id);
             var newElement = EntityToElement(model);
 

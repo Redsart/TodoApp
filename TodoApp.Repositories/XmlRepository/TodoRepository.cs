@@ -22,6 +22,12 @@ namespace TodoApp.Repositories.XmlRepository
                 return null;
             }
 
+            if (string.IsNullOrEmpty(element.Element("Title").Value) || 
+                string.IsNullOrEmpty(element.Element("Status").Value))
+            {
+                throw new ArgumentException("Empty todo!");
+            }
+
             var entity = new TodoModel();
             entity.Title = XmlParser.GetString(element, "Title");
             entity.Description = XmlParser.GetString(element, "Description");
@@ -38,6 +44,11 @@ namespace TodoApp.Repositories.XmlRepository
             if (entity == null)
             {
                 return null;
+            }
+
+            if (string.IsNullOrEmpty(entity.Title) || entity.Status == null)
+            {
+                throw new ArgumentException("Empty todo!");
             }
 
             var element = new XElement("todo");
