@@ -3,8 +3,6 @@ using Xunit;
 using Moq;
 using TodoApp.Repositories.Interfaces;
 using Service = TodoApp.Services;
-using TodoApp.Repositories.XmlRepository.Utils;
-using System.Xml.Linq;
 using System.Linq;
 using TodoApp.Repositories.Models;
 
@@ -58,6 +56,38 @@ namespace TodoApp.Tests.Services
             MockRepository.Object.GetAll();
 
             MockRepository.Verify(a => a.GetAll(), Times.Once);
+        }
+
+        [Fact]
+        public void GetById_ReturnsCorrectTodo()
+        {
+            string guid = "00000000-0000-0000-0000-000000000001";
+            var todo = new TodoModel
+            {
+                Id = Guid.Parse(guid),
+                Title = "Test",
+                Description = "Test Description",
+                Status = TodoStatus.InProgress,
+                CreatedOn = new DateTime(2020, 10, 11, 12, 13, 14),
+                DueDate = new DateTime(2021, 1, 24, 1, 22, 33)
+            };
+
+            MockRepository.Setup(a => a.GetById(todo.Id)).Returns(todo);
+            var sercice = new Service.TodoService(MockRepository.Object);
+
+            var servicedTodo = sercice.GetByID(Guid.Parse(guid));
+
+            Assert.Equal(servicedTodo, todo);
+        }
+
+        [Fact]
+        public void GetById_CallRepositoryGetById()
+        {
+            string guid = "00000000-0000-0000-0000-000000000001";
+            MockRepository.Setup(a => a.GetById(Guid.Parse(guid)));
+            MockRepository.Object.GetById(Guid.Parse(guid));
+
+            MockRepository.Verify(a => a.GetById(Guid.Parse(guid)));
         }
     }
 }
