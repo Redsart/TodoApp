@@ -53,7 +53,9 @@ namespace TodoApp.Tests.Services
         public void GetAll_CallRepositoryGetAll()
         {
             MockRepository.Setup(a => a.GetAll());
-            MockRepository.Object.GetAll();
+
+            var service = new Service.TodoService(MockRepository.Object);
+            service.GetAll();
 
             MockRepository.Verify(a => a.GetAll(), Times.Once);
         }
@@ -85,7 +87,9 @@ namespace TodoApp.Tests.Services
         {
             string guid = "00000000-0000-0000-0000-000000000001";
             MockRepository.Setup(a => a.GetById(Guid.Parse(guid)));
-            MockRepository.Object.GetById(Guid.Parse(guid));
+
+            var service = new Service.TodoService(MockRepository.Object);
+            service.GetByID(Guid.Parse(guid));
 
             MockRepository.Verify(a => a.GetById(Guid.Parse(guid)), Times.Once);
         }
@@ -95,7 +99,9 @@ namespace TodoApp.Tests.Services
         {
             var todo = new TodoModel();
             MockRepository.Setup(a => a.Update(todo));
-            MockRepository.Object.Update(todo);
+
+            var service = new Service.TodoService(MockRepository.Object);
+            service.Update(todo);
 
             MockRepository.Verify(a => a.Update(todo), Times.Once);
         }
