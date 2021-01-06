@@ -87,7 +87,17 @@ namespace TodoApp.Tests.Services
             MockRepository.Setup(a => a.GetById(Guid.Parse(guid)));
             MockRepository.Object.GetById(Guid.Parse(guid));
 
-            MockRepository.Verify(a => a.GetById(Guid.Parse(guid)));
+            MockRepository.Verify(a => a.GetById(Guid.Parse(guid)), Times.Once);
+        }
+
+        [Fact]
+        public void Update_CallRepositoryUpdate()
+        {
+            var todo = new TodoModel();
+            MockRepository.Setup(a => a.Update(todo));
+            MockRepository.Object.Update(todo);
+
+            MockRepository.Verify(a => a.Update(todo), Times.Once);
         }
     }
 }
