@@ -153,5 +153,25 @@ namespace TodoApp.Tests.Services
 
             MockRepository.Verify(a => a.Save(), Times.Once);
         }
+
+        [Theory]
+        [InlineData("0a000300-0600-0000-0100-0000f0700001", "Picnic", "Go to a picnic with friends", TodoStatus.Open, "2020-05-15T14:29:15.1823029Z", "2020-05-19T21:00:00.0000000Z")]
+        public void Create_ReturnCorrectTodo(string id, string title, string description, TodoStatus status, string createdOn, string dueDate)
+        {
+            var todo = new TodoModel
+            {
+                Id = Guid.Parse(id),
+                Title = title,
+                Description = description,
+                Status = status,
+                CreatedOn = DateTime.Parse(createdOn),
+                DueDate = DateTime.Parse(dueDate)
+            };
+
+            var service = new Service.TodoService(MockRepository.Object);
+            var serviceTodo = service.Create(todo);
+
+            Assert.Equal(serviceTodo, todo);
+        }
     }
 }
