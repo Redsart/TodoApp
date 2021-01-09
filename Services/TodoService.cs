@@ -96,7 +96,7 @@ namespace TodoApp.Tests.Services
 
         [Theory]
         [InlineData("0a000300-0600-0000-0100-0000f0700001", "Picnic", "Go to a picnic with friends", TodoStatus.Open, "2020-05-15T14:29:15.1823029Z", "2020-05-19T21:00:00.0000000Z")]
-        public void Update_UpdateGivenTodo(string id, string title, string description, TodoStatus status, string createdOn, string dueDate)
+        public void Update_UpdateRetursTrue(string id, string title, string description, TodoStatus status, string createdOn, string dueDate)
         {
             var todo = new TodoModel
             {
@@ -128,6 +128,30 @@ namespace TodoApp.Tests.Services
             service.Update(todo);
 
             MockRepository.Verify(a => a.Update(todo), Times.Once);
+        }
+
+        [Fact]
+        public void Create_CallRepositoryInsert()
+        {
+            var todo = new TodoModel();
+            MockRepository.Setup(a => a.Insert(todo));
+
+            var service = new Service.TodoService(MockRepository.Object);
+            service.Create(todo);
+
+            MockRepository.Verify(a => a.Insert(todo), Times.Once);
+        }
+
+        [Fact]
+        public void Create_CallRepositorySave()
+        {
+            var todo = new TodoModel();
+            MockRepository.Setup(a => a.Save());
+
+            var service = new Service.TodoService(MockRepository.Object);
+            service.Create(todo);
+
+            MockRepository.Verify(a => a.Save(), Times.Once);
         }
     }
 }
