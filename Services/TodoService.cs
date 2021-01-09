@@ -94,6 +94,30 @@ namespace TodoApp.Tests.Services
             MockRepository.Verify(a => a.GetById(Guid.Parse(guid)), Times.Once);
         }
 
+        [Theory]
+        [InlineData("0a000300-0600-0000-0100-0000f0700001", "Picnic", "Go to a picnic with friends", TodoStatus.Open, "2020-05-15T14:29:15.1823029Z", "2020-05-19T21:00:00.0000000Z")]
+        public void Update_UpdateGivenTodo(string id, string title, string description, TodoStatus status, string createdOn, string dueDate)
+        {
+            var todo = new TodoModel
+            {
+                Id = Guid.Parse(id),
+                Title = title,
+                Description = description,
+                Status = status,
+                CreatedOn = DateTime.Parse(createdOn),
+                DueDate = DateTime.Parse(dueDate)
+            };
+
+            MockRepository.Setup(a => a.Update(todo));
+            todo.Title = "Concert";
+            todo.Description = "Go to Metallica concert";
+            var service = new Service.TodoService(MockRepository.Object);
+
+            service.Update(todo);
+
+            Assert.True(service.Update(todo));
+        }
+
         [Fact]
         public void Update_CallRepositoryUpdate()
         {
