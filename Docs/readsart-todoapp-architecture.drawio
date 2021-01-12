@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2021-01-12T19:58:26.156Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36" etag="MyS3hyJ7tLogPJeHImvs" version="14.1.8" type="github">
+<mxfile host="app.diagrams.net" modified="2021-01-12T20:10:39.570Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36" etag="N3CoV6NftGzCEEliiH_y" version="14.1.8" type="github">
   <diagram name="Page-1" id="5f0bae14-7c28-e335-631c-24af17079c00">
-    <mxGraphModel dx="3622" dy="796" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="none" math="0" shadow="0">
+    <mxGraphModel dx="3873" dy="936" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="none" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -40,7 +40,7 @@
         <mxCell id="DyfukURyH_TfwYr2f_5J-2" value="&lt;font style=&quot;font-size: 13px&quot;&gt;Services&lt;br&gt;&lt;/font&gt;&lt;br&gt;&lt;span style=&quot;font-weight: normal&quot;&gt;Business logic - any functionality&lt;br&gt;not related to UI and Data.&lt;br&gt;Calls&amp;nbsp;&lt;/span&gt;Repositories &lt;span style=&quot;font-weight: normal&quot;&gt;for any data manipulation.&lt;/span&gt;" style="shape=folder;fontStyle=1;spacingTop=10;tabWidth=40;tabHeight=14;tabPosition=left;html=1;" parent="1" vertex="1">
           <mxGeometry x="339.5" y="130" width="250" height="100" as="geometry" />
         </mxCell>
-        <mxCell id="mV1QOZqxOxAXT04KssM9-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="DyfukURyH_TfwYr2f_5J-3" target="mV1QOZqxOxAXT04KssM9-40" edge="1">
+        <mxCell id="mV1QOZqxOxAXT04KssM9-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="DyfukURyH_TfwYr2f_5J-3" target="15S1-i5yaUHYmGedm6Qi-31" edge="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="960" y="180" as="targetPoint" />
           </mxGeometry>
@@ -66,6 +66,9 @@
         <mxCell id="DyfukURyH_TfwYr2f_5J-14" value="Module Breakdown" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;fontStyle=1" parent="1" vertex="1">
           <mxGeometry x="412" y="410" width="275" height="36" as="geometry" />
         </mxCell>
+        <mxCell id="15S1-i5yaUHYmGedm6Qi-34" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;startArrow=none;startFill=0;endArrow=classic;endFill=1;fontSize=13;fontColor=#000000;" edge="1" parent="1" source="mV1QOZqxOxAXT04KssM9-5" target="15S1-i5yaUHYmGedm6Qi-33">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
         <mxCell id="mV1QOZqxOxAXT04KssM9-5" value="Views" style="shape=component;align=center;spacingLeft=36;" parent="1" vertex="1">
           <mxGeometry x="20" y="516" width="140" height="50" as="geometry" />
         </mxCell>
@@ -80,6 +83,9 @@
               <mxPoint x="340" y="541" />
             </Array>
           </mxGeometry>
+        </mxCell>
+        <mxCell id="15S1-i5yaUHYmGedm6Qi-35" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;startArrow=none;startFill=0;endArrow=classic;endFill=1;fontSize=13;fontColor=#000000;" edge="1" parent="1" source="mV1QOZqxOxAXT04KssM9-6" target="15S1-i5yaUHYmGedm6Qi-33">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="mV1QOZqxOxAXT04KssM9-6" value="ViewModels" style="shape=component;align=center;spacingLeft=36;" parent="1" vertex="1">
           <mxGeometry x="194.5" y="516" width="140" height="50" as="geometry" />
@@ -140,10 +146,7 @@
         <mxCell id="mV1QOZqxOxAXT04KssM9-37" value="&lt;br&gt;SQL Database" style="strokeWidth=1;html=1;shape=mxgraph.flowchart.database;whiteSpace=wrap;align=center;opacity=60;textOpacity=60;strokeColor=#707070;fontColor=#707070;" parent="1" vertex="1">
           <mxGeometry x="1007" y="549" width="66" height="64" as="geometry" />
         </mxCell>
-        <mxCell id="mV1QOZqxOxAXT04KssM9-40" value="&lt;b style=&quot;font-size: 13px&quot;&gt;Data store&lt;br&gt;&lt;/b&gt;&lt;br&gt;XML, SQL, JSON, etc." style="shape=datastore;whiteSpace=wrap;html=1;strokeColor=#FFFFFF;strokeWidth=1;align=center;" parent="1" vertex="1">
-          <mxGeometry x="960" y="130" width="110" height="100" as="geometry" />
-        </mxCell>
-        <mxCell id="mV1QOZqxOxAXT04KssM9-47" value="Dependency flow" style="html=1;shadow=0;dashed=0;align=center;verticalAlign=middle;shape=mxgraph.arrows2.arrow;dy=0.47;dx=42;notch=0;strokeColor=#FFFFFF;strokeWidth=1;" parent="1" vertex="1">
+        <mxCell id="mV1QOZqxOxAXT04KssM9-47" value="Dependency flow" style="html=1;shadow=0;dashed=0;align=center;verticalAlign=middle;shape=mxgraph.arrows2.arrow;dy=0.47;dx=42;notch=0;strokeWidth=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" parent="1" vertex="1">
           <mxGeometry x="320" y="246" width="460" height="60" as="geometry" />
         </mxCell>
         <mxCell id="mV1QOZqxOxAXT04KssM9-53" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=classic;endFill=1;endSize=6;targetPerimeterSpacing=0;strokeWidth=1;fillColor=none;fontColor=#707070;opacity=60;spacing=1;strokeColor=#707070;" parent="1" source="mV1QOZqxOxAXT04KssM9-49" target="mV1QOZqxOxAXT04KssM9-50" edge="1">
@@ -206,10 +209,10 @@
         <mxCell id="aXafU3iH4kMMsSfXDqzR-30" value="&lt;h1&gt;ConsoleApp&lt;/h1&gt;&lt;div&gt;The ConsoleApp will implement the MVVM pattern. To do this we will use our own simple MVVM Framework.&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;b&gt;Framework&lt;/b&gt;&lt;/div&gt;&lt;div&gt;The &lt;b&gt;Application &lt;/b&gt;class is the main entry point for the new app. To start it, we need to provide a View, which will be the homepage. The app also has Router and Renderer. The &lt;b&gt;Router &lt;/b&gt;is used to change the current active route/view. The router keeps history of all previous routes. Each time the route is changed it fires an event. The &lt;b&gt;Renderer &lt;/b&gt;listens for events sent from the Router, and renders the new active route/view. It also listen for property changed from the ViewModel of the current View, so it can re-render the view.&lt;/div&gt;&lt;div&gt;Every &lt;b&gt;View &lt;/b&gt;has ViewModel (to get data to render), Draw method (to draw the view) and reference to the Renderer (so the view can change the current route). The &lt;b&gt;ViewModel &lt;/b&gt;can fire events each time the data is changed. It has additional data that is used by the View.&lt;br&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;b&gt;TodoApp.ConsoleApp&lt;/b&gt;&lt;/div&gt;&lt;div&gt;The &lt;b&gt;Program &lt;/b&gt;class setups the Dependency container and start the Application. The&amp;nbsp;&lt;b&gt;Views &lt;/b&gt;module&lt;b&gt;&amp;nbsp;&lt;/b&gt;contains all views in the application, all of them extend the View class. The &lt;b&gt;ViewModels &lt;/b&gt;module contains all view models, used by the views. All of them extend the the ViewModel class. We will used the &lt;b&gt;Models &lt;/b&gt;from the Repository module. The &lt;b&gt;Components &lt;/b&gt;module will contain reusable interface elements.&lt;/div&gt;" style="text;html=1;strokeColor=none;fillColor=none;spacing=5;spacingTop=-20;whiteSpace=wrap;overflow=hidden;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="-1070" y="880" width="1000" height="240" as="geometry" />
         </mxCell>
-        <mxCell id="aXafU3iH4kMMsSfXDqzR-31" value="&lt;h1&gt;Services&lt;/h1&gt;&lt;div&gt;The Services module will handle the business layer.&lt;/div&gt;&lt;div&gt;It includes set of interfaces that are exposed and used by the ConsoleApp.&lt;/div&gt;&lt;div&gt;The interfaces are implemented by classes that will contain the actual functionality and will meet the business requirements.&lt;/div&gt;" style="text;html=1;strokeColor=none;fillColor=none;spacing=5;spacingTop=-20;whiteSpace=wrap;overflow=hidden;rounded=0;" parent="1" vertex="1">
-          <mxGeometry x="30" y="880" width="532" height="180" as="geometry" />
+        <mxCell id="aXafU3iH4kMMsSfXDqzR-31" value="&lt;h1&gt;Services&lt;/h1&gt;&lt;div&gt;The Services module handles the business layer.&lt;/div&gt;&lt;div&gt;It includes set of interfaces that are exposed and used by the ConsoleApp.&lt;/div&gt;&lt;div&gt;The interfaces are implemented by classes that contain the actual functionality and meet the business requirements.&lt;/div&gt;" style="text;html=1;strokeColor=none;fillColor=none;spacing=5;spacingTop=-20;whiteSpace=wrap;overflow=hidden;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="30" y="880" width="730" height="180" as="geometry" />
         </mxCell>
-        <mxCell id="aXafU3iH4kMMsSfXDqzR-32" value="&lt;h1&gt;Repositories&lt;/h1&gt;&lt;div&gt;This module will implement the Repository pattern. This help encapsulating the data persistence&amp;nbsp;layer.&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;The &lt;b&gt;Models &lt;/b&gt;sub-module contains simple data models. Every model represents the data persisted in the Data source. Every model has unique Identifier, so we create a IModel interface to include this common field.&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;The &lt;b&gt;Interfaces &lt;/b&gt;sub-module contains all repository definitions (interfaces). All common functionality is part of the base IRepository interface. The common functionality is the standard CRUD operation, and the Save method.&lt;/div&gt;&lt;div&gt;Every data model/entity has its own repository, that &lt;span&gt;extends the base interface and can add additional methods, if required.&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Each different Data source will have its sub-module. Every sub-module contains abstract class implementing IRepository. For now we will have &lt;b&gt;XML &lt;/b&gt;data source and sub-module. The &lt;b&gt;RepositoryBase &lt;/b&gt;abstract class will implement the common CRUD operations and will work over XML Document. When Save() is called the changes are persistent into the actual XML file.&lt;/div&gt;&lt;div&gt;Every data model/entity has its own repository class, implementing its interface.&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Every operation made from the repositories will not immediately persist into the Data source. The change will be logged or saved in-memory (RAM), and when the Save() method is called, the actual Data source will get updated.&lt;/div&gt;" style="text;html=1;strokeColor=none;fillColor=none;spacing=5;spacingTop=-20;whiteSpace=wrap;overflow=hidden;rounded=0;" parent="1" vertex="1">
+        <mxCell id="aXafU3iH4kMMsSfXDqzR-32" value="&lt;h1&gt;Repositories&lt;/h1&gt;&lt;div&gt;This module implements the Repository pattern. This helps encapsulating the data persistence&amp;nbsp;layer.&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;The &lt;b&gt;Models &lt;/b&gt;sub-module contains simple data models. Every model represents the data persisted in the Data source. Every model has unique Identifier, so we create a IModel interface to include this common field.&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;The &lt;b&gt;Interfaces &lt;/b&gt;sub-module contains all repository definitions (interfaces). All common functionality is part of the base IRepository interface. The common functionality is the standard CRUD operation, and the Save method.&lt;/div&gt;&lt;div&gt;Every data model/entity has its own repository, that &lt;span&gt;extends the base interface and can add additional methods, if required.&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Each different Data source have its sub-module. Every sub-module contains abstract class implementing IRepository. For now we only have &lt;b&gt;XML &lt;/b&gt;data source and sub-module. The &lt;b&gt;RepositoryBase &lt;/b&gt;abstract class implements the common CRUD operations and works over XML Document. When Save() is called the changes are persistent into the actual XML file.&lt;/div&gt;&lt;div&gt;Every data model/entity has its own repository class, implementing its interface.&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Every operation made from the repositories does not immediately persist into the Data source. The change is logged or saved in-memory (RAM), and when the Save() method is called, the actual Data source gets updated.&lt;/div&gt;" style="text;html=1;strokeColor=none;fillColor=none;spacing=5;spacingTop=-20;whiteSpace=wrap;overflow=hidden;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="1140" y="880" width="900" height="280" as="geometry" />
         </mxCell>
         <mxCell id="Hf6axC6okhhk_GOs8BiA-2" value="Services" style="verticalAlign=top;align=left;spacingTop=8;spacingLeft=2;spacingRight=12;shape=cube;size=10;direction=south;fontStyle=4;html=1;strokeColor=#808080;" parent="1" vertex="1">
@@ -723,16 +726,22 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="15S1-i5yaUHYmGedm6Qi-15" value="View A can redirect to View B" style="text;html=1;strokeColor=none;fillColor=none;align=right;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
-          <mxGeometry x="-1300" y="1553" width="160" height="20" as="geometry" />
+          <mxGeometry x="-1310" y="1553" width="160" height="20" as="geometry" />
         </mxCell>
         <mxCell id="15S1-i5yaUHYmGedm6Qi-16" value="A" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
-          <mxGeometry x="-1371.5" y="1553" width="11" height="20" as="geometry" />
+          <mxGeometry x="-1380" y="1553" width="11" height="20" as="geometry" />
         </mxCell>
         <mxCell id="15S1-i5yaUHYmGedm6Qi-17" value="B" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
-          <mxGeometry x="-1331.5" y="1553" width="11" height="20" as="geometry" />
+          <mxGeometry x="-1340" y="1553" width="11" height="20" as="geometry" />
         </mxCell>
         <mxCell id="15S1-i5yaUHYmGedm6Qi-11" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center&quot;&gt;&lt;b&gt;ViewName&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px&quot;&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px&quot;&gt;&lt;i&gt;What is rendered to the screen,&lt;/i&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px&quot;&gt;&lt;i&gt;and visible to the user&lt;/i&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px&quot;&gt;&lt;span style=&quot;color: rgb(0 , 0 , 0)&quot;&gt;&amp;gt; Component A&lt;br&gt;&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px&quot;&gt;&lt;span style=&quot;color: rgb(0 , 0 , 0)&quot;&gt;&amp;gt; Some message&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px&quot;&gt;&lt;span style=&quot;color: rgb(0 , 0 , 0)&quot;&gt;&amp;gt; Component B&lt;/span&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px&quot;&gt;&lt;i&gt;Commands available to the user&lt;/i&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px&quot;&gt;&lt;i&gt;on this view&lt;/i&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px&quot;&gt;+ Command A&lt;/p&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px&quot;&gt;+ Command B&lt;/p&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px&quot;&gt;&amp;nbsp; &amp;nbsp;+ Sub-Command B1&lt;/p&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px&quot;&gt;&amp;nbsp; &amp;nbsp;+ Sub-Command B2&lt;/p&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px&quot;&gt;+ Command C&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;dashed=1;dashPattern=1 2;" vertex="1" parent="1">
           <mxGeometry x="-1380" y="1596.5" width="230" height="213.5" as="geometry" />
+        </mxCell>
+        <mxCell id="15S1-i5yaUHYmGedm6Qi-31" value="&lt;b style=&quot;font-size: 13px;&quot;&gt;Data Store&lt;br style=&quot;font-size: 13px;&quot;&gt;&lt;/b&gt;&lt;br style=&quot;font-size: 13px;&quot;&gt;XML, SQL, JSON, etc." style="shape=datastore;whiteSpace=wrap;html=1;strokeWidth=1;align=center;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="960" y="125" width="117" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="15S1-i5yaUHYmGedm6Qi-33" value="Framework" style="shape=component;align=center;spacingLeft=36;" vertex="1" parent="1">
+          <mxGeometry x="110" y="616" width="140" height="50" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
