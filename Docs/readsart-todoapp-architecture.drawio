@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-01-12T19:54:03.594Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36" etag="V14qJAfYUnj6YiU5OPuG" version="14.1.8" type="github">
+<mxfile host="app.diagrams.net" modified="2021-01-12T19:58:26.156Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36" etag="MyS3hyJ7tLogPJeHImvs" version="14.1.8" type="github">
   <diagram name="Page-1" id="5f0bae14-7c28-e335-631c-24af17079c00">
     <mxGraphModel dx="3622" dy="796" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="none" math="0" shadow="0">
       <root>
@@ -579,9 +579,9 @@
           <mxGeometry x="-1060" y="1530.5" width="160" height="157" as="geometry" />
         </mxCell>
         <mxCell id="lFoMPMUz10uz6UgeWGPy-9" value="Components" style="verticalAlign=top;align=left;spacingTop=8;spacingLeft=2;spacingRight=12;shape=cube;size=10;direction=south;fontStyle=4;html=1;" parent="1" vertex="1">
-          <mxGeometry x="-1075" y="2010" width="420" height="150" as="geometry" />
+          <mxGeometry x="-1075" y="2010" width="465" height="150" as="geometry" />
         </mxCell>
-        <mxCell id="lFoMPMUz10uz6UgeWGPy-14" value="Commands" style="html=1;" parent="1" vertex="1">
+        <mxCell id="lFoMPMUz10uz6UgeWGPy-14" value="Command" style="html=1;" parent="1" vertex="1">
           <mxGeometry x="-955" y="2104.5" width="90" height="40" as="geometry" />
         </mxCell>
         <mxCell id="lFoMPMUz10uz6UgeWGPy-15" value="DataGrid" style="html=1;opacity=70;textOpacity=70;strokeColor=#808080;fontColor=#808080;" parent="1" vertex="1">
@@ -622,10 +622,10 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="lFoMPMUz10uz6UgeWGPy-21" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center&quot;&gt;&lt;b&gt;&lt;i&gt;View&amp;lt;T: ViewModel&amp;gt;&lt;/i&gt;&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px&quot;&gt;&lt;span style=&quot;color: rgb(0 , 0 , 0)&quot;&gt;- Router&lt;/span&gt;&lt;br&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px&quot;&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px&quot;&gt;+ ViewModel: T&lt;/p&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px&quot;&gt;+ Draw()&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;" parent="1" vertex="1">
-          <mxGeometry x="-805" y="1340" width="210" height="110" as="geometry" />
+          <mxGeometry x="-805" y="1340" width="210" height="100" as="geometry" />
         </mxCell>
         <mxCell id="lFoMPMUz10uz6UgeWGPy-22" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center&quot;&gt;&lt;b&gt;Router&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px&quot;&gt;- Event&lt;/p&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px&quot;&gt;- History: View[]&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px&quot;&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px&quot;&gt;+ Open(View)&lt;/p&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px&quot;&gt;+ GoTo(int)&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;" parent="1" vertex="1">
-          <mxGeometry x="-345" y="1169.3100000000002" width="210" height="110" as="geometry" />
+          <mxGeometry x="-345" y="1172.0000000000002" width="210" height="110" as="geometry" />
         </mxCell>
         <mxCell id="lFoMPMUz10uz6UgeWGPy-23" value="Clear" style="html=1;" parent="1" vertex="1">
           <mxGeometry x="-1055" y="2104.5" width="90" height="40" as="geometry" />
@@ -650,7 +650,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="lFoMPMUz10uz6UgeWGPy-24" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center&quot;&gt;&lt;b&gt;Renderer&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px&quot;&gt;&lt;span style=&quot;color: rgb(0 , 0 , 0)&quot;&gt;- Router&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px&quot;&gt;&lt;span style=&quot;color: rgb(0 , 0 , 0)&quot;&gt;- View&lt;/span&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px&quot;&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px&quot;&gt;+ Render(View)&lt;/p&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px&quot;&gt;+ Rerender()&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;" parent="1" vertex="1">
-          <mxGeometry x="-805" y="1174" width="210" height="100.62" as="geometry" />
+          <mxGeometry x="-805" y="1174" width="210" height="106" as="geometry" />
         </mxCell>
         <mxCell id="lFoMPMUz10uz6UgeWGPy-45" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=none;startFill=0;endArrow=classic;endFill=1;fontColor=#808080;" parent="1" source="lFoMPMUz10uz6UgeWGPy-25" target="lFoMPMUz10uz6UgeWGPy-22" edge="1">
           <mxGeometry relative="1" as="geometry" />
@@ -659,7 +659,7 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="lFoMPMUz10uz6UgeWGPy-25" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center&quot;&gt;&lt;b&gt;Application&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px&quot;&gt;&lt;span style=&quot;color: rgb(0 , 0 , 0)&quot;&gt;- Router&lt;/span&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px&quot;&gt;&lt;span style=&quot;color: rgb(0 , 0 , 0)&quot;&gt;- Renderer&lt;/span&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px&quot;&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px&quot;&gt;+ Start(View)&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;" parent="1" vertex="1">
-          <mxGeometry x="-572.5" y="1174" width="210" height="100" as="geometry" />
+          <mxGeometry x="-572.5" y="1177" width="210" height="100" as="geometry" />
         </mxCell>
         <mxCell id="lFoMPMUz10uz6UgeWGPy-77" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;startArrow=none;startFill=0;endArrow=classic;endFill=1;fontColor=#808080;" parent="1" source="lFoMPMUz10uz6UgeWGPy-26" target="lFoMPMUz10uz6UgeWGPy-74" edge="1">
           <mxGeometry relative="1" as="geometry" />
@@ -699,8 +699,8 @@
         <mxCell id="lFoMPMUz10uz6UgeWGPy-34" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center&quot;&gt;&lt;b&gt;TodoDetails&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px&quot;&gt;&lt;span style=&quot;color: rgb(0 , 0 , 0)&quot;&gt;- TodoService&lt;/span&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px&quot;&gt;&lt;span style=&quot;color: rgb(0 , 0 , 0)&quot;&gt;- Todo: TodoModel&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px&quot;&gt;&lt;span style=&quot;color: rgb(0 , 0 , 0)&quot;&gt;+ Id, Title, Description, Status, etc.&lt;/span&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px&quot;&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px&quot;&gt;&lt;span style=&quot;color: rgb(0 , 0 , 0)&quot;&gt;+ Reset()&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px&quot;&gt;&lt;span style=&quot;color: rgb(0 , 0 , 0)&quot;&gt;+ Delete()&lt;/span&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px&quot;&gt;+ Save()&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;" parent="1" vertex="1">
           <mxGeometry x="-563" y="1665" width="208" height="135" as="geometry" />
         </mxCell>
-        <mxCell id="lFoMPMUz10uz6UgeWGPy-35" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center&quot;&gt;&lt;b&gt;&lt;i&gt;ViewModel&lt;/i&gt;&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px&quot;&gt;&lt;span style=&quot;color: rgb(0 , 0 , 0)&quot;&gt;- Event&lt;/span&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px&quot;&gt;&lt;span style=&quot;color: rgb(0 , 0 , 0)&quot;&gt;- NotifyChange()&lt;/span&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px&quot;&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px&quot;&gt;+ Subscribe(Action)&lt;/p&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px&quot;&gt;+ Unsubscribe(Action)&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;" parent="1" vertex="1">
-          <mxGeometry x="-345" y="1340" width="210" height="110" as="geometry" />
+        <mxCell id="lFoMPMUz10uz6UgeWGPy-35" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center&quot;&gt;&lt;b&gt;&lt;i&gt;ViewModel&lt;/i&gt;&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px&quot;&gt;&lt;span style=&quot;color: rgb(0 , 0 , 0)&quot;&gt;- Event&lt;/span&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px&quot;&gt;&lt;span style=&quot;color: rgb(0 , 0 , 0)&quot;&gt;- NotifyChange()&lt;/span&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px&quot;&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px&quot;&gt;+&amp;nbsp;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;" parent="1" vertex="1">
+          <mxGeometry x="-345" y="1340" width="210" height="100" as="geometry" />
         </mxCell>
         <mxCell id="lFoMPMUz10uz6UgeWGPy-41" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=none;startFill=0;endArrow=block;endFill=0;fontColor=#808080;dashed=1;" parent="1" source="lFoMPMUz10uz6UgeWGPy-3" target="lFoMPMUz10uz6UgeWGPy-35" edge="1">
           <mxGeometry relative="1" as="geometry">
