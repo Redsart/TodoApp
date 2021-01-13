@@ -275,5 +275,49 @@ namespace TodoApp.Tests.Services
 
             Assert.True(isDeleted);
         }
+
+        [Fact]
+        public void HasTodos_ReturnTrue()
+        {
+            var mockTodos = new TodoModel[]
+            {
+                new TodoModel()
+                {
+                    Id = Guid.Parse("0a000300-0600-0000-0100-0000f0700001"),
+                    Title = "Test",
+                    Description = "Test Description",
+                    Status = TodoStatus.Open,
+                    DueDate = new DateTime(2021, 3, 4, 12, 30, 00),
+                    CreatedOn = new DateTime(2020, 11, 12, 11, 55, 13),
+                },
+                new TodoModel()
+                {
+                    Id = Guid.Parse("0a000300-0600-0020-0100-0000f0300002"),
+                    Title = "Second",
+                    Description = "Second Test",
+                    Status = TodoStatus.InProgress,
+                    DueDate = new DateTime(2021, 1, 24, 1, 22, 33),
+                    CreatedOn = new DateTime(2020, 10, 11, 12, 13, 14),
+                },
+            };
+
+            MockRepository.Setup(a => a.GetAll()).Returns(mockTodos);
+            var service = new Service.TodoService(MockRepository.Object);
+
+            var hasTodos = service.HasTodos();
+
+            Assert.True(hasTodos);
+        }
+
+        [Fact]
+        public void HasTodos_ReturnsFalse_WhenRepositoryIsEmpty()
+        {
+            MockRepository.Setup(a => a.GetAll());
+            var service = new Service.TodoService(MockRepository.Object);
+
+            var hasTodos = service.HasTodos();
+
+            Assert.False(hasTodos);
+        }
     }
 }
