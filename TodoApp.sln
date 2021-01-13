@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.1022
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30517.126
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoApp.ConsoleApp", "TodoApp.ConsoleApp\TodoApp.ConsoleApp.csproj", "{DD5B3FAE-B665-455B-89EE-CB236F4343FD}"
 EndProject
@@ -11,7 +11,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoApp.Repositories", "Tod
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{99E7CE94-51C5-4830-998E-54E6EAC1A3F0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repositories", "Repositories\Repositories.csproj", "{CFDD20EC-E304-4225-BED6-F5D86C6783FA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repositories", "Repositories\Repositories.csproj", "{CFDD20EC-E304-4225-BED6-F5D86C6783FA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoApp.ConsoleApp.Framework", "TodoApp.ConsoleApp.Framework\TodoApp.ConsoleApp.Framework.csproj", "{E549D0D6-DFC7-414C-8784-AD6F98EBD625}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,6 +37,10 @@ Global
 		{CFDD20EC-E304-4225-BED6-F5D86C6783FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CFDD20EC-E304-4225-BED6-F5D86C6783FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CFDD20EC-E304-4225-BED6-F5D86C6783FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E549D0D6-DFC7-414C-8784-AD6F98EBD625}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E549D0D6-DFC7-414C-8784-AD6F98EBD625}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E549D0D6-DFC7-414C-8784-AD6F98EBD625}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E549D0D6-DFC7-414C-8784-AD6F98EBD625}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
