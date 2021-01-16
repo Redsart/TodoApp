@@ -25,6 +25,7 @@ namespace TodoApp.ConsoleApp.Framework
         public static void AddServices(IServiceCollection services)
         {
             services
+                .AddScoped<ViewModel>((s) => null)
                 .AddScoped<Router>()
                 .AddScoped<Renderer>()
                 .AddScoped<Application>();

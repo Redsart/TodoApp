@@ -7,8 +7,7 @@ namespace TodoApp.ConsoleApp.Test.Views
 {
     public class Home : View
     {
-        public Home(Renderer renderer, Router router)
-            : base(renderer, router) { }
+        public Home(Router router) : base(router) { }
 
         public override void Draw()
         {

@@ -14,7 +14,7 @@ namespace TodoApp.ConsoleApp.Test.ViewModels
         {
             Name = name;
 
-            NotifyPropertyChange();
+            NotifyPropertyChanged();
         }
     }
 }

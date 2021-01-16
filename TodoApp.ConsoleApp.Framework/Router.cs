@@ -11,17 +11,17 @@ namespace TodoApp.ConsoleApp.Framework
         private View Active;
         private readonly RouteList Future = new RouteList();
 
-        internal delegate void RouteChangeHanlder(Router r, RouteChangeEventArgs args);
-        internal event RouteChangeHanlder RouteChange;
+        internal delegate void RouteChangedHanlder(Router r, RouteChangedEventArgs args);
+        internal event RouteChangedHanlder RouteChanged;
 
         public Router(IServiceProvider serviceProvider)
         {
             ServiceProvider = serviceProvider;
         }
 
-        private void NotifyRouteChange()
+        private void NotifyRouteChanged()
         {
-            RouteChange?.Invoke(this, new RouteChangeEventArgs(Active));
+            RouteChanged?.Invoke(this, new RouteChangedEventArgs(Active));
         }
 
         private T CreateView<T>() where T: View
@@ -40,7 +40,7 @@ namespace TodoApp.ConsoleApp.Framework
             Active = CreateView<T>();
             Future.Clear();
 
-            NotifyRouteChange();
+            NotifyRouteChanged();
         }
 
         public void GoTo(int viewCount)
@@ -62,15 +62,15 @@ namespace TodoApp.ConsoleApp.Framework
                 Active = Future.Pop();
             }
 
-            NotifyRouteChange();
+            NotifyRouteChanged();
         }
     }
 
-    internal class RouteChangeEventArgs : EventArgs
+    internal class RouteChangedEventArgs : EventArgs
     {
         public View View { get; }
 
-        public RouteChangeEventArgs(View v)
+        public RouteChangedEventArgs(View v)
         {
             View = v;
         }

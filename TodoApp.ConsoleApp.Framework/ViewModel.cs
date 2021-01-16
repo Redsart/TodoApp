@@ -1,14 +1,15 @@
 ﻿using System;
 
 namespace TodoApp.ConsoleApp.Framework
-{    public abstract class ViewModel
+{
+    public abstract class ViewModel
     {
-        public delegate void PropertyChangeHanlder(ViewModel vm, EventArgs e);
-        public event PropertyChangeHanlder PropertyChange;
+        public delegate void PropertyChangedHanlder(ViewModel vm, EventArgs e);
+        public event PropertyChangedHanlder PropertyChanged;
 
-        protected void NotifyPropertyChange()
+        protected void NotifyPropertyChanged()
         {
-            PropertyChange?.Invoke(this, EventArgs.Empty);
+            PropertyChanged?.Invoke(this, EventArgs.Empty);
         }
     }
 }

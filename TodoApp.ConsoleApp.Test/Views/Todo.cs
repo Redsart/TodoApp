@@ -8,8 +8,7 @@ namespace TodoApp.ConsoleApp.Test.Views
 {
     public class Todo : View<VM.Todo>
     {
-        public Todo(Renderer renderer, Router router, VM.Todo vm)
-            : base(renderer, router, vm) { }
+        public Todo(Router router, VM.Todo vm) : base(router, vm) { }
 
         public override void Draw()
         {

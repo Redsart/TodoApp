@@ -5,13 +5,13 @@ namespace TodoApp.ConsoleApp.Framework
 
     public abstract class View
     {
-        protected Renderer Renderer;
-        protected Router Router;
+        protected readonly Router Router;
+        internal readonly ViewModel Vm;
 
-        public View(Renderer renderer, Router router)
+        public View(Router router, ViewModel vm = null)
         {
-            Renderer = renderer;
             Router = router;
+            Vm = vm;
         }
 
         abstract public void Draw();
@@ -19,20 +19,10 @@ namespace TodoApp.ConsoleApp.Framework
 
     public abstract class View<T> : View where T : ViewModel
     {
-        public T ViewModel { get; }
+        public T ViewModel => Vm as T;
 
-        public View(Renderer renderer, Router router, T vm): base(renderer, router)
-        {
-            ViewModel = vm;
-            if (vm != null)
-            {
-                vm.PropertyChange += OnVmChange;
-            }
-        }
+        public View(Router router, T vm) : base(router, vm)
+        { }
 
-        private void OnVmChange(ViewModel vm, EventArgs args)
-        {
-            Renderer.Refresh();
-        }
     }
 }
