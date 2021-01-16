@@ -1,27 +1,43 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace TodoApp.ConsoleApp.Framework
 {
     public class Router
     {
-        private readonly Stack<View<ViewModel>> History = new Stack<View<ViewModel>>();
-        private View<ViewModel> Active;
-        private readonly Stack<View<ViewModel>> Future = new Stack<View<ViewModel>>();
+        private readonly IServiceProvider ServiceProvider;
+
+        private readonly RouteList History = new RouteList();
+        private View Active;
+        private readonly RouteList Future = new RouteList();
 
         internal delegate void RouteChangeHanlder(Router r, RouteChangeEventArgs args);
         internal event RouteChangeHanlder RouteChange;
 
-        private void NotifyRouteChange()
+        public Router(IServiceProvider serviceProvider)
         {
-            RouteChange(this, new RouteChangeEventArgs(Active));
+            ServiceProvider = serviceProvider;
         }
 
-        public void Open(View<ViewModel> v)
+        private void NotifyRouteChange()
+        {
+            RouteChange?.Invoke(this, new RouteChangeEventArgs(Active));
+        }
+
+        private T CreateView<T>() where T: View
+        {
+            return ServiceProvider.GetRequiredService<T>();
+        }
+
+        public void Start<T>() where T: View
+        {
+            Open<T>();
+        }
+
+        public void Open<T>() where T: View
         {
             History.Push(Active);
-            Active = v;
+            Active = CreateView<T>();
             Future.Clear();
 
             NotifyRouteChange();
@@ -52,9 +68,9 @@ namespace TodoApp.ConsoleApp.Framework
 
     internal class RouteChangeEventArgs : EventArgs
     {
-        public View<ViewModel> View { get; }
+        public View View { get; }
 
-        public RouteChangeEventArgs(View<ViewModel> v)
+        public RouteChangeEventArgs(View v)
         {
             View = v;
         }

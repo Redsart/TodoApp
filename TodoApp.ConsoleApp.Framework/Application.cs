@@ -1,23 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Microsoft.Extensions.DependencyInjection;
+using System;
 
 namespace TodoApp.ConsoleApp.Framework
 {
     public class Application
     {
+        private readonly IServiceProvider ServiceProvider;
         private readonly Router Router;
         private readonly Renderer Renderer;
 
-        public Application()
+        public Application(IServiceProvider serviceProvider, Router router, Renderer renderer)
         {
-            Router = new Router();
-            Renderer = new Renderer(Router);
+            ServiceProvider = serviceProvider;
+            Router = router;
+            Renderer = renderer;
         }
 
-        public void Start(View<ViewModel> homepage)
+        public void Start<T>() where T : View
         {
-            Router.Open(homepage);
+            Renderer.Start();
+            Router.Start<T>();
+        }
+
+        public static void AddServices(IServiceCollection services)
+        {
+            services
+                .AddScoped<Router>()
+                .AddScoped<Renderer>()
+                .AddScoped<Application>();
         }
     }
 }
