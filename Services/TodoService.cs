@@ -61,7 +61,7 @@ namespace TodoApp.Tests.Services
         }
 
         [Fact]
-        public void GetById_ReturnsCorrectTodo()
+        public void GivenExistingId_GetById_ReturnsCorrectTodo()
         {
             string guid = "00000000-0000-0000-0000-000000000001";
             var todo = new TodoModel
@@ -96,7 +96,7 @@ namespace TodoApp.Tests.Services
 
         [Theory]
         [InlineData("0a000300-0600-0000-0100-0000f0700001", "Picnic", "Go to a picnic with friends", TodoStatus.Open, "2020-05-15T14:29:15.1823029Z", "2020-05-19T21:00:00.0000000Z")]
-        public void Update_UpdateRetursTrue(string id, string title, string description, TodoStatus status, string createdOn, string dueDate)
+        public void GivenExistingTodo_Update_UpdateRetursTrue(string id, string title, string description, TodoStatus status, string createdOn, string dueDate)
         {
             var todo = new TodoModel
             {
@@ -156,7 +156,7 @@ namespace TodoApp.Tests.Services
 
         [Theory]
         [InlineData("0a000300-0600-0000-0100-0000f0700001", "Picnic", "Go to a picnic with friends", TodoStatus.Open, "2020-05-15T14:29:15.1823029Z", "2020-05-19T21:00:00.0000000Z")]
-        public void Create_ReturnCorrectTodo(string id, string title, string description, TodoStatus status, string createdOn, string dueDate)
+        public void GivenCorrectTodo_Create_ReturnCorrectTodo(string id, string title, string description, TodoStatus status, string createdOn, string dueDate)
         {
             var todo = new TodoModel
             {
@@ -176,7 +176,7 @@ namespace TodoApp.Tests.Services
 
         [Theory]
         [InlineData("0a000300-0600-0000-0100-0000f0700001", "Picnic", "Go to a picnic with friends", TodoStatus.Open, "2020-05-15T14:29:15.1823029Z", "2020-05-19T21:00:00.0000000Z")]
-        public void Delete_ReturnsTrue(string id, string title, string description, TodoStatus status, string createdOn, string dueDate)
+        public void GivenExistingTodo_Delete_ReturnsTrue(string id, string title, string description, TodoStatus status, string createdOn, string dueDate)
         {
             var todo = new TodoModel
             {
@@ -241,7 +241,7 @@ namespace TodoApp.Tests.Services
         }
 
         [Fact]
-        public void DeleteByIndex_ReturnsTrue()
+        public void GivenExistingTodo_DeleteByIndex_ReturnsTrue()
         {
             var mockTodos = new TodoModel[]
             {
@@ -277,7 +277,7 @@ namespace TodoApp.Tests.Services
         }
 
         [Fact]
-        public void HasTodos_ReturnTrue()
+        public void GivenFilledRepository_HasTodos_ReturnTrue()
         {
             var mockTodos = new TodoModel[]
             {
@@ -310,7 +310,7 @@ namespace TodoApp.Tests.Services
         }
 
         [Fact]
-        public void HasTodos_ReturnsFalse_WhenRepositoryIsEmpty()
+        public void GivenEmptyRepository_HasTodos_ReturnsFalse()
         {
             MockRepository.Setup(a => a.GetAll());
             var service = new Service.TodoService(MockRepository.Object);
