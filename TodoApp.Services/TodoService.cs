@@ -64,6 +64,12 @@ namespace TodoApp.Services
         public bool DeleteByIndex(int index)
         {
             var models = repo.GetAll();
+
+            if (index > models.Count())
+            {
+                return false;
+            }
+
             var modelId = models.ElementAt(index).Id;
             bool isDeleted = this.Delete(modelId);
             return isDeleted;

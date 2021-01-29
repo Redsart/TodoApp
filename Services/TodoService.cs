@@ -289,6 +289,17 @@ namespace TodoApp.Tests.Services
         }
 
         [Fact]
+        public void GivenNotExistingTodo_DeleteByIndex_ReturnsFalse()
+        {
+            int index = 3;
+            var service = new Service.TodoService(MockRepository.Object);
+
+            var isDeleted = service.DeleteByIndex(index);
+
+            Assert.False(isDeleted);
+        }
+
+        [Fact]
         public void GivenFilledRepository_HasTodos_ReturnTrue()
         {
             var mockTodos = new TodoModel[]
