@@ -196,6 +196,18 @@ namespace TodoApp.Tests.Services
             Assert.True(isDeleted);
         }
 
+        [Fact]
+        public void GivenNotExistingTodo_Delete_ReturnsFalse()
+        {
+            var todo = new TodoModel();
+            
+            MockRepository.Setup(a => a.Delete(todo.Id));
+            var service = new Service.TodoService(MockRepository.Object);
+            var isDeleted = service.Delete(todo.Id);
+
+            Assert.False(isDeleted);
+        }
+
         [Theory]
         [InlineData("0a000300-0600-0000-0100-0000f0700001", "Picnic", "Go to a picnic with friends", TodoStatus.Open, "2020-05-15T14:29:15.1823029Z", "2020-05-19T21:00:00.0000000Z")]
         public void Delete_CallRepositoryDelete(string id, string title, string description, TodoStatus status, string createdOn, string dueDate)
