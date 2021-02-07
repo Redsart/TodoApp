@@ -1,28 +1,29 @@
-﻿using System;
-
-namespace TodoApp.ConsoleApp.Framework
+﻿namespace TodoApp.ConsoleApp.Framework
 {
-
     public abstract class View
     {
-        protected readonly Router Router;
-        internal readonly ViewModel Vm;
+        internal ViewModel Ds { get;  }
 
-        public View(Router router, ViewModel vm = null)
+        public View() : this(null)
+        { }
+
+        internal View(ViewModel ds)
         {
-            Router = router;
-            Vm = vm;
+            Ds = ds;
         }
 
         abstract public void Draw();
     }
 
-    public abstract class View<T> : View where T : ViewModel
+    public abstract class View<TVm> : View
+        where TVm : ViewModel
     {
-        public T ViewModel => Vm as T;
+        public TVm DataSource { get; set; }
 
-        public View(Router router, T vm) : base(router, vm)
-        { }
-
+        public View(TVm vm)
+            : base(vm)
+        {
+            DataSource = vm;
+        }
     }
 }

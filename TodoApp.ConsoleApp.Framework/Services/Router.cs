@@ -1,22 +1,24 @@
 ﻿using System;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace TodoApp.ConsoleApp.Framework
+namespace TodoApp.ConsoleApp.Framework.Services
 {
     public class Router
     {
         private readonly IServiceProvider ServiceProvider;
+        private readonly Props<IProps> Props;
 
-        private readonly RouteList History = new RouteList();
         private View Active;
+        private readonly RouteList History = new RouteList();
         private readonly RouteList Future = new RouteList();
 
         internal delegate void RouteChangedHanlder(Router r, RouteChangedEventArgs args);
         internal event RouteChangedHanlder RouteChanged;
 
-        public Router(IServiceProvider serviceProvider)
+        public Router(IServiceProvider serviceProvider, Props<IProps> props)
         {
             ServiceProvider = serviceProvider;
+            Props = props;
         }
 
         private void NotifyRouteChanged()
@@ -24,20 +26,54 @@ namespace TodoApp.ConsoleApp.Framework
             RouteChanged?.Invoke(this, new RouteChangedEventArgs(Active));
         }
 
-        private T CreateView<T>() where T: View
+        private TView CreateView<TView>()
+            where TView : View
         {
-            return ServiceProvider.GetRequiredService<T>();
+            Props.Data = default;
+
+            var view = ServiceProvider.GetRequiredService<TView>();
+            return view;
         }
 
-        public void Start<T>() where T: View
+        private TView CreateView<TView, TProps>(TProps props)
+            where TView : View
+            where TProps : IProps
         {
-            Open<T>();
+            Props.Data = props;
+
+            var view = ServiceProvider.GetRequiredService<TView>();
+            return view;
         }
 
-        public void Open<T>() where T: View
+        public void Start<TView>()
+            where TView : View
+        {
+            Open<TView>();
+        }
+
+        public void Start<TView, TProps>(TProps props)
+            where TView : View
+            where TProps : IProps
+        {
+            Open<TView, TProps>(props);
+        }
+
+        public void Open<TView>()
+            where TView : View
         {
             History.Push(Active);
-            Active = CreateView<T>();
+            Active = CreateView<TView>();
+            Future.Clear();
+
+            NotifyRouteChanged();
+        }
+
+        public void Open<TView, TProps>(TProps props)
+            where TView : View
+            where TProps : IProps
+        {
+            History.Push(Active);
+            Active = CreateView<TView, TProps>(props);
             Future.Clear();
 
             NotifyRouteChanged();

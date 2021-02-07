@@ -24,13 +24,14 @@ namespace TodoApp.ConsoleApp.Test
             return Host.CreateDefaultBuilder(args)
                 .ConfigureServices((_, services) => {
                     services
+                        .AddView<Views.Home>()
+                        .AddView<Views.TodoDetails>()
+                        .AddProps<Props.Todo>()
+                        .AddViewModel<VM.Navigation>()
+                        .AddViewModel<VM.Todo>()
                         .AddSingleton<ITodoRepository, Xml.TodoRepository>()
                         .AddSingleton<ITodoService, TodoService>()
-                        .AddScoped<VM.Todo>()
-                        .AddScoped<Views.Home>()
-                        .AddScoped<Views.Todo>();
-
-                    Application.AddServices(services);
+                        .AddAppServices();
                 });
         }
 

@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
-namespace TodoApp.ConsoleApp.Framework
+namespace TodoApp.ConsoleApp.Framework.Services
 {
     internal class RouteList
     {
         private const int MAX_CAPACITY = 10;
 
-        private LinkedList<View> List = new LinkedList<View>();
+        private readonly LinkedList<View> List = new LinkedList<View>();
 
         public int MaxCapacity { get; }
 

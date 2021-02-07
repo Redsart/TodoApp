@@ -2,14 +2,28 @@
 
 namespace TodoApp.ConsoleApp.Framework
 {
+    internal delegate void PropertyChangedHanlder(ViewModel vm, EventArgs e);
+
     public abstract class ViewModel
     {
-        public delegate void PropertyChangedHanlder(ViewModel vm, EventArgs e);
-        public event PropertyChangedHanlder PropertyChanged;
+        private event PropertyChangedHanlder propertyChanged;
+
+        internal event PropertyChangedHanlder PropertyChanged
+        {
+            add
+            {
+                propertyChanged += value;
+            }
+
+            remove
+            {
+                propertyChanged -= value;
+            }
+        }
 
         protected void NotifyPropertyChanged()
         {
-            PropertyChanged?.Invoke(this, EventArgs.Empty);
+            propertyChanged?.Invoke(this, EventArgs.Empty);
         }
     }
 }

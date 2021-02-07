@@ -1,34 +1,32 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using System;
+using TodoApp.ConsoleApp.Framework.Services;
 
 namespace TodoApp.ConsoleApp.Framework
 {
     public class Application
     {
-        private readonly IServiceProvider ServiceProvider;
         private readonly Router Router;
         private readonly Renderer Renderer;
 
-        public Application(IServiceProvider serviceProvider, Router router, Renderer renderer)
+        public Application(Router router, Renderer renderer)
         {
-            ServiceProvider = serviceProvider;
             Router = router;
             Renderer = renderer;
         }
 
-        public void Start<T>() where T : View
+        public void Start<TView>() 
+            where TView : View
         {
             Renderer.Start();
-            Router.Start<T>();
+            Router.Start<TView>();
         }
 
-        public static void AddServices(IServiceCollection services)
+        public void Start<TView, TProps>(TProps props)
+            where TView : View
+            where TProps : IProps
         {
-            services
-                .AddScoped<ViewModel>((s) => null)
-                .AddScoped<Router>()
-                .AddScoped<Renderer>()
-                .AddScoped<Application>();
+            Renderer.Start();
+            Router.Start<TView, TProps>(props);
         }
     }
 }

@@ -1,10 +1,11 @@
 ﻿using System;
 
-namespace TodoApp.ConsoleApp.Framework
+namespace TodoApp.ConsoleApp.Framework.Services
 {
     public class Renderer
     {
         private Router Router;
+
 
         private View _view;
         private View View
@@ -12,16 +13,16 @@ namespace TodoApp.ConsoleApp.Framework
             get => _view;
             set
             {
-                if (_view != null && _view.Vm != null)
+                if (_view != null && _view.Ds != null)
                 {
-                    _view.Vm.PropertyChanged -= OnVmChange;
+                    _view.Ds.PropertyChanged -= OnVmChange;
                 }
 
                 _view = value;
 
-                if (_view != null && _view.Vm != null)
+                if (_view != null && _view.Ds != null)
                 {
-                    _view.Vm.PropertyChanged += OnVmChange;
+                    _view.Ds.PropertyChanged += OnVmChange;
                 }
             }
         }
@@ -49,6 +50,7 @@ namespace TodoApp.ConsoleApp.Framework
         public void Render(View v)
         {
             View = v;
+
             Console.Clear();
             View.Draw();
         }
