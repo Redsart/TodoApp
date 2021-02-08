@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 using TodoApp.ConsoleApp.Framework;
+using TodoApp.ConsoleApp.Framework.Commands;
 using VM = TodoApp.ConsoleApp.Test.ViewModels;
 
 namespace TodoApp.ConsoleApp.Test.Views
@@ -10,15 +12,33 @@ namespace TodoApp.ConsoleApp.Test.Views
             : base(vm)
         { }
 
-        public override void Draw()
+        public override void Render()
         {
             Console.WriteLine("Hello!");
 
-            int id;
-            while (!int.TryParse(Console.ReadLine(), out id))
-            { }
 
-            DataSource.OpenTodoDetails(id);
+        }
+
+        public override void SetupCommands()
+        {
+            Commands.Message = "Where to go?";
+
+            Commands.Add(new Command(
+               "Open First Todo",
+               "t",
+               (_) => DataSource.OpenTodoDetails(1)
+           ));
+
+            Commands.Add(new Command(
+                "Open Todo by ID",
+                "id [id]",
+                new Regex(@"^id \d+$"),
+                (input) =>
+                {
+                    var id = int.Parse(input.Split()[1]);
+                    DataSource.OpenTodoDetails(id);
+                }
+            ));
         }
     }
 }

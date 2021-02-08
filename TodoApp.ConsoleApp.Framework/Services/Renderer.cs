@@ -6,8 +6,8 @@ namespace TodoApp.ConsoleApp.Framework.Services
     {
         private Router Router;
 
-
         private View _view;
+
         private View View
         {
             get => _view;
@@ -47,18 +47,47 @@ namespace TodoApp.ConsoleApp.Framework.Services
             Router.RouteChanged += OnRouteChange;
         }
 
+        private void RenderView()
+        {
+            Console.Clear();
+
+            View.Commands.Reset();
+            View.Render();
+            View.SetupCommands();
+
+            RenderCommands();
+        }
+
+        private void RenderCommands()
+        {
+            if (View.Commands.Available)
+            {
+                Console.WriteLine();
+                Console.Write(View.Commands);
+            }
+
+            bool success = false;
+            while (!success)
+            {
+                Console.Write("> ");
+                string input = Console.ReadLine();
+                View.Commands.TryRun(input, out success);
+                if (!success)
+                {
+                    Console.WriteLine(View.Commands.InvalidMessage);
+                }
+            }
+        }
+
         public void Render(View v)
         {
             View = v;
-
-            Console.Clear();
-            View.Draw();
+            RenderView();
         }
 
         public void Refresh()
         {
-            Console.Clear();
-            View.Draw();
+            RenderView();
         }
     }
 }
