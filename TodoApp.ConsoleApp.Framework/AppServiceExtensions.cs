@@ -11,7 +11,7 @@ namespace TodoApp.ConsoleApp.Framework
         public static IServiceCollection AddView<T>(this IServiceCollection services)
             where T : View
         {
-            return services.AddScoped<T>();
+            return services.AddTransient<T>();
         }
 
         public static IServiceCollection AddProps<T>(this IServiceCollection services)
@@ -20,16 +20,22 @@ namespace TodoApp.ConsoleApp.Framework
             return services.AddTransient(s => (T)s.GetRequiredService<Props<IProps>>().Data);
         }
 
+        public static IServiceCollection AddCommand<T>(this IServiceCollection services)
+            where T : Commands.Command
+        {
+            return services.AddTransient<T>();
+        }
+
         public static IServiceCollection AddViewModel<T>(this IServiceCollection services)
             where T : ViewModel
         {
-            return services.AddScoped<T>();
+            return services.AddTransient<T>();
         }
 
         public static IServiceCollection AddAppServices(this IServiceCollection services)
         {
             return services
-                .AddScoped((_) => services)
+                .AddTransient<Commands.CommandList>()
                 .AddScoped<ViewModel>((_) => null)
                 .AddScoped<Router>()
                 .AddScoped<Renderer>()

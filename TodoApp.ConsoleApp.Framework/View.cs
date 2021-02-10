@@ -6,7 +6,7 @@ namespace TodoApp.ConsoleApp.Framework
     {
         internal ViewModel Ds { get;  }
 
-        public CommandList Commands { get; }
+        public CommandList Commands { get; internal set; }
 
         public View() : this(null)
         { }
@@ -14,7 +14,6 @@ namespace TodoApp.ConsoleApp.Framework
         internal View(ViewModel ds)
         {
             Ds = ds;
-            Commands = new CommandList();
         }
 
         abstract public void Render();

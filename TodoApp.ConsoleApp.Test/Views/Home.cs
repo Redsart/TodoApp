@@ -1,8 +1,8 @@
-﻿using System;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 using TodoApp.ConsoleApp.Framework;
-using TodoApp.ConsoleApp.Framework.Commands;
 using VM = TodoApp.ConsoleApp.Test.ViewModels;
+using Cmd = TodoApp.ConsoleApp.Test.Commands;
+using TodoApp.ConsoleApp.Test.Components;
 
 namespace TodoApp.ConsoleApp.Test.Views
 {
@@ -14,31 +14,41 @@ namespace TodoApp.ConsoleApp.Test.Views
 
         public override void Render()
         {
-            Console.WriteLine("Hello!");
+            Output.WriteTitle("Todo app");
 
-
+            Output.WriteParagraph("Welcome to your personal task manager. You can use it to create Todo's and track their progress.");
         }
 
         public override void SetupCommands()
         {
             Commands.Message = "Where to go?";
 
-            Commands.Add(new Command(
-               "Open First Todo",
-               "t",
+            Commands.Add(
+               "Open First Todo.",
+               "f",
                (_) => DataSource.OpenTodoDetails(1)
-           ));
+           );
 
-            Commands.Add(new Command(
-                "Open Todo by ID",
-                "id [id]",
-                new Regex(@"^id \d+$"),
+            Commands.Add(
+                "Open Todo by ID.",
+                "t [id]",
+                new Regex(@"^t \d+$"),
                 (input) =>
                 {
-                    var id = int.Parse(input.Split()[1]);
+                    var parts = input.Split();
+                    var id = int.Parse(parts[1]);
                     DataSource.OpenTodoDetails(id);
                 }
-            ));
+            );
+
+            //Commands.Add(
+            //    "Exit the app.",
+            //    "e",
+            //    (_) => DataSource.Goodbye()
+            //);
+
+            Commands.Add<Cmd.Back, VM.Navigation>(DataSource);
+            Commands.Add<Cmd.Exit, VM.Navigation>(DataSource);
         }
     }
 }

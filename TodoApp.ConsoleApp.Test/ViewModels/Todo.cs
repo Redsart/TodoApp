@@ -1,4 +1,5 @@
 ﻿using TodoApp.ConsoleApp.Framework.Services;
+using P = TodoApp.ConsoleApp.Test.Props;
 
 namespace TodoApp.ConsoleApp.Test.ViewModels
 {
@@ -7,10 +8,10 @@ namespace TodoApp.ConsoleApp.Test.ViewModels
         public int Id = 1;
         public string Name = "My todo";
 
-        public Todo(Router router, Props.Todo props)
+        public Todo(Router router, P.Todo props)
             : base(router)
         {
-            Id = props.Id.HasValue ? props.Id.Value : 0;
+            Id = props?.Id ?? 0;
         }
 
         public void Update(string name)

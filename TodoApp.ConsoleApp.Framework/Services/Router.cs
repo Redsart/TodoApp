@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace TodoApp.ConsoleApp.Framework.Services
@@ -24,6 +25,11 @@ namespace TodoApp.ConsoleApp.Framework.Services
         private void NotifyRouteChanged()
         {
             RouteChanged?.Invoke(this, new RouteChangedEventArgs(Active));
+        }
+
+        private async Task NotifyRouteChangedAsync()
+        {
+            await Task.Run(NotifyRouteChanged);
         }
 
         private TView CreateView<TView>()
@@ -58,17 +64,17 @@ namespace TodoApp.ConsoleApp.Framework.Services
             Open<TView, TProps>(props);
         }
 
-        public void Open<TView>()
+        public async void Open<TView>()
             where TView : View
         {
             History.Push(Active);
             Active = CreateView<TView>();
             Future.Clear();
 
-            NotifyRouteChanged();
+            await NotifyRouteChangedAsync();
         }
 
-        public void Open<TView, TProps>(TProps props)
+        public async void Open<TView, TProps>(TProps props)
             where TView : View
             where TProps : IProps
         {
@@ -76,29 +82,35 @@ namespace TodoApp.ConsoleApp.Framework.Services
             Active = CreateView<TView, TProps>(props);
             Future.Clear();
 
-            NotifyRouteChanged();
+            await NotifyRouteChangedAsync();
         }
 
-        public void GoTo(int viewCount)
+        public bool CanGoTo(int count)
         {
-            if (viewCount == 0)
-            {
-                return;
-            }
+            return
+                count != 0 &&
+                (
+                  (count < 0 && Math.Abs(count) <= History.Count) ||
+                  (count > 0 && count <= Future.Count)
+                );
+        }
 
-            while (viewCount < 0)
+        public async void GoTo(int count)
+        {
+            for (int i = count; i < 0; i++)
             {
                 Future.Push(Active);
                 Active = History.Pop();
             }
 
-            while (viewCount > 0)
+            for (int i = count; i > 0; i++)
+
             {
                 History.Push(Active);
                 Active = Future.Pop();
             }
 
-            NotifyRouteChanged();
+            await NotifyRouteChangedAsync();
         }
     }
 

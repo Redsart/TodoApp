@@ -1,10 +1,13 @@
-﻿using System;
+﻿using Microsoft.Extensions.DependencyInjection;
+using System;
+using TodoApp.ConsoleApp.Framework.Commands;
 
 namespace TodoApp.ConsoleApp.Framework.Services
 {
     public class Renderer
     {
-        private Router Router;
+        private readonly IServiceProvider ServiceProvider;
+        private readonly Router Router;
 
         private View _view;
 
@@ -27,8 +30,9 @@ namespace TodoApp.ConsoleApp.Framework.Services
             }
         }
 
-        public Renderer(Router router)
+        public Renderer(IServiceProvider serviceProvider, Router router)
         {
+            ServiceProvider = serviceProvider;
             Router = router;
         }
 
@@ -51,6 +55,8 @@ namespace TodoApp.ConsoleApp.Framework.Services
         {
             Console.Clear();
 
+            var cmds = ServiceProvider.GetRequiredService<CommandList>();
+            View.Commands = cmds;
             View.Commands.Reset();
             View.Render();
             View.SetupCommands();
@@ -60,11 +66,13 @@ namespace TodoApp.ConsoleApp.Framework.Services
 
         private void RenderCommands()
         {
-            if (View.Commands.Available)
+            if (!View.Commands.Available)
             {
-                Console.WriteLine();
-                Console.Write(View.Commands);
+                return;
             }
+
+            Console.WriteLine();
+            Console.Write(View.Commands);
 
             bool success = false;
             while (!success)

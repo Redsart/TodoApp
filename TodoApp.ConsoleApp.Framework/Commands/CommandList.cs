@@ -2,13 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace TodoApp.ConsoleApp.Framework.Commands
 {
     public class CommandList
     {
+        private readonly IServiceProvider ServiceProvider;
+     
         public string Message { get; set; }
-
 
         public string InvalidMessage = "Invalid Command! Please, try again!";
 
@@ -16,8 +19,10 @@ namespace TodoApp.ConsoleApp.Framework.Commands
 
         public bool Available { get => Commands.Count > 0; }
 
-        public CommandList(params Command[] commands)
+        public CommandList(IServiceProvider serviceProvider)
         {
+            ServiceProvider = serviceProvider;
+
             Reset();
         }
 
@@ -27,12 +32,41 @@ namespace TodoApp.ConsoleApp.Framework.Commands
             Commands = new List<Command>();
         }
 
-        public void Add(params Command[] cmds)
+        public Command Add<TCmd, TVm>(TVm vm)
+            where TCmd: Command<TVm>
+            where TVm: ViewModel
         {
-            foreach (var cmd in cmds)
+            var cmd = ServiceProvider.GetRequiredService<TCmd>();
+            cmd.DataSource = vm;
+
+            if (!cmd.CanRun())
             {
-                Commands.Add(cmd);
-            };
+                return null;
+            }
+
+            Commands.Add(cmd);
+            return cmd;
+        }
+
+        public Command Add(string name, string match, Action<string> action)
+        {
+            var cmd = new Command(name, match, action);
+            Commands.Add(cmd);
+            return cmd;
+        }
+
+        public Command Add(string name, string display, Regex match, Action<string> action)
+        {
+            var cmd = new Command(name, display, match, action);
+            Commands.Add(cmd);
+            return cmd;
+        }
+
+        public Command Add(string name, string display, Func<string, bool> match, Action<string> action)
+        {
+            var cmd = new Command(name, display, match, action);
+            Commands.Add(cmd);
+            return cmd;
         }
 
         public void Remove(params Command[] cmds)

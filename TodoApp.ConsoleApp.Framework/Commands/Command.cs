@@ -7,23 +7,23 @@ namespace TodoApp.ConsoleApp.Framework.Commands
 {
     public class Command
     {
-        public string Display { get; }
+        protected string Display { get; set; }
 
-        public string Name { get; }
+        protected string Name { get; set; }
 
-        private Func<string, bool> Match { get; }
+        protected Func<string, bool> Match { get; set; }
 
-        private Action<string> Action { get; }
+        protected Action<string> Action { get; set; }
 
-        public Command(string name, string match, Action<string> action)
+        internal Command(string name, string match, Action<string> action)
             : this(name, match.Trim(), match.Equals, action)
         { }
 
-        public Command(string name, string display, Regex match, Action<string> action)
+        internal Command(string name, string display, Regex match, Action<string> action)
             : this(name, display, match.IsMatch, action)
         { }
 
-        public Command(string name, string display, Func<string, bool> match, Action<string> action)
+        internal Command(string name, string display, Func<string, bool> match, Action<string> action)
         {
             Name = name;
             Display = display;
@@ -31,12 +31,12 @@ namespace TodoApp.ConsoleApp.Framework.Commands
             Action = action;
         }
 
-        public bool IsMatch(string input)
+        internal bool IsMatch(string input)
         {
             return Match(input);
         }
 
-        public void Run(string input)
+        internal void Run(string input)
         {
             bool success = IsMatch(input);
 
@@ -48,7 +48,7 @@ namespace TodoApp.ConsoleApp.Framework.Commands
             Action(input);
         }
 
-        public void TryRun(string input, out bool success)
+        internal void TryRun(string input, out bool success)
         {
             success = IsMatch(input);
 
@@ -70,7 +70,41 @@ namespace TodoApp.ConsoleApp.Framework.Commands
                 return Display;
             }
 
-            return string.Format("{0} - {1}", Display, Name);
+            return string.Format("{0,-16} - {1}", Display, Name);
+        }
+    }
+
+    public abstract class Command<TVm> : Command
+        where TVm : ViewModel
+    {
+        internal protected TVm DataSource { protected get;  set; }
+
+        public Command(string name, string match)
+            :this(name, match.Trim(), match.Equals)
+        {
+            Action = Execute;
+        }
+
+        public Command(string name, string display, Regex match)
+            : this(name, display, match.IsMatch)
+        { }
+
+        public Command(string name, string display, Func<string, bool> match)
+            : base(name, display, match, null)
+        {
+            Action = Execute;
+        }
+
+        abstract protected void Execute(string input);
+
+        internal bool CanRun()
+        {
+            return CanExecute();
+        }
+
+        virtual protected bool CanExecute()
+        {
+            return true;
         }
     }
 }

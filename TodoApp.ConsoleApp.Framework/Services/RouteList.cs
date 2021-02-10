@@ -10,6 +10,8 @@ namespace TodoApp.ConsoleApp.Framework.Services
 
         public int MaxCapacity { get; }
 
+        public int Count { get => List.Count; }
+
         public RouteList() : this(MAX_CAPACITY) { }
 
         public RouteList(int maxCapacity)
@@ -24,6 +26,11 @@ namespace TodoApp.ConsoleApp.Framework.Services
 
         public void Push(View v)
         {
+            if (v == null)
+            {
+                return;
+            }
+
             if (List.Count >= MaxCapacity)
             {
                 List.RemoveFirst();
