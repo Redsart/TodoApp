@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace TodoApp.ConsoleApp.Framework.Services
 {
     public class Router
     {
+        private readonly ILogger<Router> Logger;
         private readonly IServiceProvider ServiceProvider;
         private readonly Props<IProps> Props;
 
@@ -16,14 +18,17 @@ namespace TodoApp.ConsoleApp.Framework.Services
         internal delegate void RouteChangedHanlder(Router r, RouteChangedEventArgs args);
         internal event RouteChangedHanlder RouteChanged;
 
-        public Router(IServiceProvider serviceProvider, Props<IProps> props)
+        public Router(ILogger<Router> logger, IServiceProvider serviceProvider, Props<IProps> props)
         {
+            Logger = logger;
             ServiceProvider = serviceProvider;
             Props = props;
         }
 
         private void NotifyRouteChanged()
         {
+            Logger.LogInformation("Open View: {0}", Active.GetType().FullName);
+
             RouteChanged?.Invoke(this, new RouteChangedEventArgs(Active));
         }
 
@@ -49,19 +54,6 @@ namespace TodoApp.ConsoleApp.Framework.Services
 
             var view = ServiceProvider.GetRequiredService<TView>();
             return view;
-        }
-
-        public void Start<TView>()
-            where TView : View
-        {
-            Open<TView>();
-        }
-
-        public void Start<TView, TProps>(TProps props)
-            where TView : View
-            where TProps : IProps
-        {
-            Open<TView, TProps>(props);
         }
 
         public async void Open<TView>()
@@ -111,6 +103,18 @@ namespace TodoApp.ConsoleApp.Framework.Services
             }
 
             await NotifyRouteChangedAsync();
+        }
+
+        internal async void Start(View homeView)
+        {
+            Active = homeView;
+            await NotifyRouteChangedAsync();
+        }
+
+        internal void Stop()
+        {
+            History.Clear();
+            Future.Clear();
         }
     }
 

@@ -14,22 +14,22 @@ namespace TodoApp.ConsoleApp.Test
 {
     class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             using IHost host = CreateHostBuilder(args).Build();
 
-            RunApp(host.Services, args).Wait();
-
-            host.RunAsync();
+            await host.RunAsync();
         }
 
         static IHostBuilder CreateHostBuilder(string[] args)
         {
             return Host.CreateDefaultBuilder(args)
-                .ConfigureServices((_, services) => {
+                .UseTodoFramework()
+                .ConfigureServices((_, services) =>
+                {
                     services
                         // Views
-                        .AddView<Views.Home>()
+                        .AddView<Views.Home>(true)
                         .AddView<Views.TodoDetails>()
                         .AddView<Views.Goodbye>()
                         // Props
@@ -45,18 +45,9 @@ namespace TodoApp.ConsoleApp.Test
                         .AddSingleton<ITodoService, TodoService>()
                         // Repositories
                         .AddSingleton<ITodoRepository, Xml.TodoRepository>()
-                        .AddSingleton<Xml.Utils.IXmlContext, Xml.Utils.XmlContext>()
-                        .AddAppServices();
-                });
-        }
-
-        static async Task RunApp(IServiceProvider services, string[] args)
-        {
-            using IServiceScope serviceScope = services.CreateScope();
-            IServiceProvider provider = serviceScope.ServiceProvider;
-
-            var app = provider.GetRequiredService<Application>();
-            await app.RunAsync<Views.Home>();
+                        .AddSingleton<Xml.Utils.IXmlContext, Xml.Utils.XmlContext>();
+                })
+                ;
         }
     }
 }

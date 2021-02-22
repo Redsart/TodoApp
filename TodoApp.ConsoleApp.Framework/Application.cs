@@ -1,62 +1,36 @@
 ﻿using Microsoft.Extensions.Hosting;
+using System.Threading;
 using System.Threading.Tasks;
 using TodoApp.ConsoleApp.Framework.Services;
 
+
 namespace TodoApp.ConsoleApp.Framework
 {
-    public class Application
+    public class Application: IHostedService
     {
         private readonly Router Router;
         private readonly Renderer Renderer;
-        private readonly Task AppTask;
-        private readonly IHostApplicationLifetime AppLifetime;
+        private readonly Home Home;
 
-        public Application(Router router, Renderer renderer, IHostApplicationLifetime appLifetime)
+        public Application(Router router, Renderer renderer, Home home)
         {
             Router = router;
             Renderer = renderer;
-            AppTask = new Task(() => { });
-            AppLifetime = appLifetime;
+            Home = home;
         }
 
-        private void Start<TView>()
-            where TView : View
+        public Task StartAsync(CancellationToken cancellationToken)
         {
             Renderer.Start();
-            Router.Start<TView>();
+            Router.Start(Home.View);
+            return Task.CompletedTask;
         }
 
-        private void Start<TView, TProps>(TProps props)
-            where TView : View
-            where TProps : IProps
+        public Task StopAsync(CancellationToken cancellationToken)
         {
-            Renderer.Start();
-            Router.Start<TView, TProps>(props);
-        }
-
-        private void Stop()
-        {
-            AppTask.Start();
-        }
-
-        public async Task RunAsync<TView>()
-            where TView : View
-        {
-            Start<TView>();
-
-            AppLifetime.ApplicationStopping.Register(Stop);
-
-            await AppTask;
-        }
-        public async Task RunAsync<TView, TProps>(TProps props)
-            where TView : View
-            where TProps : IProps
-        {
-            Start<TView, TProps>(props);
-
-            AppLifetime.ApplicationStopping.Register(Stop);
-
-            await AppTask;
+            Renderer.Stop();
+            Router.Stop();
+            return Task.CompletedTask;
         }
     }
 }

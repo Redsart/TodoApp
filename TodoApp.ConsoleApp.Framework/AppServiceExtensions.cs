@@ -1,16 +1,20 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using Microsoft.Extensions.Hosting;
 using TodoApp.ConsoleApp.Framework.Services;
+using Microsoft.Extensions.Logging;
 
 namespace TodoApp.ConsoleApp.Framework
 {
     public static class AppServiceExtensions
     {
-        public static IServiceCollection AddView<T>(this IServiceCollection services)
+        public static IServiceCollection AddView<T>(this IServiceCollection services, bool homeView = false)
             where T : View
         {
+            if (homeView)
+            {
+                services.AddSingleton(s => new Home(s.GetRequiredService<T>()));
+            }
+
             return services.AddTransient<T>();
         }
 
@@ -32,15 +36,24 @@ namespace TodoApp.ConsoleApp.Framework
             return services.AddTransient<T>();
         }
 
-        public static IServiceCollection AddAppServices(this IServiceCollection services)
+        public static IHostBuilder UseTodoFramework(this IHostBuilder hostBuilder)
         {
-            return services
-                .AddTransient<Commands.CommandList>()
-                .AddScoped<ViewModel>((_) => null)
-                .AddScoped<Router>()
-                .AddScoped<Renderer>()
-                .AddScoped<Application>()
-                .AddScoped<Props<IProps>>();
+            return hostBuilder
+                .ConfigureLogging((logging) =>
+                {
+                    logging
+                        .ClearProviders()
+                        .AddDebug();
+                }).ConfigureServices(services =>
+                {
+                    services
+                        .AddTransient<Commands.CommandList>()
+                        .AddScoped<ViewModel>((_) => null)
+                        .AddScoped<Props<IProps>>()
+                        .AddScoped<Router>()
+                        .AddScoped<Renderer>()
+                        .AddHostedService<Application>();
+                });
         }
     }
 }
