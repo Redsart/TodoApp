@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System;
-using TodoApp.ConsoleApp.Framework.Commands;
 using Microsoft.Extensions.Logging;
 
 namespace TodoApp.ConsoleApp.Framework.Services

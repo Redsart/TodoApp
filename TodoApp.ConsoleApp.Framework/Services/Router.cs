@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging;
 
 namespace TodoApp.ConsoleApp.Framework.Services
 {
-    public class Router
+    public class Router: IRouter
     {
         private readonly ILogger<Router> Logger;
         private readonly IServiceProvider ServiceProvider;

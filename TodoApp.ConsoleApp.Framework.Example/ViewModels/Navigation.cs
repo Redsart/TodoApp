@@ -1,15 +1,13 @@
-﻿using TodoApp.ConsoleApp.Framework;
-using TodoApp.ConsoleApp.Framework.Services;
-using V = TodoApp.ConsoleApp.Framework.Examples.Views;
+﻿using V = TodoApp.ConsoleApp.Framework.Examples.Views;
 using P = TodoApp.ConsoleApp.Framework.Examples.Props;
 
 namespace TodoApp.ConsoleApp.Framework.Examples.ViewModels
 {
     public class Navigation: ViewModel
     {
-        Router Router;
+        protected readonly IRouter Router;
 
-        public Navigation(Router router)
+        public Navigation(IRouter router)
         {
             Router = router;
         }

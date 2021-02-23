@@ -1,5 +1,4 @@
-﻿using TodoApp.ConsoleApp.Framework.Commands;
-using VM = TodoApp.ConsoleApp.Framework.Examples.ViewModels;
+﻿using VM = TodoApp.ConsoleApp.Framework.Examples.ViewModels;
 
 namespace TodoApp.ConsoleApp.Framework.Examples.Commands
 {

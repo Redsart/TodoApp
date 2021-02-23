@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repositories", "Repositorie
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoApp.ConsoleApp.Framework", "TodoApp.ConsoleApp.Framework\TodoApp.ConsoleApp.Framework.csproj", "{E549D0D6-DFC7-414C-8784-AD6F98EBD625}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoApp.ConsoleApp.Framework.Example", "TodoApp.ConsoleApp.Test\TodoApp.ConsoleApp.Framework.Example.csproj", "{25A02F86-FBA8-4A76-ACD0-5E617B050D87}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoApp.ConsoleApp.Framework.Example", "TodoApp.ConsoleApp.Framework.Example\TodoApp.ConsoleApp.Framework.Example.csproj", "{25A02F86-FBA8-4A76-ACD0-5E617B050D87}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

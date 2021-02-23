@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace TodoApp.ConsoleApp.Framework.Services
+﻿namespace TodoApp.ConsoleApp.Framework.Services
 {
     public class Home
     {

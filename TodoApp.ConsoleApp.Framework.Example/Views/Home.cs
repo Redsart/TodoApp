@@ -20,8 +20,6 @@ namespace TodoApp.ConsoleApp.Framework.Examples.Views
 
         public override void SetupCommands()
         {
-            Commands.Message = "Where to go?";
-
             Commands.Add(
                "Open First Todo.",
                "f",

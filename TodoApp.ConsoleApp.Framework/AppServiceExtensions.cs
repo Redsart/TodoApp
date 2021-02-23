@@ -2,7 +2,6 @@
 using Microsoft.Extensions.Hosting;
 using TodoApp.ConsoleApp.Framework.Services;
 using Microsoft.Extensions.Logging;
-using TodoApp.ConsoleApp.Framework.Commands;
 
 namespace TodoApp.ConsoleApp.Framework
 {
@@ -53,6 +52,7 @@ namespace TodoApp.ConsoleApp.Framework
                         .AddSingleton<Props<IProps>>()
                         .AddSingleton<Renderer>()
                         .AddSingleton<Router>()
+                        .AddSingleton<IRouter>(s => s.GetRequiredService<Router>())
                         .AddHostedService<Application>();
                 });
         }

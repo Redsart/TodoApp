@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace TodoApp.ConsoleApp.Framework.Commands
+namespace TodoApp.ConsoleApp.Framework.Services
 {
     public class CommandList
     {
@@ -17,7 +17,7 @@ namespace TodoApp.ConsoleApp.Framework.Commands
 
         private IList<Command> Commands { get; set; }
 
-        public bool Available { get => Commands.Count > 0; }
+        internal bool Available { get => Commands.Count > 0; }
 
         public CommandList(IServiceProvider serviceProvider)
         {
@@ -82,12 +82,12 @@ namespace TodoApp.ConsoleApp.Framework.Commands
             Commands.Clear();
         }
 
-        public Command FindMatch(string input)
+        internal Command FindMatch(string input)
         {
             return Commands.FirstOrDefault(cmd => cmd.IsMatch(input));
         }
 
-        public void Run(string input)
+        internal void Run(string input)
         {
             var cmd = FindMatch(input);
             bool success = cmd != null;
@@ -99,7 +99,7 @@ namespace TodoApp.ConsoleApp.Framework.Commands
             cmd.Run(input);
         }
 
-        public void TryRun(string input, out bool success)
+        internal void TryRun(string input, out bool success)
         {
             var cmd = FindMatch(input);
             success = cmd != null;

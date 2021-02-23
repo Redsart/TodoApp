@@ -22,6 +22,9 @@ namespace TodoApp.ConsoleApp.Framework.Examples.Views
 
         public override void SetupCommands()
         {
+            Commands.Message = "Where to go?";
+            Commands.InvalidMessage = "Ooops... try again!";
+
             Commands.Add(
                 "Update name",
                 "name [new name]",
@@ -36,11 +39,11 @@ namespace TodoApp.ConsoleApp.Framework.Examples.Views
             Commands.Add(
                 "Go home",
                 "h",
-                (input) => DataSource.OpenHome()
+                (input) => DataSource.Nav.OpenHome()
             );
 
-            Commands.Add<Cmd.Back, VM.Navigation>(DataSource);
-            Commands.Add<Cmd.Exit, VM.Navigation>(DataSource);
+            Commands.Add<Cmd.Back, VM.Navigation>(DataSource.Nav);
+            Commands.Add<Cmd.Exit, VM.Navigation>(DataSource.Nav);
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 
-namespace TodoApp.ConsoleApp.Framework.Commands
+namespace TodoApp.ConsoleApp.Framework
 {
     public class Command
     {

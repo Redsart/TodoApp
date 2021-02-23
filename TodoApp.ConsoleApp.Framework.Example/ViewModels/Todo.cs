@@ -1,16 +1,17 @@
-﻿using TodoApp.ConsoleApp.Framework.Services;
-using P = TodoApp.ConsoleApp.Framework.Examples.Props;
+﻿using P = TodoApp.ConsoleApp.Framework.Examples.Props;
 
 namespace TodoApp.ConsoleApp.Framework.Examples.ViewModels
 {
-    public class Todo : Navigation
+    public class Todo: ViewModel
     {
         public int Id = 1;
         public string Name = "My todo";
 
-        public Todo(Router router, P.Todo props)
-            : base(router)
+        public readonly Navigation Nav;
+
+        public Todo(Navigation nav, P.Todo props)
         {
+            Nav = nav;
             Id = props?.Id ?? 0;
         }
 
