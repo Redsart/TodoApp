@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TodoApp.ConsoleApp.Test.Components
+namespace TodoApp.ConsoleApp.Framework.Examples.Components
 {
     internal static class Output
     {

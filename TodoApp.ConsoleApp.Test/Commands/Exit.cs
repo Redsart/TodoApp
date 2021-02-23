@@ -1,7 +1,7 @@
 ﻿using TodoApp.ConsoleApp.Framework.Commands;
-using VM = TodoApp.ConsoleApp.Test.ViewModels;
+using VM = TodoApp.ConsoleApp.Framework.Examples.ViewModels;
 
-namespace TodoApp.ConsoleApp.Test.Commands
+namespace TodoApp.ConsoleApp.Framework.Examples.Commands
 {
     public class Exit : Command<VM.Navigation>
     {

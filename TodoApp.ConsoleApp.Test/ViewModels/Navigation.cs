@@ -1,9 +1,9 @@
 ﻿using TodoApp.ConsoleApp.Framework;
 using TodoApp.ConsoleApp.Framework.Services;
-using V = TodoApp.ConsoleApp.Test.Views;
-using P = TodoApp.ConsoleApp.Test.Props;
+using V = TodoApp.ConsoleApp.Framework.Examples.Views;
+using P = TodoApp.ConsoleApp.Framework.Examples.Props;
 
-namespace TodoApp.ConsoleApp.Test.ViewModels
+namespace TodoApp.ConsoleApp.Framework.Examples.ViewModels
 {
     public class Navigation: ViewModel
     {

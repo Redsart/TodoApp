@@ -1,9 +1,9 @@
 ﻿
 using TodoApp.ConsoleApp.Framework;
-using VM = TodoApp.ConsoleApp.Test.ViewModels;
-using TodoApp.ConsoleApp.Test.Components;
+using VM = TodoApp.ConsoleApp.Framework.Examples.ViewModels;
+using TodoApp.ConsoleApp.Framework.Examples.Components;
 
-namespace TodoApp.ConsoleApp.Test.Views
+namespace TodoApp.ConsoleApp.Framework.Examples.Views
 {
     public class Goodbye : View<VM.Goodbye>
     {

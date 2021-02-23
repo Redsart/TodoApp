@@ -1,18 +1,28 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Text.RegularExpressions;
 
 namespace TodoApp.ConsoleApp.Framework.Commands
 {
     public class Command
     {
+        /**
+         * Command template shown to the user.
+         */
         protected string Display { get; set; }
 
+        /**
+         * Name & description of the command. Shown to the user.
+         */
         protected string Name { get; set; }
 
+        /**
+         * If the given input matching the command?
+         */
         protected Func<string, bool> Match { get; set; }
 
+        /**
+         * Executed when the input matched the command.
+         */
         protected Action<string> Action { get; set; }
 
         internal Command(string name, string match, Action<string> action)

@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Text.RegularExpressions;
 
-namespace TodoApp.ConsoleApp.Test.Components
+namespace TodoApp.ConsoleApp.Framework.Examples.Components
 {
     internal delegate bool TryParse<T>(string input, out T result);
 

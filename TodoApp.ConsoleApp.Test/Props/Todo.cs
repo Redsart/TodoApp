@@ -1,6 +1,6 @@
 ﻿using TodoApp.ConsoleApp.Framework;
 
-namespace TodoApp.ConsoleApp.Test.Props
+namespace TodoApp.ConsoleApp.Framework.Examples.Props
 {
     public class Todo : IProps
     {

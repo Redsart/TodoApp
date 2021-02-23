@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Hosting;
 using TodoApp.ConsoleApp.Framework;
 
-namespace TodoApp.ConsoleApp.Test.ViewModels
+namespace TodoApp.ConsoleApp.Framework.Examples.ViewModels
 {
     public class Goodbye: ViewModel
     {

@@ -1,7 +1,7 @@
 ﻿using TodoApp.ConsoleApp.Framework.Services;
-using P = TodoApp.ConsoleApp.Test.Props;
+using P = TodoApp.ConsoleApp.Framework.Examples.Props;
 
-namespace TodoApp.ConsoleApp.Test.ViewModels
+namespace TodoApp.ConsoleApp.Framework.Examples.ViewModels
 {
     public class Todo : Navigation
     {

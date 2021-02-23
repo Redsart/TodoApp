@@ -1,16 +1,14 @@
-﻿using System;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using TodoApp.Repositories.Interfaces;
 using TodoApp.Services;
 using Xml = TodoApp.Repositories.XmlRepository;
-using VM = TodoApp.ConsoleApp.Test.ViewModels;
-using P = TodoApp.ConsoleApp.Test.Props;
-using Cmd = TodoApp.ConsoleApp.Test.Commands;
-using TodoApp.ConsoleApp.Framework;
+using VM = TodoApp.ConsoleApp.Framework.Examples.ViewModels;
+using P = TodoApp.ConsoleApp.Framework.Examples.Props;
+using Cmd = TodoApp.ConsoleApp.Framework.Examples.Commands;
 using System.Threading.Tasks;
 
-namespace TodoApp.ConsoleApp.Test
+namespace TodoApp.ConsoleApp.Framework.Examples
 {
     class Program
     {

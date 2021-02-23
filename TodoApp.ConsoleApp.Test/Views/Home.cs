@@ -1,10 +1,10 @@
 ﻿using System.Text.RegularExpressions;
 using TodoApp.ConsoleApp.Framework;
-using VM = TodoApp.ConsoleApp.Test.ViewModels;
-using Cmd = TodoApp.ConsoleApp.Test.Commands;
-using TodoApp.ConsoleApp.Test.Components;
+using VM = TodoApp.ConsoleApp.Framework.Examples.ViewModels;
+using Cmd = TodoApp.ConsoleApp.Framework.Examples.Commands;
+using TodoApp.ConsoleApp.Framework.Examples.Components;
 
-namespace TodoApp.ConsoleApp.Test.Views
+namespace TodoApp.ConsoleApp.Framework.Examples.Views
 {
     public class Home : View<VM.Navigation>
     {
