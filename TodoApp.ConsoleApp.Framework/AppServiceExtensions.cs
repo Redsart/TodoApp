@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Hosting;
 using TodoApp.ConsoleApp.Framework.Services;
 using Microsoft.Extensions.Logging;
+using TodoApp.ConsoleApp.Framework.Commands;
 
 namespace TodoApp.ConsoleApp.Framework
 {
@@ -25,7 +26,7 @@ namespace TodoApp.ConsoleApp.Framework
         }
 
         public static IServiceCollection AddCommand<T>(this IServiceCollection services)
-            where T : Commands.Command
+            where T : Command
         {
             return services.AddTransient<T>();
         }
@@ -47,11 +48,11 @@ namespace TodoApp.ConsoleApp.Framework
                 }).ConfigureServices(services =>
                 {
                     services
-                        .AddTransient<Commands.CommandList>()
-                        .AddScoped<ViewModel>((_) => null)
-                        .AddScoped<Props<IProps>>()
-                        .AddScoped<Router>()
-                        .AddScoped<Renderer>()
+                        .AddTransient<CommandList>()
+                        .AddSingleton<ViewModel>((_) => null)
+                        .AddSingleton<Props<IProps>>()
+                        .AddSingleton<Renderer>()
+                        .AddSingleton<Router>()
                         .AddHostedService<Application>();
                 });
         }

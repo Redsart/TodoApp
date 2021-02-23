@@ -32,18 +32,9 @@ namespace TodoApp.ConsoleApp.Framework.Services
             RouteChanged?.Invoke(this, new RouteChangedEventArgs(Active));
         }
 
-        private async Task NotifyRouteChangedAsync()
+        private async void NotifyRouteChangedAsync()
         {
             await Task.Run(NotifyRouteChanged);
-        }
-
-        private TView CreateView<TView>()
-            where TView : View
-        {
-            Props.Data = default;
-
-            var view = ServiceProvider.GetRequiredService<TView>();
-            return view;
         }
 
         private TView CreateView<TView, TProps>(TProps props)
@@ -56,17 +47,13 @@ namespace TodoApp.ConsoleApp.Framework.Services
             return view;
         }
 
-        public async void Open<TView>()
+        public void Open<TView>()
             where TView : View
         {
-            History.Push(Active);
-            Active = CreateView<TView>();
-            Future.Clear();
-
-            await NotifyRouteChangedAsync();
+            Open<TView, IProps>(default);
         }
 
-        public async void Open<TView, TProps>(TProps props)
+        public void Open<TView, TProps>(TProps props)
             where TView : View
             where TProps : IProps
         {
@@ -74,7 +61,7 @@ namespace TodoApp.ConsoleApp.Framework.Services
             Active = CreateView<TView, TProps>(props);
             Future.Clear();
 
-            await NotifyRouteChangedAsync();
+            NotifyRouteChangedAsync();
         }
 
         public bool CanGoTo(int count)
@@ -87,7 +74,7 @@ namespace TodoApp.ConsoleApp.Framework.Services
                 );
         }
 
-        public async void GoTo(int count)
+        public void GoTo(int count)
         {
             for (int i = count; i < 0; i++)
             {
@@ -102,13 +89,13 @@ namespace TodoApp.ConsoleApp.Framework.Services
                 Active = Future.Pop();
             }
 
-            await NotifyRouteChangedAsync();
+            NotifyRouteChangedAsync();
         }
 
-        internal async void Start(View homeView)
+        internal void Start(View homeView)
         {
             Active = homeView;
-            await NotifyRouteChangedAsync();
+            NotifyRouteChangedAsync();
         }
 
         internal void Stop()
