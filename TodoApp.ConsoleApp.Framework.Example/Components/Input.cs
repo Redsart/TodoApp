@@ -2,10 +2,10 @@
 
 namespace TodoApp.ConsoleApp.Framework.Examples.Components
 {
-    internal delegate bool TryParse<T>(string input, out T result);
-
-    internal static class Input
+    public static class Input
     {
+        private delegate bool TryParse<T>(string input, out T result);
+
         private static T Read<T>(string label, TryParse<T> tryParse, string errorMsg)
         {
             bool isValid = false;
@@ -18,7 +18,7 @@ namespace TodoApp.ConsoleApp.Framework.Examples.Components
 
                 if (!isValid)
                 {
-                    Output.WriteWarning(errorMsg);
+                    Output.WriteError(errorMsg);
                 }
             }
 
@@ -44,6 +44,17 @@ namespace TodoApp.ConsoleApp.Framework.Examples.Components
         public static int ReadInt(string label = "", string msg = "Please, enter a valid integer number!")
         {
             return Read<int>(label, int.TryParse, msg);
+        }
+
+        public static double ReadDouble(string label = "", string msg = "Please, enter a valid integer number!", double min = double.NegativeInfinity, double max = double.PositiveInfinity)
+        {
+            bool tryParse(string input, out double number)
+            {
+                var parsed = double.TryParse(input, out number);
+                return parsed && number >= min && number <= max;
+            }
+
+            return Read<double>(label, tryParse, msg);
         }
     }
 }

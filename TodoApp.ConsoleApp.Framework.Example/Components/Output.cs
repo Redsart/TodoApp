@@ -26,7 +26,7 @@ namespace TodoApp.ConsoleApp.Framework.Examples.Components
             Console.WriteLine(p);
         }
 
-        public static void WriteWarning(string warn)
+        public static void WriteError(string warn)
         {
             Console.WriteLine("[ {0} ]", warn);
         }
