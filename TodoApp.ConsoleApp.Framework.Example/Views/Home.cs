@@ -21,13 +21,13 @@ namespace TodoApp.ConsoleApp.Framework.Examples.Views
         public override void SetupCommands()
         {
             Commands.Add(
-               "Open First Todo.",
+               "Open First Todo",
                "f",
                (_) => DataSource.OpenTodoDetails(1)
            );
 
             Commands.Add(
-                "Open Todo by ID.",
+                "Open Todo by ID",
                 "t [id]",
                 new Regex(@"^t \d+$"),
                 (input) =>
