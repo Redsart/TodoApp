@@ -50,7 +50,7 @@ namespace TodoApp.Tests.Repositories.TodoRepositories
             var todo = repo.GetById(Guid.Empty);
 
             //Assert
-            Assert.NotNull(todo);
+            Assert.Null(todo);
         }
     }
 }
