@@ -26,10 +26,10 @@ jobs:
       run: dotnet build --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal --logger "trx;LogFileName=test-results.trx"
-    - name: Test Result
+    - name: Generate Test results
       uses: dorny/test-reporter@v1
       if: always()
       with:
-        name: .NET Tests
+        name: Test results
         path: 'Repositories/**/*.trx'
         reporter: dotnet-trx
