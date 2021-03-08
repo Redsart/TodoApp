@@ -31,5 +31,5 @@ jobs:
       if: always()
       with:
         name: Test results
-        path: 'Repositories/**/*.trx'
+        path: '**/*.trx'
         reporter: dotnet-trx
