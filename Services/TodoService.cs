@@ -131,6 +131,18 @@ namespace TodoApp.Tests.Services
         }
 
         [Fact]
+        public void Update_CallsRepositorySave()
+        {
+            var todo = new TodoModel();
+            MockRepository.Setup(a => a.Save());
+
+            var service = new Service.TodoService(MockRepository.Object);
+            service.Update(todo);
+
+            MockRepository.Verify(a => a.Save(), Times.Once);
+        }
+
+        [Fact]
         public void Create_CallRepositoryInsert()
         {
             var todo = new TodoModel();
@@ -167,11 +179,12 @@ namespace TodoApp.Tests.Services
                 CreatedOn = DateTime.Parse(createdOn),
                 DueDate = DateTime.Parse(dueDate)
             };
+            var repositoryTodo = new TodoModel();
 
             var service = new Service.TodoService(MockRepository.Object);
             var serviceTodo = service.Create(todo);
 
-            Assert.Equal(serviceTodo, todo);
+            Assert.Equal(serviceTodo, repositoryTodo);
         }
 
         [Theory]
@@ -210,7 +223,7 @@ namespace TodoApp.Tests.Services
 
         [Theory]
         [InlineData("0a000300-0600-0000-0100-0000f0700001", "Picnic", "Go to a picnic with friends", TodoStatus.Open, "2020-05-15T14:29:15.1823029Z", "2020-05-19T21:00:00.0000000Z")]
-        public void Delete_CallRepositoryDelete(string id, string title, string description, TodoStatus status, string createdOn, string dueDate)
+        public void GivenExistingTodo_Delete_CallRepositoryDelete(string id, string title, string description, TodoStatus status, string createdOn, string dueDate)
         {
             var todo = new TodoModel
             {
@@ -230,9 +243,20 @@ namespace TodoApp.Tests.Services
             MockRepository.Verify(a => a.Delete(todo.Id), Times.Once);
         }
 
+        [Fact]
+        public void GivenNotExistingID_Delete_DoesntCallRepositoryDelete()
+        {
+            Guid id = Guid.Parse("0a000300-0600-0000-0100-0000f0700001");
+            MockRepository.Setup(a => a.Delete(id));
+            var service = new Service.TodoService(MockRepository.Object);
+            service.Delete(id);
+
+            MockRepository.Verify(a => a.Delete(id), Times.Never);
+        }
+
         [Theory]
         [InlineData("0a000300-0600-0000-0100-0000f0700001", "Picnic", "Go to a picnic with friends", TodoStatus.Open, "2020-05-15T14:29:15.1823029Z", "2020-05-19T21:00:00.0000000Z")]
-        public void Delete_CallRepositorySave(string id, string title, string description, TodoStatus status, string createdOn, string dueDate)
+        public void GivenExistingTodo_Delete_CallRepositorySave(string id, string title, string description, TodoStatus status, string createdOn, string dueDate)
         {
             var todo = new TodoModel
             {
@@ -250,6 +274,17 @@ namespace TodoApp.Tests.Services
             service.Delete(todo.Id);
 
             MockRepository.Verify(a => a.Save(), Times.Once);
+        }
+
+        [Fact]
+        public void GivenNotExistingID_Delete_DoesntCallRepositorySave()
+        {
+            Guid id = Guid.Parse("0a000300-0600-0000-0100-0000f0700001");
+            MockRepository.Setup(a => a.Delete(id));
+            var service = new Service.TodoService(MockRepository.Object);
+            service.Delete(id);
+
+            MockRepository.Verify(a => a.Save(), Times.Never);
         }
 
         [Fact]
@@ -286,6 +321,42 @@ namespace TodoApp.Tests.Services
             var isDeleted = service.DeleteByIndex(index);
 
             Assert.True(isDeleted);
+        }
+
+        [Fact]
+        public void GivenExistingTodo_DeleteByIndex_RepositoryDeleteRemoveCorrectTodo()
+        {
+            var mockTodos = new TodoModel[]
+{
+                new TodoModel()
+                {
+                    Id = Guid.Parse("0a000300-0600-0000-0100-0000f0700001"),
+                    Title = "Test",
+                    Description = "Test Description",
+                    Status = TodoStatus.Open,
+                    DueDate = new DateTime(2021, 3, 4, 12, 30, 00),
+                    CreatedOn = new DateTime(2020, 11, 12, 11, 55, 13),
+                },
+                new TodoModel()
+                {
+                    Id = Guid.Parse("0a000300-0600-0020-0100-0000f0300002"),
+                    Title = "Second",
+                    Description = "Second Test",
+                    Status = TodoStatus.InProgress,
+                    DueDate = new DateTime(2021, 1, 24, 1, 22, 33),
+                    CreatedOn = new DateTime(2020, 10, 11, 12, 13, 14),
+                },
+            };
+
+            int index = 1;
+            MockRepository.Setup(a => a.GetAll()).Returns(mockTodos);
+            MockRepository.Setup(a => a.GetById(mockTodos[index].Id)).Returns(mockTodos[index]);
+            MockRepository.Setup(a => a.Delete(mockTodos[index].Id));
+            var service = new Service.TodoService(MockRepository.Object);
+
+            var isDeleted = service.DeleteByIndex(index);
+
+            MockRepository.Verify(a => a.Delete(mockTodos[index].Id), Times.Once);
         }
 
         [Fact]
