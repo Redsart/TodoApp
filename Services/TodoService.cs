@@ -179,8 +179,10 @@ namespace TodoApp.Tests.Services
                 CreatedOn = DateTime.Parse(createdOn),
                 DueDate = DateTime.Parse(dueDate)
             };
+
             var repositoryTodo = new TodoModel();
 
+            MockRepository.Setup(a => a.Insert(todo)).Returns(repositoryTodo);
             var service = new Service.TodoService(MockRepository.Object);
             var serviceTodo = service.Create(todo);
 
