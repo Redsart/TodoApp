@@ -308,7 +308,9 @@ namespace TodoApp.Tests.Repositories.TodoRepositories
         public void Save_CallContextSave()
         {
             MockXmlContext.Setup(a => a.Save());
-            MockXmlContext.Object.Save();
+            var repo = new Xml.TodoRepository(MockXmlContext.Object);
+
+            repo.Save();
 
             MockXmlContext.Verify(a => a.Save(), Times.Once);
         }

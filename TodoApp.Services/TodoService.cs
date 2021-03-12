@@ -40,10 +40,10 @@ namespace TodoApp.Services
 
         public TodoModel Create(TodoModel model)
         {
-            repo.Insert(model);
+            var result = repo.Insert(model);
             repo.Save();
 
-            return model;
+            return result;
         }
 
         public bool Delete(Guid id)
@@ -64,6 +64,12 @@ namespace TodoApp.Services
         public bool DeleteByIndex(int index)
         {
             var models = repo.GetAll();
+
+            if (index > models.Count())
+            {
+                return false;
+            }
+
             var modelId = models.ElementAt(index).Id;
             bool isDeleted = this.Delete(modelId);
             return isDeleted;
