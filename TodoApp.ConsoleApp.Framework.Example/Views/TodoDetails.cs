@@ -18,6 +18,7 @@ namespace TodoApp.ConsoleApp.Framework.Examples.Views
 
             Output.WriteField("ID", DataSource.Id);
             Output.WriteField("Name", DataSource.Name);
+            Output.WriteField("Total count", DataSource.TotalCount);
         }
 
         public override void SetupCommands()
@@ -34,6 +35,12 @@ namespace TodoApp.ConsoleApp.Framework.Examples.Views
                     string name = input.Substring("name ".Length);
                     DataSource.Update(name);
                 }
+            );
+
+            Commands.Add(
+                "Create",
+                "c",
+                (_) => DataSource.Create()
             );
 
             Commands.Add(

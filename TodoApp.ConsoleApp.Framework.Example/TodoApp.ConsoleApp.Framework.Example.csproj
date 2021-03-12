@@ -16,4 +16,8 @@
     <ProjectReference Include="..\TodoApp.Services\TodoApp.Services.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="_data\todos.xml" />
+  </ItemGroup>
+
 </Project>

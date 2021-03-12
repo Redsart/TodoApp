@@ -7,21 +7,29 @@ using VM = TodoApp.ConsoleApp.Framework.Examples.ViewModels;
 using P = TodoApp.ConsoleApp.Framework.Examples.Props;
 using Cmd = TodoApp.ConsoleApp.Framework.Examples.Commands;
 using System.Threading.Tasks;
+using System;
 
 namespace TodoApp.ConsoleApp.Framework.Examples
 {
     class Program
     {
+        class AppArgs
+        {
+            public string Xml = "./_data/todos.xml";
+        }
+
         static async Task Main(string[] args)
         {
-            using IHost host = CreateHostBuilder(args).Build();
+            var appArgs = ProcessArgs(args);
+
+            using IHost host = CreateHostBuilder(appArgs).Build();
 
             await host.RunAsync();
         }
 
-        static IHostBuilder CreateHostBuilder(string[] args)
+        static IHostBuilder CreateHostBuilder(AppArgs args)
         {
-            return Host.CreateDefaultBuilder(args)
+            return Host.CreateDefaultBuilder()
                 .UseTodoFramework()
                 .ConfigureServices((_, services) =>
                 {
@@ -43,9 +51,29 @@ namespace TodoApp.ConsoleApp.Framework.Examples
                         .AddSingleton<ITodoService, TodoService>()
                         // Repositories
                         .AddSingleton<ITodoRepository, Xml.TodoRepository>()
-                        .AddSingleton<Xml.Utils.IXmlContext, Xml.Utils.XmlContext>();
+                        .AddSingleton<Xml.Utils.IXmlContext>((_) => new Xml.Utils.XmlContext(args.Xml));
                 })
                 ;
+        }
+
+        static AppArgs ProcessArgs(string[] args)
+        {
+            var result = new AppArgs();
+
+            for (int i = 0; i < args.Length; i++)
+            {
+                var name = args[i];
+                if (name == "-xml")
+                {
+                    var value = args[i + 1];
+                    if (!string.IsNullOrEmpty(value))
+                    {
+                        result.Xml = value.Trim();
+                    }
+                }
+            }
+
+            return result;
         }
     }
 }

@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "TodoApp.ConsoleApp.Framework.Example": {
+      "commandName": "Project",
+      "commandLineArgs": "-xml \"../../../_data/todos.xml\""
+    }
+  }
+}
