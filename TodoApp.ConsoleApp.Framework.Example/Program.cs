@@ -22,9 +22,10 @@ namespace TodoApp.ConsoleApp.Framework.Examples
         {
             var appArgs = ProcessArgs(args);
 
-            using IHost host = CreateHostBuilder(appArgs).Build();
-
-            await host.RunAsync();
+            using (IHost host = CreateHostBuilder(appArgs).Build())
+            {
+                await host.RunAsync();
+            }
         }
 
         static IHostBuilder CreateHostBuilder(AppArgs args)
@@ -51,7 +52,7 @@ namespace TodoApp.ConsoleApp.Framework.Examples
                         .AddSingleton<ITodoService, TodoService>()
                         // Repositories
                         .AddSingleton<ITodoRepository, Xml.TodoRepository>()
-                        .AddSingleton<Xml.Utils.IXmlContext>((_) => new Xml.Utils.XmlContext(args.Xml));
+                        .AddSingleton<Xml.Utils.IXmlContext>((s) => new Xml.Utils.XmlContext(args.Xml));
                 })
                 ;
         }
@@ -63,7 +64,7 @@ namespace TodoApp.ConsoleApp.Framework.Examples
             for (int i = 0; i < args.Length; i++)
             {
                 var name = args[i];
-                if (name == "-xml")
+                if (name == "-xml" && i + 1 < args.Length)
                 {
                     var value = args[i + 1];
                     if (!string.IsNullOrEmpty(value))

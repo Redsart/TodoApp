@@ -34,7 +34,7 @@ namespace TodoApp.ConsoleApp.Framework.Services
 
         private async void NotifyRouteChangedAsync()
         {
-            await Task.Run(NotifyRouteChanged);
+            await Task.Run(() => NotifyRouteChanged());
         }
 
         private TView CreateView<TView, TProps>(TProps props)
