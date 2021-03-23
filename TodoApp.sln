@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.1022
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30517.126
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoApp.ConsoleApp", "TodoApp.ConsoleApp\TodoApp.ConsoleApp.csproj", "{DD5B3FAE-B665-455B-89EE-CB236F4343FD}"
 EndProject
@@ -14,6 +14,10 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repositories", "Repositories\Repositories.csproj", "{CFDD20EC-E304-4225-BED6-F5D86C6783FA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "Services\Services.csproj", "{758734A6-16E0-4E48-BC05-D059A3F16A31}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoApp.ConsoleApp.Framework", "TodoApp.ConsoleApp.Framework\TodoApp.ConsoleApp.Framework.csproj", "{E549D0D6-DFC7-414C-8784-AD6F98EBD625}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoApp.ConsoleApp.Framework.Example", "TodoApp.ConsoleApp.Framework.Example\TodoApp.ConsoleApp.Framework.Example.csproj", "{25A02F86-FBA8-4A76-ACD0-5E617B050D87}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +45,14 @@ Global
 		{758734A6-16E0-4E48-BC05-D059A3F16A31}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{758734A6-16E0-4E48-BC05-D059A3F16A31}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{758734A6-16E0-4E48-BC05-D059A3F16A31}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E549D0D6-DFC7-414C-8784-AD6F98EBD625}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E549D0D6-DFC7-414C-8784-AD6F98EBD625}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E549D0D6-DFC7-414C-8784-AD6F98EBD625}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E549D0D6-DFC7-414C-8784-AD6F98EBD625}.Release|Any CPU.Build.0 = Release|Any CPU
+		{25A02F86-FBA8-4A76-ACD0-5E617B050D87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{25A02F86-FBA8-4A76-ACD0-5E617B050D87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{25A02F86-FBA8-4A76-ACD0-5E617B050D87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{25A02F86-FBA8-4A76-ACD0-5E617B050D87}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
