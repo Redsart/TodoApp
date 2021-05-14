@@ -80,8 +80,11 @@
     <Compile Include="UI\TaskOperations.cs" />
     <Compile Include="UI\Messages.cs" />
     <Compile Include="UI\UserInput.cs" />
-    <Compile Include="ViewModels\GoodBye.cs" />
+    <Compile Include="ViewModels\Goodbye.cs" />
     <Compile Include="ViewModels\Navigation.cs" />
+    <Compile Include="Views\Goodbye.cs" />
+    <Compile Include="Views\Home.cs" />
+    <Compile Include="Views\TodoDetails.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
