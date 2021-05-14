@@ -1,12 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using VM = TodoApp.ConsoleApp.ViewModels;
+using TodoApp.ConsoleApp.Framework;
 
 namespace TodoApp.ConsoleApp.Commands
 {
-    class Exit
+    class Exit : Command<VM.Navigation>
     {
+        public Exit()
+    : base("Exit the app.", "e")
+        { }
+
+        protected override void Execute(string input)
+        {
+            DataSource.Goodbye();
+        }
     }
 }

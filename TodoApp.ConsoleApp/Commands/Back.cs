@@ -1,12 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using VM = TodoApp.ConsoleApp.ViewModels;
+using TodoApp.ConsoleApp.Framework;
 
 namespace TodoApp.ConsoleApp.Commands
 {
-    class Back
+    class Back : Command<VM.Navigation>
     {
+        public Back()
+            : base("Go Back.", "b")
+        { }
+
+        protected override bool CanExecute()
+        {
+            return DataSource.CanGoBack();
+        }
+
+        protected override void Execute(string input)
+        {
+            DataSource.GoBack();
+        }
     }
 }
