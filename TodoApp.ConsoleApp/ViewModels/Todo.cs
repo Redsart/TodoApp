@@ -3,6 +3,7 @@ using System.Linq;
 using TodoApp.ConsoleApp.Framework;
 using P = TodoApp.ConsoleApp.Props;
 using TodoApp.Services;
+using TodoApp.Repositories.Models;
 
 namespace TodoApp.ConsoleApp.ViewModels
 {
@@ -21,6 +22,10 @@ namespace TodoApp.ConsoleApp.ViewModels
             Nav = nav;
             Id = props?.Id ?? 0;
             TodoService = todoService;
+            var todos = todoService.GetAll();
+            var id = todos.Select(x => x.Id).First();
+            var model = todoService.GetByID(id);
+            Name = model.Title;
         }
     }
 }

@@ -16,7 +16,7 @@ namespace TodoApp.ConsoleApp
     {
         class AppArgs
         {
-            public string Xml = "./_data/todos.xml";
+            public string Xml = @"..\..\_data\todos.xml";
         }
 
         static async Task Main(string[] args)
@@ -28,22 +28,6 @@ namespace TodoApp.ConsoleApp
                 await host.RunAsync();
             }
         }
-
-        //static void Main()
-        //{
-            //Console.WriteLine(Messages.WelcomeMessage());
-            //Console.WriteLine();
-
-            //string path = "../../data/todos.xml";
-            //IXmlContext context = new XmlContext(path);
-            //ITodoRepository repo = new TodoRepository(context);
-            //ITodoService service = new TodoService(repo);
-            //var ui = new TaskOperations(service);
-
-            //ui.ReadOrWrite();
-
-
-        //}
 
         static IHostBuilder CreateHostBuilder(AppArgs args)
         {
@@ -81,7 +65,7 @@ namespace TodoApp.ConsoleApp
             for (int i = 0; i < args.Length; i++)
             {
                 var name = args[i];
-                if (name == "-xml" && i + 1 < args.Length)
+                if (name == ".xml" && i + 1 < args.Length)
                 {
                     var value = args[i + 1];
                     if (!string.IsNullOrEmpty(value))

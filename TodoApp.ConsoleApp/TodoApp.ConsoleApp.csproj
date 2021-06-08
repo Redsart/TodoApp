@@ -148,7 +148,7 @@
     </CodeAnalysisDictionary>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Data\" />
+    <Folder Include="_data\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TodoApp.ConsoleApp.Framework\TodoApp.ConsoleApp.Framework.csproj">
