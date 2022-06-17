@@ -23,7 +23,13 @@ namespace TodoApp.ConsoleApp.ViewModels
             Id = props?.Id ?? 0;
             TodoService = todoService;
             var todos = todoService.GetAll();
-            var id = todos.Select(x => x.Id).First();
+            if (Id > todos.Count() || Id < 1)
+            {
+                Name = "Invalid todo";
+                Id = 0;
+                return;
+            }
+            var id = todos.Select(x => x.Id).ElementAtOrDefault(Id-1);
             var model = todoService.GetByID(id);
             Name = model.Title;
         }
