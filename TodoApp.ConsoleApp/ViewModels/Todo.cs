@@ -9,7 +9,7 @@ namespace TodoApp.ConsoleApp.ViewModels
 {
     class Todo : ViewModel
     {
-        private readonly ITodoService TodoService;
+        internal readonly ITodoService TodoService;
 
         public readonly Navigation Nav;
 

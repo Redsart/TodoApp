@@ -85,6 +85,7 @@
     <Compile Include="ViewModels\Goodbye.cs" />
     <Compile Include="ViewModels\Navigation.cs" />
     <Compile Include="ViewModels\Todo.cs" />
+    <Compile Include="Views\Edit.cs" />
     <Compile Include="Views\Goodbye.cs" />
     <Compile Include="Views\Home.cs" />
     <Compile Include="Views\TodoDetails.cs" />

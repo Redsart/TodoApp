@@ -40,6 +40,7 @@ namespace TodoApp.ConsoleApp
                         .AddView<Views.Home>(true)
                         .AddView<Views.TodoDetails>()
                         .AddView<Views.Goodbye>()
+                        .AddView<Views.Edit>()
                         // Props
                         .AddProps<P.Todo>()
                         // Commands

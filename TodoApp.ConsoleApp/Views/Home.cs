@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TodoApp.ConsoleApp.Framework;
 using TodoApp.ConsoleApp.Components;
 using System.Text.RegularExpressions;
@@ -43,6 +39,12 @@ namespace TodoApp.ConsoleApp.Views
                     DataSource.OpenTodoDetails(id);
                 }
             );
+
+            Commands.Add(
+                "Create Todo",
+                "c",
+                (_) => DataSource.Edit()
+                );
 
             Commands.Add<Cmd.Back, VM.Navigation>(DataSource);
             Commands.Add<Cmd.Exit, VM.Navigation>(DataSource);

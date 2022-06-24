@@ -23,6 +23,11 @@ namespace TodoApp.ConsoleApp.ViewModels
             Router.Open<V.TodoDetails, P.Todo>(new P.Todo(id));
         }
 
+        public void Edit()
+        {
+            Router.Open<V.Edit>();
+        }
+
         public void Goodbye()
         {
             Router.Open<V.Goodbye>();
