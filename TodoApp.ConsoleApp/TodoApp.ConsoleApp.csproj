@@ -89,6 +89,7 @@
     <Compile Include="Views\Goodbye.cs" />
     <Compile Include="Views\Home.cs" />
     <Compile Include="Views\TodoDetails.cs" />
+    <Compile Include="Views\TodoList.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -17,7 +17,7 @@ namespace TodoApp.ConsoleApp.Views
 
         public override void Render()
         {
-            Output.WriteTitle("Create or Edit youre Todo:");
+            Output.WriteTitle("Create youre Todo:");
             var todo = new TodoModel();
             TodoService = DataSource.TodoService;
             Output.WriteLabel("Enter name: ");

@@ -41,8 +41,14 @@ namespace TodoApp.ConsoleApp.Views
             );
 
             Commands.Add(
-                "Create Todo",
-                "c",
+                "Open list of all todos",
+                "l",
+                (_) => DataSource.TodoList()
+                );
+
+            Commands.Add(
+                "Create a new Todo",
+                "n",
                 (_) => DataSource.Edit()
                 );
 
