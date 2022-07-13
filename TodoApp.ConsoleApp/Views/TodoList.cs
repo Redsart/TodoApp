@@ -11,7 +11,9 @@ namespace TodoApp.ConsoleApp.Views
 {
     class TodoList : View<VM.Todo>
     {
-
+        int pageIndex = 1;
+        int pageSize = 5;
+        
         public TodoList(VM.Todo vm)
             : base(vm)  { }
 
@@ -19,15 +21,49 @@ namespace TodoApp.ConsoleApp.Views
         {
             Output.WriteTitle("List of todos");
             var todos = DataSource.TodoService.GetAll();
-            var grid = FillGrid();
+            int pageTodos = 0;
+            bool canStop = false;
+            int possition = 0;
 
-            for (int i = 0; i < grid.GetLength(0); i++)
+            while (canStop == false)
             {
-                for (int j = 0; j < grid.GetLength(1); j++)
+                if (DataSource.TotalCount - (pageIndex * pageSize) <= 0)
                 {
-                    Console.Write(grid[i, j]);
+                    pageTodos = DataSource.TotalCount;
+                    canStop = true;
                 }
-                Console.WriteLine();
+                else
+                {
+                    pageTodos = pageSize*pageIndex;
+                }
+
+                List<TodoModel> displayedTodos = new List<TodoModel>();
+
+                for (int i = possition; i < pageTodos; i++)
+                {
+                    displayedTodos.Add(todos.ElementAt(i));
+                }
+                PrintConsoleGrid(displayedTodos, possition+1);
+                possition += pageSize * pageIndex;
+                pageIndex++;
+
+                if (DataSource.TotalCount > possition)
+                {
+                    string message = Input.ReadText("Want to continue: y/n");
+                    if (message == "y")
+                    {
+                        Console.Clear();
+                    }
+                    else
+                    {
+                        canStop = true;
+                    }
+                }
+                else
+                {
+                    canStop = true;
+                }
+                
             }
         }
 
@@ -40,24 +76,20 @@ namespace TodoApp.ConsoleApp.Views
             Commands.Add<Cmd.Exit, VM.Navigation>(DataSource.Nav);
         }
 
-        private string[,] FillGrid()
+        private string[,] FillGrid(IEnumerable<TodoModel> todos, int possition)
         {
-            var todos = DataSource.TodoService.GetAll();
             string[] columnsNames = new string[] { "Id", "Name", "Status" };
             int cols = columnsNames.Length;
             int rows = todos.Count()+1;
             int IdLength = DataSource.TotalCount.ToString().Length;
 
-            var longestName = todos.OrderByDescending(x => x.Title).Last();
+            var longestName = todos.OrderBy(x => x.Title.Length).Last();
             int nameLength = longestName.Title.Length;
 
-            var longestStatus= todos.OrderByDescending(x => x.Status).First();
+            var longestStatus= todos.OrderBy(x => x.Status.ToString().Length).Last();
             var statusLength=longestStatus.Status.ToString().Length;
 
             string[,] grid = new string[rows, cols];
-            //grid[0, 0] = FormatColumn(columnsNames[0], IdLength);
-            //grid[1,0] = FormatColumn(columnsNames[1], nameLength);
-            //grid[2,0] = FormatColumn(columnsNames[2], statusLength);
             int columnLength = 0;
             for (int i = 0; i < rows-1; i++)
             {
@@ -67,7 +99,7 @@ namespace TodoApp.ConsoleApp.Views
                     if (j == 0)
                     {
                         columnLength = IdLength;
-                        text = (i+1).ToString();
+                        text = (possition++).ToString();
                     }
                     else if (j == 1)
                     {
@@ -88,10 +120,23 @@ namespace TodoApp.ConsoleApp.Views
             return grid;
         }
 
+        private void PrintConsoleGrid(IEnumerable<TodoModel> todos, int possition)
+        {
+            var grid = FillGrid(todos, possition);
+            for (int i = 0; i < grid.GetLength(0); i++)
+            {
+                for (int j = 0; j < grid.GetLength(1); j++)
+                {
+                    Console.Write(grid[i, j]);
+                }
+                Console.WriteLine();
+            }
+        }
+
         
         private string FormatColumn(string text, int number)
         {
-            string result = string.Format("|{0,-" + (number+2) + "}",text);
+            string result = string.Format("| {0,-" + (number+2) + "}",text);
 
             return result;
         }
